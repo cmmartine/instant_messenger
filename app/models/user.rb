@@ -7,6 +7,9 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true, length: { in: 3..20 }
   validate :password_complexity
 
+  has_many :messages
+  has_and_belongs_to_many :chatrooms
+
   private
   
   def password_complexity
