@@ -1,4 +1,4 @@
-import React, { useContext, createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import UserList from "./UserList";
 
 export const CurrentUserContext = createContext(null);
