@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import UserList from "./UserList";
 
-export const CurrentUserContext = createContext(null);
+export const CurrentUserContext = createContext();
 
 export default function Main() {
   const [currentUser, setCurrentUser] = useState();
@@ -25,9 +25,7 @@ export default function Main() {
   if (currentUser) {
     return(
       <CurrentUserContext.Provider value={currentUser}>
-        <div>
           <UserList/>
-        </div>
       </CurrentUserContext.Provider>
     );
     }
