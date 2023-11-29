@@ -4,27 +4,27 @@ import UserList from "./UserList";
 export const CurrentUserContext = createContext();
 
 export default function Main() {
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUserName, setCurrentUserName] = useState();
   const [fetchUser, setFetchUser] = useState(false);
 
   useEffect(() => {
     if (!fetchUser) {
-      getCurrentUser();
+      getCurrentUserName();
       setFetchUser(true);
     }
   });
 
-  function getCurrentUser() {
-    fetch('users/get_current_user')
+  function getCurrentUserName() {
+    fetch('users/current_user_name')
     .then((res) => res.json())
     .then((data) => {
-      setCurrentUser({...data})
+      setCurrentUserName({...data})
     })
   };
 
-  if (currentUser) {
+  if (currentUserName) {
     return(
-      <CurrentUserContext.Provider value={currentUser}>
+      <CurrentUserContext.Provider value={currentUserName}>
           <UserList/>
       </CurrentUserContext.Provider>
     );

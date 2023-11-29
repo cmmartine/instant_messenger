@@ -20,10 +20,10 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  describe 'GET get_current_user' do
+  describe 'GET current_user_name' do
     login_user
     it 'returns a 200 success response' do
-      get :get_current_user
+      get :current_user_name
       expect(response).to be_successful
     end
   end
