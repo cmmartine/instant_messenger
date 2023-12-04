@@ -1,11 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useState, useEffect } from "react";
-import { CurrentUserContext } from "./Main";
 
 export default function UserList() {
   const [allUsers, setAllUsers] = useState([]);
   const [usersFetched, setUsersFetched] = useState(false);
-  const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {
     if (!usersFetched) {
@@ -34,9 +32,17 @@ export default function UserList() {
     return <ul className='user-list'>{userList}</ul>
   }
 
-  return(
-    <div>
-      {makeUserList()}
-    </div>
-  )
+  if (allUsers != []) {
+    return(
+      <div>
+        {makeUserList()}
+      </div>
+    )
+  } else {
+    return(
+      <div>
+        Loading...
+      </div>
+    )
+  }
 }
