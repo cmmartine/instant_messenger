@@ -88,6 +88,8 @@ RSpec.configure do |config|
 
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.extend ControllerMacros, :type => :controller
+
+  config.include ActionCable::TestHelper
 end
 
 Shoulda::Matchers.configure do |config|
