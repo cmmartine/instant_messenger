@@ -25,9 +25,11 @@ export default function UserList() {
   };
 
   const makeUserList = () => {
-    const userList = allUsers.map((user) => {
-      return <li key={user.id}>{user.username}</li>
-    })
+    const userList = allUsers.map((user) => (
+      <div id={`user.${user.id}`}>
+      <li key={user.id}>{user.username}</li>
+      </div>
+    ))
 
     return <ul className='user-list'>{userList}</ul>
   }

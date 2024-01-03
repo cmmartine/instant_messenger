@@ -9,7 +9,7 @@ console.log('Vite ⚡️ Rails')
 //     <%= vite_typescript_tag 'application' %>
 //
 // If you want to use .jsx or .tsx, add the extension:
-//     <%= vite_javascript_tag 'application.jsx' %>
+// <%= vite_javascript_tag 'application.jsx' %>
 
 console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify.app/guide/rails')
 
@@ -22,10 +22,12 @@ console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify
 // ActiveStorage.start()
 //
 // // Import all channels.
-// const channels = import.meta.globEager('./**/*_channel.js')
+const channels = import.meta.globEager('./**/*_channel.js')
 
 // Example: Import a stylesheet in app/frontend/index.css
 // import '~/index.css'
 
 import "../router";
 import "../components/Main";
+import "../channels/consumer"
+import "../channels/appearance_channel"

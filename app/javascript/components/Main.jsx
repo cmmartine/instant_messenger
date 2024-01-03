@@ -2,6 +2,9 @@ import React, { createContext, useEffect, useState } from "react";
 import UserList from "./UserList";
 
 export const CurrentUserContext = createContext();
+export const CableContext = createContext();
+
+const actionCableUrl = process.env.NODE_ENV === 'production' ? 'wss://<your-deployed-app-domain>.com/cable' : 'ws://localhost:3000/cable'
 
 export default function Main() {
   const [currentUserName, setCurrentUserName] = useState();
@@ -24,9 +27,11 @@ export default function Main() {
 
   if (currentUserName) {
     return(
-      <CurrentUserContext.Provider value={currentUserName}>
+      <CableContext.Provider value={actionCableUrl}>
+        <CurrentUserContext.Provider value={currentUserName}>
           <UserList/>
-      </CurrentUserContext.Provider>
+        </CurrentUserContext.Provider>
+      </CableContext.Provider>
     );
     }
   else {

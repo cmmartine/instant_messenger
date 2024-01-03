@@ -10,6 +10,11 @@ class User < ApplicationRecord
   has_many :messages
   has_and_belongs_to_many :chatrooms
 
+  def appear(data)
+    self.update(online: true, current_room: data['on'])
+    ActionCable.server.broadcast("AppearanceChannel", { event: 'appear', user_id: self.id, room: self.current_room})
+  end
+
   private
   
   def password_complexity
