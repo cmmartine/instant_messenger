@@ -5,10 +5,11 @@ class UsersController < ApplicationController
     render json: @users
   end
 
-  def current_user_name
-    @current_user_name = {
-      username: current_user.username
+  def current_user_info
+    @current_user_info = {
+      username: current_user.username,
+      id: current_user.id
     }
-    render json: @current_user_name
+    render json: @current_user_info
   end
 end

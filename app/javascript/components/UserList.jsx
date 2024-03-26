@@ -1,9 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { CurrentUserContext } from "./Main";
+import { useContext } from "react";
 
 export default function UserList() {
   const [allUsers, setAllUsers] = useState([]);
   const [usersFetched, setUsersFetched] = useState(false);
+  const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {
     if (!usersFetched) {
@@ -37,6 +40,7 @@ export default function UserList() {
   if (allUsers != []) {
     return(
       <div>
+        <div className={currentUser.id}></div>
         {makeUserList()}
       </div>
     )

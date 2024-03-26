@@ -7,28 +7,28 @@ export const CableContext = createContext();
 const actionCableUrl = process.env.NODE_ENV === 'production' ? 'wss://<your-deployed-app-domain>.com/cable' : 'ws://localhost:3000/cable'
 
 export default function Main() {
-  const [currentUserName, setCurrentUserName] = useState();
+  const [currentUser, setCurrentUser] = useState();
   const [fetchUser, setFetchUser] = useState(false);
 
   useEffect(() => {
     if (!fetchUser) {
-      getCurrentUserName();
+      getCurrentUser();
       setFetchUser(true);
     }
   });
 
-  function getCurrentUserName() {
-    fetch('users/current_user_name')
+  function getCurrentUser() {
+    fetch('users/current_user_info')
     .then((res) => res.json())
     .then((data) => {
-      setCurrentUserName({...data})
+      setCurrentUser({...data})
     })
   };
 
-  if (currentUserName) {
+  if (currentUser) {
     return(
       <CableContext.Provider value={actionCableUrl}>
-        <CurrentUserContext.Provider value={currentUserName}>
+        <CurrentUserContext.Provider value={currentUser}>
           <UserList/>
         </CurrentUserContext.Provider>
       </CableContext.Provider>
