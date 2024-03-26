@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom"
+import "@testing-library/jest-dom";
 import UserList from "../components/UserList";
+import { CurrentUserContext } from "../components/Main";
 
 require('jest-fetch-mock').enableMocks()
 
@@ -17,9 +18,16 @@ describe("UserList", () => {
     }
   ]
 
+  let currentUser = {
+    username: 'Alfred',
+    id: 1
+  }
+
   function renderUserList() {
       return render(
-      <UserList/>
+        <CurrentUserContext.Provider value={currentUser}>
+          <UserList/>
+        </CurrentUserContext.Provider>
     );
   };
 
