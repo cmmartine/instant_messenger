@@ -30,4 +30,3 @@ const channels = import.meta.globEager('./**/*_channel.js')
 import "../router";
 import "../components/Main";
 import "../channels/consumer"
-import "../channels/appearance_channel"
