@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_and_belongs_to_many :chatrooms
 
   private
-  
+
   def password_complexity
     return if password.blank? || password =~ /(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/
 
