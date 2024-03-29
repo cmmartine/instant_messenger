@@ -27,15 +27,19 @@ export default function UserList() {
     });
   };
 
+  const openChatRoom = (currentUserId, selectedUserId) => {
+    
+  };
+
   const makeUserList = () => {
     const userList = allUsers.map((user) => (
       <div id={`user.${user.id}`}>
-      <li key={user.id}>{user.username}</li>
+      <li key={user.id}>{user.username} {openChatRoom(currentUser.id, user.id)}</li>
       </div>
     ))
 
     return <ul className='user-list'>{userList}</ul>
-  }
+  };
 
   if (allUsers != []) {
     return(
