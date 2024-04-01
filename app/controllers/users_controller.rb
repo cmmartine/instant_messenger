@@ -7,13 +7,9 @@ class UsersController < ApplicationController
   def current_user_info
     @current_user_info = {
       username: current_user.username,
-      id: current_user.id
+      id: current_user.id,
+      chatrooms: current_user.chatrooms
     }
     render json: @current_user_info
-  end
-
-  def current_users_chatrooms
-    @chatrooms = current_user.chatrooms
-    render json: @chatrooms
   end
 end
