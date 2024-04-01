@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { CurrentUserContext } from "./Main";
+import OpenChatroomButton from "./OpenChatroomButton";
 import { useContext } from "react";
 
 export default function UserList() {
@@ -29,9 +30,7 @@ export default function UserList() {
 
   const makeUserList = () => {
     const userList = allUsers.map((user) => (
-      <div id={`user.${user.id}`}>
-      <li key={user.id}>{user.username}</li>
-      </div>
+      currentUser.id !== user.id ? <OpenChatroomButton userInfo={user}/> : null
     ))
 
     return <ul className='user-list'>{userList}</ul>
