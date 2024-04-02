@@ -2,9 +2,26 @@ import React from "react";
 
 export default function OpenChatroomButton(props) {
   const { userInfo } = props;
+  const csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
   const openChatbox = (e) => {
-    console.log(userInfo.username)
+    createChatroom();
+  };
+
+  const createChatroom = () => {
+    fetch('chatrooms/create', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        'X-CSRF-Token': csrf,
+      },
+      body: 
+        JSON.stringify({chatroom: {
+          active_status: true,
+          userId: userInfo.id
+        }})
+      }
+    )
   };
 
   return(

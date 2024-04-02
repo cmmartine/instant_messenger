@@ -1,7 +1,7 @@
 # frozen-string-literal: true
 
 Rails.application.routes.draw do
-  post 'chatrooms/find_or_create'
+  post 'chatrooms/create'
   mount ActionCable.server => '/cable'
   get 'users/index'
   get 'users/current_user_info'

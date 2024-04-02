@@ -11,15 +11,15 @@ user2 = User.create!(username: 'Bianca', email: 'bianca1@chatroom.com', password
 
 user3 = User.create!(username: 'Cleetus', email: 'cleetus1@chatroom.com', password: 'Cleetus1!', password_confirmation: 'Cleetus1!')
 
-chatroom1 = Chatroom.create!(active_status: true)
-user1.chatrooms << chatroom1
-user2.chatrooms << chatroom1
-
-Message.create!(body: 'Hello', read_status: true, user_id: 1, chatroom_id: 1)
-Message.create!(body: 'Hey!', read_status: false, user_id: 2, chatroom_id: 1)
-
-chatroom2 = Chatroom.create!(active_status: true)
-user1.chatrooms << chatroom2
-user3.chatrooms << chatroom2
-
-Message.create!(body: 'Room #2!', read_status: true, user_id: 3, chatroom_id: 2)
+# chatroom1 = Chatroom.create!(active_status: true)
+# user1.chatrooms << chatroom1
+# user2.chatrooms << chatroom1
+# 
+# Message.create!(body: 'Hello', read_status: true, user_id: 1, chatroom_id: 1)
+# Message.create!(body: 'Hey!', read_status: false, user_id: 2, chatroom_id: 1)
+# 
+# chatroom2 = Chatroom.create!(active_status: true)
+# user1.chatrooms << chatroom2
+# user3.chatrooms << chatroom2
+# 
+# Message.create!(body: 'Room #2!', read_status: true, user_id: 3, chatroom_id: 2)

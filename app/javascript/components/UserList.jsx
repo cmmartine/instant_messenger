@@ -38,8 +38,10 @@ export default function UserList() {
 
   if (allUsers != []) {
     return(
-      <div>
-        <div className={currentUser.id}></div>
+      <div className='userlist-sidebar'>
+        <div className={currentUser.id}>
+          <h3>{currentUser.username}</h3>
+        </div>
         {makeUserList()}
       </div>
     )
