@@ -6,4 +6,10 @@ module ControllerMacros
       sign_in user
     end
   end
+
+  def create_second_user
+    before(:each) do
+      FactoryBot.create(:user)
+    end
+  end
 end

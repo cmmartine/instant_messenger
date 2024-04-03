@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe UsersController, type: :controller do
 
   describe 'GET index' do
+
     describe 'with user logged in' do
       login_user
       it 'returns a 200 success response' do
