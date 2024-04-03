@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import setupUserChatroomConsumers from "../channels/chatroom_channel";
 import UserList from "./UserList";
+import Chatroom from "./Chatroom";
 
 export const CurrentUserContext = createContext();
 export const CableContext = createContext();
@@ -9,23 +10,24 @@ const actionCableUrl = process.env.NODE_ENV === 'production' ? 'wss://<your-depl
 
 export default function Main() {
   const [currentUserInfo, setCurrentUserInfo] = useState();
-  const [fetchUser, setFetchUser] = useState(false);
+  const [fetchCurrentUser, setFetchCurrentUser] = useState(false);
+  const [chattingWithUser, setChattingWithUser] = useState();
 
   useEffect(() => {
-    if (!fetchUser) {
+    if (!fetchCurrentUser) {
       getCurrentUserInfo();
-      setFetchUser(true);
+      setFetchCurrentUser(true);
     }
   });
 
   function getCurrentUserInfo() {
     fetch('users/current_user_info')
-    .then((res) => res.json())
-    .then((data) => {
-      let currentUserInfo = {...data};
-      setCurrentUserInfo(currentUserInfo);
-      openChatroomConnections(currentUserInfo.chatrooms);
-    })
+      .then((res) => res.json())
+      .then((data) => {
+        let currentUserInfo = { ...data };
+        setCurrentUserInfo(currentUserInfo);
+        openChatroomConnections(currentUserInfo.chatrooms);
+      })
   };
 
   function openChatroomConnections(chatrooms) {
@@ -35,20 +37,34 @@ export default function Main() {
     });
   };
 
-  if (currentUserInfo) {
-    return(
+  function changeChattingWithUser(userInfo) {
+    setChattingWithUser(userInfo)
+  }
+
+  if (currentUserInfo && chattingWithUser) {
+    return (
       <CableContext.Provider value={actionCableUrl}>
         <CurrentUserContext.Provider value={currentUserInfo}>
-          <UserList/>
+          <UserList changeChattingWithUser={changeChattingWithUser}/>
+          <div id='chatroom-outer-container'>
+            <Chatroom chattingWithUser={chattingWithUser}/>
+          </div>
         </CurrentUserContext.Provider>
       </CableContext.Provider>
     );
-    }
-  else {
-    return(
-      <div>
-        Loading...
-      </div>
-    )
+  } else if (currentUserInfo) {
+    return (
+      <CableContext.Provider value={actionCableUrl}>
+        <CurrentUserContext.Provider value={currentUserInfo}>
+          <UserList changeChattingWithUser={changeChattingWithUser}/>
+        </CurrentUserContext.Provider>
+      </CableContext.Provider>
+    );
+  } else {
+      return (
+        <div>
+          Loading...
+        </div>
+      )
   }
 }

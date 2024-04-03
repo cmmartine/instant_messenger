@@ -4,10 +4,11 @@ import { CurrentUserContext } from "./Main";
 import OpenChatroomButton from "./OpenChatroomButton";
 import { useContext } from "react";
 
-export default function UserList() {
+export default function UserList(props) {
   const [allUsers, setAllUsers] = useState([]);
   const [usersFetched, setUsersFetched] = useState(false);
   const currentUser = useContext(CurrentUserContext);
+  const { changeChattingWithUser } = props;
 
   useEffect(() => {
     if (!usersFetched) {
@@ -30,7 +31,7 @@ export default function UserList() {
 
   const makeUserList = () => {
     const userList = allUsers.map((user) => (
-      currentUser.id !== user.id ? <OpenChatroomButton userInfo={user}/> : null
+      currentUser.id !== user.id ? <OpenChatroomButton userInfo={user} changeChattingWithUser={changeChattingWithUser}/> : null
     ))
 
     return <ul className='user-list'>{userList}</ul>
