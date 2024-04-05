@@ -38,16 +38,20 @@ export default function Main() {
   };
 
   function changeChattingWithUser(userInfo) {
-    setChattingWithUser(userInfo)
+    setChattingWithUser(userInfo);
+  };
+
+  function refetchCurrentUser() {
+    setFetchCurrentUser();
   }
 
   if (currentUserInfo && chattingWithUser) {
     return (
       <CableContext.Provider value={actionCableUrl}>
         <CurrentUserContext.Provider value={currentUserInfo}>
-          <UserList changeChattingWithUser={changeChattingWithUser}/>
+          <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser}/>
           <div id='chatroom-outer-container'>
-            <Chatroom chattingWithUser={chattingWithUser}/>
+            <Chatroom chattingWithUser={chattingWithUser} />
           </div>
         </CurrentUserContext.Provider>
       </CableContext.Provider>
@@ -56,15 +60,15 @@ export default function Main() {
     return (
       <CableContext.Provider value={actionCableUrl}>
         <CurrentUserContext.Provider value={currentUserInfo}>
-          <UserList changeChattingWithUser={changeChattingWithUser}/>
+          <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser}/>
         </CurrentUserContext.Provider>
       </CableContext.Provider>
     );
   } else {
-      return (
-        <div>
-          Loading...
-        </div>
-      )
+    return (
+      <div>
+        Loading...
+      </div>
+    )
   }
 }

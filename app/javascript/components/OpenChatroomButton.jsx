@@ -1,10 +1,10 @@
 import React from "react";
 
 export default function OpenChatroomButton(props) {
-  const { userInfo, changeChattingWithUser } = props;
+  const { userInfo, changeChattingWithUser, refetchCurrentUser } = props;
   const csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
-  const openChatbox = () => {
+  const createAndOpenChatbox = () => {
     createChatroom();
     changeChattingWithUser(userInfo);
   };
@@ -22,13 +22,15 @@ export default function OpenChatroomButton(props) {
           userId: userInfo.id
         }})
       }
-    )
+    ).then(() => {
+      refetchCurrentUser();
+    })
   };
 
   return(
     <div id={`user.${userInfo.id}`} onClick={(e) => {
       e.preventDefault();
-      openChatbox();
+      createAndOpenChatbox();
     }}>
       <li key={userInfo.id}>{userInfo.username}</li>
     </div>
