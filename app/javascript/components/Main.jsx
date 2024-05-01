@@ -4,6 +4,7 @@ import UserList from "./UserList";
 import Chatroom from "./Chatroom";
 
 export const CurrentUserContext = createContext();
+export const CurrentChatroomContext = createContext();
 export const CableContext = createContext();
 
 const actionCableUrl = process.env.NODE_ENV === 'production' ? 'wss://<your-deployed-app-domain>.com/cable' : 'ws://localhost:3000/cable'
@@ -12,6 +13,7 @@ export default function Main() {
   const [currentUserInfo, setCurrentUserInfo] = useState();
   const [fetchCurrentUser, setFetchCurrentUser] = useState(false);
   const [chattingWithUser, setChattingWithUser] = useState();
+  const [currentChatroom, setCurrentChatroom] = useState();
 
   useEffect(() => {
     if (!fetchCurrentUser) {
@@ -41,6 +43,10 @@ export default function Main() {
     setChattingWithUser(userInfo);
   };
 
+  function changeCurrentChatroom(chatroom) {
+    setCurrentChatroom(chatroom);
+  }
+
   function refetchCurrentUser() {
     setFetchCurrentUser();
   }
@@ -49,10 +55,12 @@ export default function Main() {
     return (
       <CableContext.Provider value={actionCableUrl}>
         <CurrentUserContext.Provider value={currentUserInfo}>
-          <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser}/>
-          <div id='chatroom-outer-container'>
-            <Chatroom chattingWithUser={chattingWithUser} />
-          </div>
+          <CurrentChatroomContext.Provider value={currentChatroom}>
+            <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeCurrentChatroom={changeCurrentChatroom}/>
+            <div id='chatroom-outer-container'>
+              <Chatroom chattingWithUser={chattingWithUser} />
+            </div>
+          </CurrentChatroomContext.Provider>
         </CurrentUserContext.Provider>
       </CableContext.Provider>
     );
@@ -60,7 +68,9 @@ export default function Main() {
     return (
       <CableContext.Provider value={actionCableUrl}>
         <CurrentUserContext.Provider value={currentUserInfo}>
-          <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser}/>
+          <CurrentChatroomContext.Provider value={currentChatroom}>
+            <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeCurrentChatroom={changeCurrentChatroom}/>
+          </CurrentChatroomContext.Provider>
         </CurrentUserContext.Provider>
       </CableContext.Provider>
     );

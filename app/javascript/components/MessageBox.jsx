@@ -1,9 +1,12 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { CurrentChatroomContext } from "./Main";
 
 export default function MessageBox(props) {
   const { chattingWithUser } = props
+  const currentChatroom = useContext(CurrentChatroomContext);
   let newMessage;
+  const csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
   useEffect(() => {
     //Allow the user to submit by pressing enter or clicking the submit button (button onClick in form)
@@ -23,7 +26,20 @@ export default function MessageBox(props) {
   })
 
   const postMessage = (message) => {
-    return message ? console.log(message) : null
+    console.log(currentChatroom.id)
+    fetch('messages/create', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        'X-CSRF-Token': csrf,
+      },
+      body: 
+        JSON.stringify({message: {
+          body: message,
+          chatroom_id: currentChatroom.id
+        }})
+      }
+    );
   };
 
   return(

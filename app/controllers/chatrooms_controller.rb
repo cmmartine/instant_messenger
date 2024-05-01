@@ -1,10 +1,14 @@
 class ChatroomsController < ApplicationController
   def create
-    return if find_chatroom
-
-    new_room = Chatroom.create!(active_status: chatroom_params[:active_status])
-    current_user.chatrooms << new_room
-    User.find(chatroom_params[:userId]).chatrooms << new_room
+    found_chatroom = find_chatroom
+    if !found_chatroom
+      new_room = Chatroom.create!(active_status: chatroom_params[:active_status])
+      current_user.chatrooms << new_room
+      User.find(chatroom_params[:userId]).chatrooms << new_room
+      render json: new_room
+    else
+      render json: found_chatroom
+    end
   end
 
   private
@@ -14,15 +18,15 @@ class ChatroomsController < ApplicationController
   end
 
   def find_chatroom
-    found_status = false
+    found_chatroom = false
     chatrooms = Chatroom.all
-    return found_status if chatrooms.empty?
+    return found_chatroom if chatrooms.empty?
 
     chatrooms.each do |room|
       if room.user_ids.include?(current_user.id) && room.user_ids.include?(chatroom_params[:userId])
-        found_status = true
+        found_chatroom = room
       end
     end
-    found_status
+    found_chatroom
   end
 end

@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function OpenChatroomButton(props) {
-  const { userInfo, changeChattingWithUser, refetchCurrentUser } = props;
+  const { userInfo, changeChattingWithUser, refetchCurrentUser, changeCurrentChatroom } = props;
   const csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
   const createAndOpenChatbox = () => {
@@ -10,6 +10,7 @@ export default function OpenChatroomButton(props) {
   };
 
   const createChatroom = () => {
+    let chatroom;
     fetch('chatrooms/create', {
       method: 'POST',
       headers: {
@@ -22,8 +23,13 @@ export default function OpenChatroomButton(props) {
           userId: userInfo.id
         }})
       }
-    ).then(() => {
+    ).then((res) => {
+      return res.json();
+    }).then((data) => {
+      chatroom = data;
+    }).then(() => {
       refetchCurrentUser();
+      changeCurrentChatroom(chatroom);
     })
   };
 
