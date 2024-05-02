@@ -32,7 +32,7 @@ export default function UserList(props) {
 
   const makeUserList = () => {
     const userList = allUsers.map((user) => (
-      currentUser.id !== user.id ? <OpenChatroomButton userInfo={user} changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeCurrentChatroom={changeCurrentChatroom}/> : null
+      currentUser.id !== user.id ? <OpenChatroomButton key={user.id} userInfo={user} changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeCurrentChatroom={changeCurrentChatroom}/> : null
     ))
 
     return <ul className='user-list'>{userList}</ul>
