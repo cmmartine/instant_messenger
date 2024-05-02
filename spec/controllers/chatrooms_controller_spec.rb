@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ChatroomsController, type: :controller do
-
   describe 'POST create' do
-
     describe 'without a chatroom between current user and selected user' do
       login_user
       create_second_user

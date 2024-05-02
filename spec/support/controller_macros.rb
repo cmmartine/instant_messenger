@@ -12,4 +12,10 @@ module ControllerMacros
       FactoryBot.create(:user)
     end
   end
+
+  def create_chatroom
+    before(:each) do
+      FactoryBot.create(:chatroom)
+    end
+  end
 end
