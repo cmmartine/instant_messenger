@@ -1,11 +1,11 @@
 import React from "react";
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { CurrentChatroomContext } from "./Main";
 
 export default function MessageBox(props) {
   const { chattingWithUser } = props
   const currentChatroom = useContext(CurrentChatroomContext);
-  let newMessage;
+  let [newMessage, setNewMessage] = useState('');
 
   useEffect(() => {
     //Allow the user to submit by pressing enter or clicking the submit button (button onClick in form)
@@ -17,7 +17,8 @@ export default function MessageBox(props) {
           }
   
           e.preventDefault(); // Prevents the addition of a new line in the text field
-          postMessage(newMessage)
+          postMessage(newMessage);
+          resetMessage();
       }
     }
   
@@ -41,12 +42,18 @@ export default function MessageBox(props) {
     );
   };
 
+  const resetMessage = () => {
+    setNewMessage('');
+    document.getElementById('message-box-text').value = '';
+  };
+
   return(
     <form id='chatroom-message-form'>
-      <textarea id='message-box-text' aria-label='new-message' rows='1' columns='60' spellCheck='true' onChange={(e) => {newMessage = e.target.value}}/>
+      <textarea id='message-box-text' aria-label='new-message' rows='1' columns='60' spellCheck='true' onChange={(e) => {setNewMessage(e.target.value)}}/>
       <button type='submit' onClick={(e) => {
         e.preventDefault();
         postMessage(newMessage);
+        resetMessage();
       }}>Send</button>
     </form>
   )

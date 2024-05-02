@@ -27,7 +27,6 @@ export default function OpenChatroomButton(props) {
       return res.json();
     }).then((data) => {
       chatroom = data;
-    }).then(() => {
       refetchCurrentUser();
       changeCurrentChatroom(chatroom);
     })
