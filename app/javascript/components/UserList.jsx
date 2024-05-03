@@ -22,7 +22,6 @@ export default function UserList(props) {
     .then((res) => res.json())
     .then((data) => {
       let userArray = [];
-      console.log(data)
       data.map((user) => {
         userArray.push(user);
       });

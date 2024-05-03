@@ -33,15 +33,19 @@ describe("UserList", () => {
 
   beforeEach(async () => {
     fetchMock.mockResolvedValue({status: 200, json: jest.fn(() => fakeUserList)});
+    renderUserList();
   });
 
   afterEach(() => {
     fetchMock.resetMocks();
   })
 
-  it("shows the user list", async() => {
-    renderUserList();
+  it("shows the current users name", async() => {
+    expect(await screen.findByText("Alfred")).toBeInTheDocument();
+  });
+
+  it("shows the clickable user list", async() => {
     expect(await screen.findByText("Herbert")).toBeInTheDocument();
     expect(await screen.findByText("Alice")).toBeInTheDocument();
-  })
+  });
 })
