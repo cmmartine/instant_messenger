@@ -3,7 +3,7 @@ import "@testing-library/jest-dom";
 import UserList from "../components/UserList";
 import { CurrentUserContext } from "../components/Main";
 
-require('jest-fetch-mock').enableMocks()
+require('jest-fetch-mock').enableMocks();
 
 describe("UserList", () => {
 
@@ -33,19 +33,20 @@ describe("UserList", () => {
 
   beforeEach(async () => {
     fetchMock.mockResolvedValue({status: 200, json: jest.fn(() => fakeUserList)});
-    renderUserList();
   });
 
   afterEach(() => {
     fetchMock.resetMocks();
-  })
+  });
 
   it("shows the current users name", async() => {
-    expect(await screen.findByText("Alfred")).toBeInTheDocument();
+    renderUserList()
+    expect(await screen.findByText(`${currentUser.username}`)).toBeInTheDocument();
   });
 
   it("shows the clickable user list", async() => {
-    expect(await screen.findByText("Herbert")).toBeInTheDocument();
-    expect(await screen.findByText("Alice")).toBeInTheDocument();
+    renderUserList()
+    expect(await screen.findByText(`${fakeUserList[0].username}`)).toBeInTheDocument();
+    expect(await screen.findByText(`${fakeUserList[1].username}`)).toBeInTheDocument();
   });
 })
