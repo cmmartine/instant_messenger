@@ -26,7 +26,7 @@ export default function MessageBox(props) {
   })
 
   const postMessage = (message) => {
-    let csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+    let csrf = getCsrfToken();
     fetch('messages/create', {
       method: 'POST',
       headers: {
@@ -45,6 +45,14 @@ export default function MessageBox(props) {
   const resetMessage = () => {
     setNewMessage('');
     document.getElementById('message-box-text').value = '';
+  };
+
+  const getCsrfToken = () => {
+    if (document.querySelector("meta[name='csrf-token']")) {
+      return document.querySelector("meta[name='csrf-token']").getAttribute("content");
+    } else {
+      return null;
+    }
   };
 
   return(

@@ -10,7 +10,7 @@ export default function OpenChatroomButton(props) {
 
   const createChatroom = () => {
     let chatroom;
-    let csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+    let csrf = getCsrfToken();
     fetch('chatrooms/create', {
       method: 'POST',
       headers: {
@@ -30,6 +30,14 @@ export default function OpenChatroomButton(props) {
       refetchCurrentUser();
       changeCurrentChatroom(chatroom);
     })
+  };
+
+  const getCsrfToken = () => {
+    if (document.querySelector("meta[name='csrf-token']")) {
+      return document.querySelector("meta[name='csrf-token']").getAttribute("content");
+    } else {
+      return null;
+    }
   };
 
   return(
