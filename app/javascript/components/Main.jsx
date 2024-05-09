@@ -77,7 +77,7 @@ export default function Main() {
   } else {
     return (
       <div>
-        Loading...
+        Please refresh the page
       </div>
     )
   }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChatroomsController < ApplicationController
   def create
     found_chatroom = find_chatroom
