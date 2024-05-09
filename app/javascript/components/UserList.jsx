@@ -52,5 +52,5 @@ export default function UserList(props) {
         Loading...
       </div>
     )
-  }
+  };
 }

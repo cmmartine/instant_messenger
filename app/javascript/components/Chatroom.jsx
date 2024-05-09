@@ -1,4 +1,5 @@
 import React from "react";
+import ChatroomMessages from "./ChatroomMessages";
 import MessageBox from "./MessageBox";
 
 export default function Chatroom(props) {
@@ -6,8 +7,10 @@ export default function Chatroom(props) {
 
   return (
     <div className='chatroom-inner-container'>
-      <div>{chattingWithUser.username}</div>
-      <div className='chatroom-message-list'></div>
+      <div className='chatroom-message-list'>
+        <div>{chattingWithUser.username}</div>
+        <ChatroomMessages/>
+      </div>
       <MessageBox chattingWithUser={chattingWithUser}/>
     </div>
   );

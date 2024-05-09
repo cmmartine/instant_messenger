@@ -47,5 +47,5 @@ export default function OpenChatroomButton(props) {
     }}>
       <li key={userInfo.id}>{userInfo.username}</li>
     </div>
-  )
+  );
 }

@@ -64,5 +64,5 @@ export default function MessageBox(props) {
         resetMessage();
       }}>Send</button>
     </form>
-  )
+  );
 }
