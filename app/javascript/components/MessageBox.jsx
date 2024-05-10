@@ -7,24 +7,6 @@ export default function MessageBox(props) {
   const currentChatroom = useContext(CurrentChatroomContext);
   let [newMessage, setNewMessage] = useState('');
 
-  useEffect(() => {
-    //Allow the user to submit by pressing enter or clicking the submit button (button onClick in form)
-    function submitOnEnter(e) {
-      if (e.which === 13) {
-          if (!e.repeat) {
-            const newEvent = new Event("submit", {cancelable: true});
-            e.target.form.dispatchEvent(newEvent);
-          }
-  
-          e.preventDefault(); // Prevents the addition of a new line in the text field
-          postMessage(newMessage);
-          resetMessage();
-      }
-    }
-  
-    document.getElementById("message-box-text").addEventListener("keydown", submitOnEnter);
-  })
-
   const postMessage = (message) => {
     let csrf = getCsrfToken();
     fetch('messages/create', {
