@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { CurrentChatroomContext } from "./Main";
 
 export default function MessageBox(props) {

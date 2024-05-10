@@ -13,10 +13,18 @@ class ChatroomsController < ApplicationController
     end
   end
 
+  def messages
+    chatrooms_messages = Chatroom.find(chatroom_params[:chatroom_id]).messages
+    sorted_messages = sort_messages(chatrooms_messages)
+    if sorted_messages
+      render json: sorted_messages
+    end
+  end
+
   private
 
   def chatroom_params
-    params.require(:chatroom).permit(:active_status, :userId)
+    params.require(:chatroom).permit(:active_status, :userId, :chatroom_id)
   end
 
   def find_chatroom
@@ -30,5 +38,9 @@ class ChatroomsController < ApplicationController
       end
     end
     found_chatroom
+  end
+
+  def sort_messages(messages)
+    messages.sort_by { |msg| msg.created_at }
   end
 end

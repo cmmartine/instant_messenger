@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   post 'messages/create'
   post 'chatrooms/create'
+  post 'chatrooms/messages'
   mount ActionCable.server => '/cable'
   get 'users/index'
   get 'users/current_user_info'
