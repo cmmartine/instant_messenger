@@ -13,7 +13,7 @@ export default function ChatroomMessages(props) {
 
   const createMessageList = () => {
     const messageList = allMessages.map((message) => {
-      return <li>{message.body}</li>
+      return <li key={message.id}>{message.body}</li>
     });
 
     return <ul>{messageList}</ul>
