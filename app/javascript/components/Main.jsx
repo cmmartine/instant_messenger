@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import setupUserChatroomConsumers from "../channels/chatroom_channel";
 import UserList from "./UserList";
 import Chatroom from "./Chatroom";
+import { getCurrentUserInfo } from "../util/userUtil";
 
 export const CurrentUserContext = createContext();
 export const CurrentChatroomContext = createContext();
@@ -18,20 +19,10 @@ export default function Main() {
 
   useEffect(() => {
     if (!fetchCurrentUser) {
-      getCurrentUserInfo();
+      getCurrentUserInfo(setCurrentUserInfo, openChatroomConnections);
       setFetchCurrentUser(true);
     }
   });
-
-  function getCurrentUserInfo() {
-    fetch('users/current_user_info')
-      .then((res) => res.json())
-      .then((data) => {
-        let currentUserInfo = { ...data };
-        setCurrentUserInfo(currentUserInfo);
-        openChatroomConnections(currentUserInfo.chatrooms);
-      })
-  };
 
   function openChatroomConnections(chatrooms) {
     chatrooms.forEach((room) => {
