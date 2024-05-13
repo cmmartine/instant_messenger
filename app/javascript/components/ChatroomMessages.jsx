@@ -4,16 +4,12 @@ import { CurrentChatroomContext } from "./Main";
 import { getMessages } from "../util/messageUtil";
 
 export default function ChatroomMessages(props) {
-  const { fetchedMessages, setFetchedMessages } = props;
   const currentChatroom = useContext(CurrentChatroomContext);
   const [allMessages, setAllMessages] = useState();
 
   useEffect(() => {
-    if (!fetchedMessages) {
-      getMessages(currentChatroom, setAllMessages);
-      setFetchedMessages(true);
-    }
-  })
+    getMessages(currentChatroom, setAllMessages);
+  }, [currentChatroom])
 
   const createMessageList = () => {
     const messageList = allMessages.map((message) => {
@@ -31,7 +27,9 @@ export default function ChatroomMessages(props) {
     );
   } else {
     return (
-      <div>Start Chatting!</div>
+      <div>
+        Start Chatting!
+      </div>
     );
   }
 }

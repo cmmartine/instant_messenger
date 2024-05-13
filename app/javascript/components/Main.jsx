@@ -15,7 +15,6 @@ export default function Main() {
   const [fetchCurrentUser, setFetchCurrentUser] = useState(false);
   const [chattingWithUser, setChattingWithUser] = useState();
   const [currentChatroom, setCurrentChatroom] = useState();
-  const [fetchedMessages, setFetchedMessages] = useState(false);
 
   useEffect(() => {
     if (!fetchCurrentUser) {
@@ -37,7 +36,6 @@ export default function Main() {
 
   function changeCurrentChatroom(chatroom) {
     setCurrentChatroom(chatroom);
-    setFetchedMessages(false);
   }
 
   function refetchCurrentUser() {
@@ -51,7 +49,7 @@ export default function Main() {
           <CurrentChatroomContext.Provider value={currentChatroom}>
             <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeCurrentChatroom={changeCurrentChatroom}/>
             <div id='chatroom-outer-container'>
-              <Chatroom chattingWithUser={chattingWithUser} fetchedMessages={fetchedMessages} setFetchedMessages={setFetchedMessages}/>
+              <Chatroom chattingWithUser={chattingWithUser}/>
             </div>
           </CurrentChatroomContext.Provider>
         </CurrentUserContext.Provider>
