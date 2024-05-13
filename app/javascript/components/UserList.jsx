@@ -1,8 +1,8 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { CurrentUserContext } from "./Main";
 import OpenChatroomButton from "./OpenChatroomButton";
-import { useContext } from "react";
+import { getUsers } from "../util/userUtil";
 
 export default function UserList(props) {
   const [allUsers, setAllUsers] = useState([]);
@@ -12,22 +12,10 @@ export default function UserList(props) {
 
   useEffect(() => {
     if (!usersFetched) {
-      getUsers();
+      getUsers(setAllUsers);
       setUsersFetched(true);
     };
   });
-
-  function getUsers() {
-    fetch('/users/index')
-    .then((res) => res.json())
-    .then((data) => {
-      let userArray = [];
-      data.map((user) => {
-        userArray.push(user);
-      });
-      setAllUsers(userArray);
-    });
-  };
 
   const makeUserList = () => {
     const userList = allUsers.map((user) => (
