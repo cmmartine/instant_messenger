@@ -1,4 +1,5 @@
 import React from "react";
+import { getCsrfToken } from "../util/csrfTokenUtil";
 
 export default function OpenChatroomButton(props) {
   const { userInfo, changeChattingWithUser, refetchCurrentUser, changeCurrentChatroom } = props;
@@ -30,14 +31,6 @@ export default function OpenChatroomButton(props) {
       refetchCurrentUser();
       changeCurrentChatroom(chatroom);
     })
-  };
-
-  const getCsrfToken = () => {
-    if (document.querySelector("meta[name='csrf-token']")) {
-      return document.querySelector("meta[name='csrf-token']").getAttribute("content");
-    } else {
-      return null;
-    }
   };
 
   return(

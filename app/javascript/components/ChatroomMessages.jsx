@@ -1,6 +1,7 @@
 import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { CurrentChatroomContext } from "./Main";
+import { getCsrfToken } from "../util/csrfTokenUtil";
 
 export default function ChatroomMessages(props) {
   const { fetchedMessages, setFetchedMessages } = props;
@@ -41,14 +42,6 @@ export default function ChatroomMessages(props) {
     });
 
     return <ul>{messageList}</ul>
-  };
-
-  const getCsrfToken = () => {
-    if (document.querySelector("meta[name='csrf-token']")) {
-      return document.querySelector("meta[name='csrf-token']").getAttribute("content");
-    } else {
-      return null;
-    }
   };
 
   if (allMessages) {

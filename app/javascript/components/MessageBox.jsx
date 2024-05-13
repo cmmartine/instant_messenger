@@ -1,6 +1,7 @@
 import React from "react";
 import { useContext, useState } from "react";
 import { CurrentChatroomContext } from "./Main";
+import { getCsrfToken } from "../util/csrfTokenUtil";
 
 export default function MessageBox(props) {
   const { chattingWithUser } = props
@@ -27,14 +28,6 @@ export default function MessageBox(props) {
   const resetMessage = () => {
     setNewMessage('');
     document.getElementById('message-box-text').value = '';
-  };
-
-  const getCsrfToken = () => {
-    if (document.querySelector("meta[name='csrf-token']")) {
-      return document.querySelector("meta[name='csrf-token']").getAttribute("content");
-    } else {
-      return null;
-    }
   };
 
   return(
