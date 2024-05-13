@@ -1,36 +1,12 @@
 import React from "react";
-import { getCsrfToken } from "../util/csrfTokenUtil";
+import { createChatroom } from "../util/chatroomUtil";
 
 export default function OpenChatroomButton(props) {
   const { userInfo, changeChattingWithUser, refetchCurrentUser, changeCurrentChatroom } = props;
 
   const createAndOpenChatbox = () => {
-    createChatroom();
+    createChatroom(userInfo, refetchCurrentUser, changeCurrentChatroom);
     changeChattingWithUser(userInfo);
-  };
-
-  const createChatroom = () => {
-    let chatroom;
-    let csrf = getCsrfToken();
-    fetch('chatrooms/create', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-        'X-CSRF-Token': csrf,
-      },
-      body: 
-        JSON.stringify({chatroom: {
-          active_status: true,
-          userId: userInfo.id
-        }})
-      }
-    ).then((res) => {
-      return res.json();
-    }).then((data) => {
-      chatroom = data;
-      refetchCurrentUser();
-      changeCurrentChatroom(chatroom);
-    })
   };
 
   return(
