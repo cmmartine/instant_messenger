@@ -20,3 +20,20 @@ export const getMessages = (currentChatroom, setAllMessages) => {
     setAllMessages(data);
   });
 };
+
+export const postMessage = (message, currentChatroom) => {
+  let csrf = getCsrfToken();
+  fetch('messages/create', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+      'X-CSRF-Token': csrf,
+    },
+    body: 
+      JSON.stringify({message: {
+        body: message,
+        chatroom_id: currentChatroom.id
+      }})
+    }
+  );
+};
