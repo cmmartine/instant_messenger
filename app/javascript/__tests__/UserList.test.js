@@ -32,7 +32,7 @@ describe("UserList", () => {
   };
 
   beforeEach(async () => {
-    fetchMock.mockResolvedValue({status: 200, json: jest.fn(() => fakeUserList)});
+    jest.spyOn(global, 'fetch').mockResolvedValue({ status: 200, json: jest.fn().mockResolvedValue(fakeUserList) });
   });
 
   afterEach(() => {
@@ -40,12 +40,13 @@ describe("UserList", () => {
   });
 
   it("shows the current users name", async() => {
-    renderUserList()
+    renderUserList();
     expect(await screen.findByText(`${currentUser.username}`)).toBeInTheDocument();
   });
 
   it("shows the clickable user list", async() => {
-    renderUserList()
+    renderUserList();
+    expect(fetch).toBeCalled();
     expect(await screen.findByText(`${fakeUserList[0].username}`)).toBeInTheDocument();
     expect(await screen.findByText(`${fakeUserList[1].username}`)).toBeInTheDocument();
   });

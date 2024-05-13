@@ -23,6 +23,8 @@ describe("ChatroomMessages", () => {
 
   let fakeChatroom = { id: 1, active_status: true }
 
+  const getMessages = jest.fn();
+
   function renderMessageList() {
     return render(
       <CurrentChatroomContext.Provider value={fakeChatroom}>
@@ -32,7 +34,7 @@ describe("ChatroomMessages", () => {
   };
 
   beforeEach(async () => {
-    fetchMock.mockResolvedValue({status: 200, json: jest.fn(() => fakeMessages)});
+    jest.spyOn(global, 'fetch').mockResolvedValue({ status: 200, json: jest.fn().mockResolvedValue(fakeMessages) });
   });
 
   afterEach(() => {
@@ -41,6 +43,7 @@ describe("ChatroomMessages", () => {
 
   it("Displays the messages obtained from getMessages fetch", async() => {
     renderMessageList();
+    expect(fetch).toBeCalled();
     expect(await screen.findByText(`${fakeMessages[0].body}`)).toBeInTheDocument();
     expect(await screen.findByText(`${fakeMessages[1].body}`)).toBeInTheDocument();
   });
