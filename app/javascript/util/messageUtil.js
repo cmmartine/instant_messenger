@@ -11,7 +11,7 @@ export const getMessages = (currentChatroom, setAllMessages) => {
     },
     body: 
       JSON.stringify({chatroom: {
-        chatroom_id: currentChatroom.id
+        chatroom_id: currentChatroom.info.id
       }})
     }
   ).then((res) => {
@@ -32,7 +32,7 @@ export const postMessage = (message, currentChatroom) => {
     body: 
       JSON.stringify({message: {
         body: message,
-        chatroom_id: currentChatroom.id
+        chatroom_id: currentChatroom.info.id
       }})
     }
   );

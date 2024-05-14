@@ -21,9 +21,7 @@ describe("ChatroomMessages", () => {
     }
   ];
 
-  let fakeChatroom = { id: 1, active_status: true }
-
-  const getMessages = jest.fn();
+  let fakeChatroom = { info: { id: 1, active_status: true } }
 
   function renderMessageList() {
     return render(

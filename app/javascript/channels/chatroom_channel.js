@@ -1,7 +1,7 @@
 import consumer from "./consumer";
 
-export default function setupUserChatroomConsumers(chatroom) {
-  consumer.subscriptions.create({ channel: "ChatroomChannel", room: chatroom.id }, {
+export default function ChatroomChannel(chatroom) {
+  return consumer.subscriptions.create({ channel: "ChatroomChannel", room: chatroom.id }, {
     connected() {
       // Called when the subscription is ready for use on the server
       console.log(`connected to chatroom ${chatroom.id}`)

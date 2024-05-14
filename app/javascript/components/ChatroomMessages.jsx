@@ -8,7 +8,10 @@ export default function ChatroomMessages(props) {
   const [allMessages, setAllMessages] = useState();
 
   useEffect(() => {
-    getMessages(currentChatroom, setAllMessages);
+    if (currentChatroom.connection) {
+      currentChatroom.connection.received = () => {getMessages(currentChatroom, setAllMessages)};
+    };
+    getMessages(currentChatroom, setAllMessages)
   }, [currentChatroom])
 
   const createMessageList = () => {

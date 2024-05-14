@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import setupUserChatroomConsumers from "../channels/chatroom_channel";
+import ChatroomChannel from "../channels/chatroom_channel";
 import UserList from "./UserList";
 import Chatroom from "./Chatroom";
 import { getCurrentUserInfo } from "../util/userUtil";
@@ -14,6 +14,7 @@ export default function Main() {
   const [currentUserInfo, setCurrentUserInfo] = useState();
   const [fetchCurrentUser, setFetchCurrentUser] = useState(false);
   const [chattingWithUser, setChattingWithUser] = useState();
+  const [chatrooms, setChatrooms] = useState([]);
   const [currentChatroom, setCurrentChatroom] = useState();
 
   useEffect(() => {
@@ -24,18 +25,24 @@ export default function Main() {
   });
 
   function openChatroomConnections(chatrooms) {
+    let chatRoomsConnections = []
     chatrooms.forEach((room) => {
-      console.log(room)
-      setupUserChatroomConsumers(room);
+      chatRoomsConnections.push({info: room, connection: ChatroomChannel(room)});
     });
+    setChatrooms(chatRoomsConnections);
+
   };
 
   function changeChattingWithUser(userInfo) {
     setChattingWithUser(userInfo);
   };
 
-  function changeCurrentChatroom(chatroom) {
-    setCurrentChatroom(chatroom);
+  function changeCurrentChatroom(changingToChatroom) {
+    chatrooms.forEach((chatroom) => {
+      if (chatroom.info.id == changingToChatroom.id) {
+        setCurrentChatroom(chatroom)
+      };
+    })
   }
 
   function refetchCurrentUser() {
