@@ -1,7 +1,6 @@
 import { getCsrfToken } from "./csrfTokenUtil";
 
 export const getMessages = (currentChatroom, setAllMessages) => {
-  console.log("fetching messages")
   let csrf = getCsrfToken();
   fetch('chatrooms/messages', {
     method: 'POST',

@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import ChatroomChannel from "../channels/chatroom_channel";
+import NavBar from "./NavBar";
 import UserList from "./UserList";
 import Chatroom from "./Chatroom";
 import { getCurrentUserInfo } from "../util/userUtil";
@@ -54,6 +55,7 @@ export default function Main() {
       <CableContext.Provider value={actionCableUrl}>
         <CurrentUserContext.Provider value={currentUserInfo}>
           <CurrentChatroomContext.Provider value={currentChatroom}>
+            <NavBar/>
             <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeCurrentChatroom={changeCurrentChatroom}/>
             <div id='chatroom-outer-container'>
               <Chatroom chattingWithUser={chattingWithUser}/>
@@ -67,6 +69,7 @@ export default function Main() {
       <CableContext.Provider value={actionCableUrl}>
         <CurrentUserContext.Provider value={currentUserInfo}>
           <CurrentChatroomContext.Provider value={currentChatroom}>
+            <NavBar/>
             <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeCurrentChatroom={changeCurrentChatroom}/>
           </CurrentChatroomContext.Provider>
         </CurrentUserContext.Provider>

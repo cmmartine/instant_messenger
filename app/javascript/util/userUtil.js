@@ -1,5 +1,7 @@
+import { getCsrfToken } from "./csrfTokenUtil";
+
 export const getCurrentUserInfo = (setCurrentUserInfo, openChatroomConnections) => {
-  fetch('users/current_user_info')
+  fetch('/users/current_user_info')
     .then((res) => res.json())
     .then((data) => {
       let currentUserInfo = { ...data };
@@ -17,5 +19,18 @@ export const getUsers = (setAllUsers) => {
       userArray.push(user);
     });
     setAllUsers(userArray);
+  });
+};
+
+export const logout = () => {
+  let csrf = getCsrfToken();
+  fetch('/users/sign_out', {
+    method: 'DELETE',
+    headers: {
+      'Content-type': 'application/json',
+      'X-CSRF-Token': csrf,
+    }
+  }).then(() => {
+    location.reload();
   });
 };

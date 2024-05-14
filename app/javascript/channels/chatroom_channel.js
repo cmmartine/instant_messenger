@@ -4,7 +4,6 @@ export default function ChatroomChannel(chatroom) {
   return consumer.subscriptions.create({ channel: "ChatroomChannel", room: chatroom.id }, {
     connected() {
       // Called when the subscription is ready for use on the server
-      console.log(`connected to chatroom ${chatroom.id}`)
     },
         
     disconnected() {
@@ -13,7 +12,6 @@ export default function ChatroomChannel(chatroom) {
         
     received(data) {
         // Called when there's incoming data on the websocket for this channel
-        console.log(data)
     }
   });
 }
