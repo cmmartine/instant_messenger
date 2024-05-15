@@ -39,4 +39,21 @@ RSpec.describe ChatroomsController, type: :controller do
       end
     end
   end
+
+  describe 'POST messages' do
+    describe 'when a chatroom has messages' do
+      login_user
+
+      it 'returns those messages' do
+        chatroom_params = { chatroom: {
+          chatroom_id: 1
+        } }
+        Chatroom.create(active_status: true)
+        Message.create({ body: 'testing post messages', user_id: 1, chatroom_id: 1 })
+        post :messages, params: chatroom_params, as: :json
+
+        expect(response.body).to include('testing post messages')
+      end
+    end
+  end
 end
