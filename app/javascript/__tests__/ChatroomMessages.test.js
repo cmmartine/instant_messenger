@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import ChatroomMessages from "../components/ChatroomMessages";
 import { CurrentChatroomContext } from "../components/Main";
+import * as messageUtil from "../util/messageUtil";
 
 require('jest-fetch-mock').enableMocks();
 
@@ -33,6 +35,7 @@ describe("ChatroomMessages", () => {
 
   beforeEach(async () => {
     jest.spyOn(global, 'fetch').mockResolvedValue({ status: 200, json: jest.fn().mockResolvedValue(fakeMessages) });
+    jest.spyOn(messageUtil, 'getMessages');
   });
 
   afterEach(() => {
@@ -42,6 +45,7 @@ describe("ChatroomMessages", () => {
   it("Displays the messages obtained from getMessages fetch", async() => {
     renderMessageList();
     expect(fetch).toBeCalled();
+    expect(messageUtil.getMessages).toBeCalled();
     expect(await screen.findByText(`${fakeMessages[0].body}`)).toBeInTheDocument();
     expect(await screen.findByText(`${fakeMessages[1].body}`)).toBeInTheDocument();
   });

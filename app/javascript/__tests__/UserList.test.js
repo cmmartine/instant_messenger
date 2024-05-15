@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import UserList from "../components/UserList";
 import { CurrentUserContext } from "../components/Main";
+import * as userUtil from "../util/userUtil";
 
 require('jest-fetch-mock').enableMocks();
 
@@ -33,6 +34,7 @@ describe("UserList", () => {
 
   beforeEach(async () => {
     jest.spyOn(global, 'fetch').mockResolvedValue({ status: 200, json: jest.fn().mockResolvedValue(fakeUserList) });
+    jest.spyOn(userUtil, 'getUsers');
   });
 
   afterEach(() => {
@@ -47,6 +49,7 @@ describe("UserList", () => {
   it("shows the clickable user list", async() => {
     renderUserList();
     expect(fetch).toBeCalled();
+    expect(userUtil.getUsers).toBeCalled();
     expect(await screen.findByText(`${fakeUserList[0].username}`)).toBeInTheDocument();
     expect(await screen.findByText(`${fakeUserList[1].username}`)).toBeInTheDocument();
   });

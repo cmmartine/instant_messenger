@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import OpenChatroomButton from "../components/OpenChatroomButton";
+import * as chatroomUtil from "../util/chatroomUtil";
 
 require('jest-fetch-mock').enableMocks();
 
@@ -29,6 +30,7 @@ describe("OpenChatroomButton", () => {
 
   beforeEach(async () => {
     jest.spyOn(global, 'fetch').mockResolvedValue({ status: 200, json: jest.fn().mockResolvedValue(fakeChatroom) });
+    jest.spyOn(chatroomUtil, 'createChatroom');
   });
 
   afterEach(() => {
@@ -44,6 +46,7 @@ describe("OpenChatroomButton", () => {
     renderOpenChatroomButton();
     await userEvent.click(screen.getByText(`${fakeUser.username}`));
     expect(fetch).toBeCalled();
+    expect(chatroomUtil.createChatroom).toBeCalled();
   })
 
   it("changes the user being chatted with", async() => {
