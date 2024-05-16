@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { CurrentUserContext } from "./Main";
 import OpenChatroomButton from "./OpenChatroomButton";
+import UserMessageNotification from "./UserMessageNotification";
 import { getUsers } from "../util/userUtil";
 
 export default function UserList(props) {
@@ -18,9 +19,13 @@ export default function UserList(props) {
   });
 
   const makeUserList = () => {
-    const userList = allUsers.map((user) => (
-      currentUser.id !== user.id ? <OpenChatroomButton key={user.id} userInfo={user} changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeCurrentChatroom={changeCurrentChatroom}/> : null
-    ))
+    const userList = allUsers.map((user) => {
+      if (currentUser.id !== user.id)
+        return <div key={user.id}>
+          <OpenChatroomButton userInfo={user} changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeCurrentChatroom={changeCurrentChatroom}/>
+          <UserMessageNotification userInfo={user}/>
+        </div>
+  })
 
     return <ul className='user-list'>{userList}</ul>
   };

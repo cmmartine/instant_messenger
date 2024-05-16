@@ -6,6 +6,7 @@ import Chatroom from "./Chatroom";
 import { getCurrentUserInfo } from "../util/userUtil";
 
 export const CurrentUserContext = createContext();
+export const ChatroomContext = createContext();
 export const CurrentChatroomContext = createContext();
 export const CableContext = createContext();
 
@@ -54,13 +55,15 @@ export default function Main() {
     return (
       <CableContext.Provider value={actionCableUrl}>
         <CurrentUserContext.Provider value={currentUserInfo}>
-          <CurrentChatroomContext.Provider value={currentChatroom}>
-            <NavBar/>
-            <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeCurrentChatroom={changeCurrentChatroom}/>
-            <div id='chatroom-outer-container'>
-              <Chatroom chattingWithUser={chattingWithUser}/>
-            </div>
-          </CurrentChatroomContext.Provider>
+          <ChatroomContext.Provider value={chatrooms}>
+            <CurrentChatroomContext.Provider value={currentChatroom}>
+              <NavBar/>
+              <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeCurrentChatroom={changeCurrentChatroom}/>
+              <div id='chatroom-outer-container'>
+                <Chatroom chattingWithUser={chattingWithUser}/>
+              </div>
+            </CurrentChatroomContext.Provider>
+          </ChatroomContext.Provider>
         </CurrentUserContext.Provider>
       </CableContext.Provider>
     );
@@ -68,10 +71,12 @@ export default function Main() {
     return (
       <CableContext.Provider value={actionCableUrl}>
         <CurrentUserContext.Provider value={currentUserInfo}>
-          <CurrentChatroomContext.Provider value={currentChatroom}>
-            <NavBar/>
-            <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeCurrentChatroom={changeCurrentChatroom}/>
-          </CurrentChatroomContext.Provider>
+          <ChatroomContext.Provider value={chatrooms}>
+            <CurrentChatroomContext.Provider value={currentChatroom}>
+              <NavBar/>
+              <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeCurrentChatroom={changeCurrentChatroom}/>
+            </CurrentChatroomContext.Provider>
+          </ChatroomContext.Provider>
         </CurrentUserContext.Provider>
       </CableContext.Provider>
     );

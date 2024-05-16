@@ -23,3 +23,25 @@ export const createChatroom = (userInfo, refetchCurrentUser, changeCurrentChatro
     changeCurrentChatroom(chatroom);
   })
 };
+
+export const findChatroomId = (userInfo, chatroom, setChatroom) => {
+  let csrf = getCsrfToken();
+  fetch('chatrooms/match_chatroom', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+      'X-CSRF-Token': csrf,
+    },
+    body: 
+      JSON.stringify({chatroom: {
+        userId: userInfo.id
+      }})
+    }
+  ).then((res) => {
+    return res.json();
+  }).then((data) => {
+    if (!chatroom) {
+      setChatroom(data);
+    }
+  })
+};
