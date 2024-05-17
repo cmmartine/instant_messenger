@@ -1,12 +1,12 @@
 import { getCsrfToken } from "./csrfTokenUtil";
 
-export const getCurrentUserInfo = (setCurrentUserInfo, openChatroomConnections) => {
+export const getCurrentUserInfo = (setCurrentUserInfo, openChatroomConnections, newCurrentChatroom= {id: null}) => {
   fetch('/users/current_user_info')
     .then((res) => res.json())
     .then((data) => {
       let currentUserInfo = { ...data };
       setCurrentUserInfo(currentUserInfo);
-      openChatroomConnections(currentUserInfo.chatrooms);
+      openChatroomConnections(currentUserInfo.chatrooms, newCurrentChatroom);
     })
 };
 

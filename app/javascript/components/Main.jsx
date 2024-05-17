@@ -14,41 +14,35 @@ const actionCableUrl = process.env.NODE_ENV === 'production' ? 'wss://<your-depl
 
 export default function Main() {
   const [currentUserInfo, setCurrentUserInfo] = useState();
-  const [fetchCurrentUser, setFetchCurrentUser] = useState(false);
   const [chattingWithUser, setChattingWithUser] = useState();
   const [chatrooms, setChatrooms] = useState([]);
   const [currentChatroom, setCurrentChatroom] = useState();
 
   useEffect(() => {
-    if (!fetchCurrentUser) {
       getCurrentUserInfo(setCurrentUserInfo, openChatroomConnections);
-      setFetchCurrentUser(true);
-    }
-  });
+  }, []);
 
-  function openChatroomConnections(chatrooms) {
+  function openChatroomConnections(chatrooms, newCurrentChatroom) {
     let chatRoomsConnections = []
     chatrooms.forEach((room) => {
       chatRoomsConnections.push({info: room, connection: ChatroomChannel(room)});
+      if (room.id == newCurrentChatroom.id) {
+        changeCurrentChatroom({info: room, connection: ChatroomChannel(room)});
+      }
     });
     setChatrooms(chatRoomsConnections);
-
   };
 
   function changeChattingWithUser(userInfo) {
     setChattingWithUser(userInfo);
   };
 
-  function changeCurrentChatroom(changingToChatroom) {
-    chatrooms.forEach((chatroom) => {
-      if (chatroom.info.id == changingToChatroom.id) {
-        setCurrentChatroom(chatroom)
-      };
-    })
+  function changeCurrentChatroom(chatroom) {
+    setCurrentChatroom(chatroom)
   }
 
-  function refetchCurrentUser() {
-    setFetchCurrentUser();
+  function refetchCurrentUser(newCurrentChatroom) {
+    getCurrentUserInfo(setCurrentUserInfo, openChatroomConnections, newCurrentChatroom);
   }
 
   if (currentUserInfo && chattingWithUser && currentChatroom) {
@@ -58,7 +52,7 @@ export default function Main() {
           <ChatroomContext.Provider value={chatrooms}>
             <CurrentChatroomContext.Provider value={currentChatroom}>
               <NavBar/>
-              <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeCurrentChatroom={changeCurrentChatroom}/>
+              <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser}/>
               <div id='chatroom-outer-container'>
                 <Chatroom chattingWithUser={chattingWithUser}/>
               </div>
@@ -74,7 +68,7 @@ export default function Main() {
           <ChatroomContext.Provider value={chatrooms}>
             <CurrentChatroomContext.Provider value={currentChatroom}>
               <NavBar/>
-              <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeCurrentChatroom={changeCurrentChatroom}/>
+              <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser}/>
             </CurrentChatroomContext.Provider>
           </ChatroomContext.Provider>
         </CurrentUserContext.Provider>

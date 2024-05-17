@@ -20,11 +20,10 @@ describe("OpenChatroomButton", () => {
 
   const changeChattingWithUser = jest.fn();
   const refetchCurrentUser = jest.fn();
-  const changeCurrentChatroom = jest.fn();
 
   function renderOpenChatroomButton() {
     return render (
-      <OpenChatroomButton key={fakeUser.id} userInfo={fakeUser} changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeCurrentChatroom={changeCurrentChatroom}/>
+      <OpenChatroomButton key={fakeUser.id} userInfo={fakeUser} changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser}/>
     );
   };
 
@@ -53,12 +52,6 @@ describe("OpenChatroomButton", () => {
     renderOpenChatroomButton();
     await userEvent.click(screen.getByText(`${fakeUser.username}`));
     expect(changeChattingWithUser).toBeCalled();
-  })
-
-  it("changes the current chatroom", async() => {
-    renderOpenChatroomButton();
-    await userEvent.click(screen.getByText(`${fakeUser.username}`));
-    expect(changeCurrentChatroom).toBeCalled();
   })
 
   it("refetches the current users info", async() => {

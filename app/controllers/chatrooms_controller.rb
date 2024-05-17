@@ -18,6 +18,8 @@ class ChatroomsController < ApplicationController
     sorted_messages = sort_messages(chatrooms_messages)
     if sorted_messages
       render json: sorted_messages
+    else
+      render json: nil.to_json
     end
   end
 
@@ -25,6 +27,8 @@ class ChatroomsController < ApplicationController
     found_chatroom = find_chatroom
     if found_chatroom
       render json: found_chatroom
+    else
+      render json: nil.to_json
     end
   end
 

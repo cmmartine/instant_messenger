@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ChatroomContext } from "./Main";
-import { findChatroomId } from "../util/chatroomUtil";
+import { findChatroom } from "../util/chatroomUtil";
 
 export default function UserMessageNotification(props) {
   const { userInfo } = props;
@@ -14,10 +14,10 @@ export default function UserMessageNotification(props) {
     if (matchedChatroom) {
       matchedChatroom.connection.received = () => {setUnreadMessage(true)};
     };
-  }, [chatroom, chatrooms]);
+  }, [chatrooms]);
 
   const matchChatroomForUser = () => {
-    findChatroomId(userInfo, chatroom, setChatroom);
+    findChatroom(userInfo, chatroom, setChatroom);
     let matchedChatroom
     if (chatroom) {
       chatrooms.forEach((room) => {
