@@ -5,15 +5,16 @@ import { getMessages } from "../util/messageUtil";
 
 export default function ChatroomMessages(props) {
   const currentChatroom = useContext(CurrentChatroomContext);
-  const [allMessages, setAllMessages] = useState();
-
-  useEffect(() => {
-    getMessages(currentChatroom, setAllMessages)
-  }, [])
+  const [allMessages, setAllMessages] = useState([]);
+  const [messagesChatroom, setMessagesChatroom] = useState({id: null});
   
   useEffect(() => {
+    getMessages(currentChatroom, setAllMessages, setMessagesChatroom);
     if (currentChatroom.connection) {
-      currentChatroom.connection.received = () => {getMessages(currentChatroom, setAllMessages)};
+      currentChatroom.connection.received = () => {getMessages(currentChatroom, setAllMessages, setMessagesChatroom)};
+    };
+    return() => {
+      currentChatroom.connection.received = () => {};
     };
   }, [currentChatroom])
 
@@ -25,7 +26,7 @@ export default function ChatroomMessages(props) {
     return <ul>{messageList}</ul>
   };
 
-  if (allMessages) {
+  if (allMessages.length && (currentChatroom.info.id == messagesChatroom.id)) {
     return (
       <div>
         {createMessageList()}
@@ -38,4 +39,5 @@ export default function ChatroomMessages(props) {
       </div>
     );
   }
+    
 }

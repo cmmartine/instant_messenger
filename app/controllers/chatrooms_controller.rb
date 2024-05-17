@@ -14,8 +14,9 @@ class ChatroomsController < ApplicationController
   end
 
   def messages
-    chatrooms_messages = Chatroom.find(chatroom_params[:chatroom_id]).messages
-    sorted_messages = sort_messages(chatrooms_messages)
+    chatroom = Chatroom.find(chatroom_params[:chatroom_id])
+    chatrooms_messages = chatroom.messages
+    sorted_messages = [sort_messages(chatrooms_messages), { id: chatroom.id }]
     if sorted_messages
       render json: sorted_messages
     else
