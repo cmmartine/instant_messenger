@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ChatroomContext } from "./Main";
+import { ChatroomContext, CurrentChatroomContext } from "./Main";
 import { findChatroom } from "../util/chatroomUtil";
 
 export default function UserMessageNotification(props) {
   const { userInfo } = props;
   const chatrooms = useContext(ChatroomContext);
+  const currentChatroom = useContext(CurrentChatroomContext);
   const [chatroom, setChatroom] = useState();
   const [unreadMessage, setUnreadMessage] = useState(false)
 
@@ -14,7 +15,12 @@ export default function UserMessageNotification(props) {
     if (matchedChatroom) {
       matchedChatroom.connection.received = () => {setUnreadMessage(true)};
     };
-  }, [chatrooms]);
+    return() => {
+      if (matchedChatroom) {
+        matchedChatroom.connection.received = () => {};
+      };
+    };
+  });
 
   const matchChatroomForUser = () => {
     findChatroom(userInfo, chatroom, setChatroom);
@@ -22,6 +28,7 @@ export default function UserMessageNotification(props) {
     if (chatroom) {
       chatrooms.forEach((room) => {
         if (room.info.id == chatroom.id) {
+          console.log(chatroom)
            matchedChatroom = room
         };
       });
@@ -29,7 +36,17 @@ export default function UserMessageNotification(props) {
     return matchedChatroom;
   };
 
-  if (unreadMessage) {
+  const isChatroomCurrentlyOpen = () => {
+    if (chatroom && currentChatroom) {
+      if (chatroom.id == currentChatroom.info.id) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
+
+  if (unreadMessage && !isChatroomCurrentlyOpen()) {
     return(
       <div>
         New Message!
