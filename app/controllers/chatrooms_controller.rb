@@ -55,8 +55,4 @@ class ChatroomsController < ApplicationController
   def sort_messages(messages)
     messages.sort_by { |msg| msg.created_at }
   end
-
-  # def unread_messages(chatroom)
-  #   chatroom.messages.where("user_id != ?", current_user.id)
-  # end
 end

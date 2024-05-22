@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ChatroomContext, CurrentChatroomContext } from "./Main";
 import { findChatroom } from "../util/chatroomUtil";
+import { checkNewestMessageReadStatus } from "../util/messageUtil";
 
 export default function UserMessageNotification(props) {
   const { userInfo } = props;
@@ -13,7 +14,8 @@ export default function UserMessageNotification(props) {
   useEffect(() => {
     let matchedChatroom = matchChatroomForUser();
     if (matchedChatroom) {
-      matchedChatroom.connection.received = () => {setUnreadMessage(true)};
+      checkNewestMessageReadStatus(matchedChatroom.info.id, setUnreadMessage);
+      matchedChatroom.connection.received = () => {checkNewestMessageReadStatus(matchedChatroom.info.id, setUnreadMessage)};
     };
     return() => {
       if (matchedChatroom) {

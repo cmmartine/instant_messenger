@@ -37,5 +37,31 @@ export const postMessage = (message, currentChatroom) => {
         chatroom_id: currentChatroom.info.id
       }})
     }
-  );
+  )
+};
+
+export const updateMessageReadStatus = () => {
+
+};
+
+export const checkNewestMessageReadStatus = (chatroom_id, setUnreadMessage) => {
+  let csrf = getCsrfToken();
+  fetch('messages/most_recent_message_read_status', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+      'X-CSRF-Token': csrf,
+    },
+    body: 
+      JSON.stringify({message: {
+        chatroom_id: chatroom_id
+      }})
+    }
+  ).then((res) => {
+    return res.json();
+  }).then((data) => {
+    console.log(data)
+    let unread_message = !data.read_status;
+    setUnreadMessage(unread_message);
+  });
 };

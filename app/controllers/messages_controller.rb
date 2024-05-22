@@ -8,6 +8,12 @@ class MessagesController < ApplicationController
     end
   end
 
+  def most_recent_message_read_status
+    chatroom = Chatroom.find(message_params[:chatroom_id])
+    message_read_status = chatroom.most_recent_non_current_user_message_status(current_user.id)
+    render json: { read_status: message_read_status }
+  end
+
   private
 
   def message_params
