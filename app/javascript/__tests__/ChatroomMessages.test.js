@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import ChatroomMessages from "../components/ChatroomMessages";
@@ -23,7 +22,8 @@ describe("ChatroomMessages", () => {
     }
   ];
 
-  let fakeChatroom = { info: { id: 1, active_status: true } }
+  let fakeChatroom = { info: { id: 1, active_status: true } };
+  let fakeChatroomId  = { id: 1 };
 
   function renderMessageList() {
     return render(
@@ -34,7 +34,7 @@ describe("ChatroomMessages", () => {
   };
 
   beforeEach(async () => {
-    jest.spyOn(global, 'fetch').mockResolvedValue({ status: 200, json: jest.fn().mockResolvedValue(fakeMessages) });
+    jest.spyOn(global, 'fetch').mockResolvedValue({ status: 200, json: jest.fn().mockResolvedValue([fakeMessages, fakeChatroomId]) });
     jest.spyOn(messageUtil, 'getMessages');
   });
 

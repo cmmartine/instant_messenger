@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { CurrentChatroomContext } from "./Main";
 import { getMessages } from "../util/messageUtil";
 
-export default function ChatroomMessages(props) {
+export default function ChatroomMessages() {
   const currentChatroom = useContext(CurrentChatroomContext);
   const [allMessages, setAllMessages] = useState([]);
   const [messagesChatroom, setMessagesChatroom] = useState({id: null});
@@ -14,7 +14,9 @@ export default function ChatroomMessages(props) {
       currentChatroom.connection.received = () => {getMessages(currentChatroom, setAllMessages, setMessagesChatroom)};
     };
     return() => {
-      currentChatroom.connection.received = () => {};
+      if (currentChatroom.connection) {
+        currentChatroom.connection.received = () => {};
+      };
     };
   }, [currentChatroom]);
 

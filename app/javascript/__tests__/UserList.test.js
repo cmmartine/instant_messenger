@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import UserList from "../components/UserList";
-import { CurrentUserContext } from "../components/Main";
+import { CurrentUserContext, ChatroomContext } from "../components/Main";
 import * as userUtil from "../util/userUtil";
 
 require('jest-fetch-mock').enableMocks();
@@ -17,17 +17,21 @@ describe("UserList", () => {
       id: 3,
       username: "Alice"
     }
-  ]
+  ];
 
   let currentUser = {
     username: 'Alfred',
     id: 1
-  }
+  };
+
+  let chatrooms = [ { info: { id: 1, active_status: true }, connection: null } ];
 
   function renderUserList() {
       return render(
         <CurrentUserContext.Provider value={currentUser}>
-          <UserList/>
+          <ChatroomContext.Provider value={chatrooms}>
+            <UserList/>
+          </ChatroomContext.Provider>
         </CurrentUserContext.Provider>
     );
   };
