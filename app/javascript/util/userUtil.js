@@ -7,7 +7,7 @@ export const getCurrentUserInfo = (setCurrentUserInfo, openChatroomConnections, 
       let currentUserInfo = { ...data };
       setCurrentUserInfo(currentUserInfo);
       openChatroomConnections(currentUserInfo.chatrooms, newCurrentChatroom);
-    })
+    });
 };
 
 export const getUsers = (setAllUsers) => {

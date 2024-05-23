@@ -12,5 +12,5 @@ export default function NavBar() {
         logout()
         }}>Log Out</button>
     </div>
-  )
+  );
 }

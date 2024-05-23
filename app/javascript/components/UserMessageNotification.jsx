@@ -8,7 +8,7 @@ export default function UserMessageNotification(props) {
   const chatrooms = useContext(ChatroomContext);
   const currentChatroom = useContext(CurrentChatroomContext);
   const [chatroom, setChatroom] = useState();
-  const [unreadMessage, setUnreadMessage] = useState(false)
+  const [unreadMessage, setUnreadMessage] = useState(false);
 
 
   useEffect(() => {
@@ -26,12 +26,11 @@ export default function UserMessageNotification(props) {
 
   const matchChatroomForUser = () => {
     findChatroom(userInfo, chatroom, setChatroom);
-    let matchedChatroom
+    let matchedChatroom;
     if (chatroom) {
       chatrooms.forEach((room) => {
         if (room.info.id == chatroom.id) {
-          console.log(chatroom)
-           matchedChatroom = room
+           matchedChatroom = room;
         };
       });
     };

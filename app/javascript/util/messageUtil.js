@@ -37,11 +37,7 @@ export const postMessage = (message, currentChatroom) => {
         chatroom_id: currentChatroom.info.id
       }})
     }
-  )
-};
-
-export const updateMessageReadStatus = () => {
-
+  );
 };
 
 export const checkNewestMessageReadStatus = (chatroom_id, setUnreadMessage) => {
@@ -60,7 +56,6 @@ export const checkNewestMessageReadStatus = (chatroom_id, setUnreadMessage) => {
   ).then((res) => {
     return res.json();
   }).then((data) => {
-    console.log(data)
     let unread_message = !data.read_status;
     setUnreadMessage(unread_message);
   });
@@ -79,5 +74,5 @@ export const changeMessagesReadStatus = (chatroom_id) => {
         chatroom_id: chatroom_id
       }})
     }
-  )
+  );
 };

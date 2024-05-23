@@ -38,12 +38,12 @@ export default function Main() {
   };
 
   function changeCurrentChatroom(chatroom) {
-    setCurrentChatroom(chatroom)
-  }
+    setCurrentChatroom(chatroom);
+  };
 
   function refetchCurrentUser(newCurrentChatroom) {
     getCurrentUserInfo(setCurrentUserInfo, openChatroomConnections, newCurrentChatroom);
-  }
+  };
 
   if (currentUserInfo && chattingWithUser && currentChatroom) {
     return (
@@ -79,6 +79,6 @@ export default function Main() {
       <div>
         Please refresh the page
       </div>
-    )
+    );
   }
 }

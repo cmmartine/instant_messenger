@@ -21,7 +21,7 @@ export const createChatroom = (userInfo, refetchCurrentUser, changeChattingWithU
     chatroom = data;
     changeChattingWithUser(userInfo);
     refetchCurrentUser(chatroom);
-  })
+  });
 };
 
 export const findChatroom = (userInfo, chatroom, setChatroom) => {
@@ -43,5 +43,5 @@ export const findChatroom = (userInfo, chatroom, setChatroom) => {
     if (!chatroom) {
       setChatroom(data);
     }
-  })
+  });
 };
