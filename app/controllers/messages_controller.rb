@@ -14,6 +14,12 @@ class MessagesController < ApplicationController
     render json: { read_status: message_read_status }
   end
 
+  def update_chatroom_messages_read_status
+    chatroom = Chatroom.find(message_params[:chatroom_id])
+    non_current_user_messages = chatroom.messages.where('user_id != ?', current_user.id)
+    non_current_user_messages.map { |msg| msg.update_read_status }
+  end
+
   private
 
   def message_params

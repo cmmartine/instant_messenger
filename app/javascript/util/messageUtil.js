@@ -65,3 +65,19 @@ export const checkNewestMessageReadStatus = (chatroom_id, setUnreadMessage) => {
     setUnreadMessage(unread_message);
   });
 };
+
+export const changeMessagesReadStatus = (chatroom_id) => {
+  let csrf = getCsrfToken();
+  fetch('messages/update_chatroom_messages_read_status', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+      'X-CSRF-Token': csrf,
+    },
+    body: 
+      JSON.stringify({message: {
+        chatroom_id: chatroom_id
+      }})
+    }
+  )
+};

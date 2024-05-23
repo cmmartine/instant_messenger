@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   post 'messages/create'
   post 'messages/most_recent_message_read_status'
+  post 'messages/update_chatroom_messages_read_status'
   post 'chatrooms/create'
   post 'chatrooms/messages'
   post 'chatrooms/match_chatroom'

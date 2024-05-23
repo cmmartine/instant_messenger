@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ChatroomContext, CurrentChatroomContext } from "./Main";
 import { findChatroom } from "../util/chatroomUtil";
-import { checkNewestMessageReadStatus } from "../util/messageUtil";
+import { checkNewestMessageReadStatus, changeMessagesReadStatus } from "../util/messageUtil";
 
 export default function UserMessageNotification(props) {
   const { userInfo } = props;
@@ -41,6 +41,7 @@ export default function UserMessageNotification(props) {
   const isChatroomCurrentlyOpen = () => {
     if (chatroom && currentChatroom) {
       if (chatroom.id == currentChatroom.info.id) {
+        changeMessagesReadStatus(currentChatroom.info.id);
         return true;
       } else {
         return false;
