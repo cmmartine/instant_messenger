@@ -40,9 +40,9 @@ export const postMessage = (message, currentChatroom) => {
   );
 };
 
-export const checkNewestMessageReadStatus = (chatroom_id, setUnreadMessage) => {
+export const checkNewestMessageReadStatus = (chatroom_id) => {
   let csrf = getCsrfToken();
-  fetch('messages/most_recent_message_read_status', {
+  return fetch('messages/most_recent_message_read_status', {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
@@ -56,8 +56,7 @@ export const checkNewestMessageReadStatus = (chatroom_id, setUnreadMessage) => {
   ).then((res) => {
     return res.json();
   }).then((data) => {
-    let unread_message = !data.read_status;
-    setUnreadMessage(unread_message);
+    return data;
   });
 };
 

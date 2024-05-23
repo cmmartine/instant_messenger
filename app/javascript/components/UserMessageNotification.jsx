@@ -14,8 +14,8 @@ export default function UserMessageNotification(props) {
   useEffect(() => {
     let matchedChatroom = matchChatroomForUser();
     if (matchedChatroom) {
-      checkNewestMessageReadStatus(matchedChatroom.info.id, setUnreadMessage);
-      matchedChatroom.connection.received = () => {checkNewestMessageReadStatus(matchedChatroom.info.id, setUnreadMessage)};
+      checkReadStatus(matchedChatroom);
+      matchedChatroom.connection.received = () => {checkReadStatus(matchedChatroom)};
     };
     return() => {
       if (matchedChatroom) {
@@ -46,6 +46,10 @@ export default function UserMessageNotification(props) {
         return false;
       }
     }
+  };
+
+  const checkReadStatus = (matchedChatroom) => {
+    checkNewestMessageReadStatus(matchedChatroom.info.id).then((data) => setUnreadMessage(!data.read_status))
   };
 
   if (unreadMessage && !isChatroomCurrentlyOpen()) {
