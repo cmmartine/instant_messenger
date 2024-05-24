@@ -52,7 +52,9 @@ export default function UserMessageNotification(props) {
   };
 
   const checkReadStatus = (matchedChatroom) => {
-    checkNewestMessageReadStatus(matchedChatroom.info.id).then((data) => setUnreadMessage(!data.read_status))
+    checkNewestMessageReadStatus(matchedChatroom.info.id).then((data) => {
+      setUnreadMessage(!data.read_status)
+    });
   };
 
   if (unreadMessage && !isChatroomCurrentlyOpen()) {
