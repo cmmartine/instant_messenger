@@ -1,9 +1,8 @@
 import { getCsrfToken } from "./csrfTokenUtil";
 
-export const createChatroom = (userInfo, refetchCurrentUser, changeChattingWithUser) => {
-  let chatroom;
+export const createChatroom = (userInfo) => {
   let csrf = getCsrfToken();
-  fetch('chatrooms/create', {
+  return fetch('chatrooms/create', {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
@@ -18,9 +17,7 @@ export const createChatroom = (userInfo, refetchCurrentUser, changeChattingWithU
   ).then((res) => {
     return res.json();
   }).then((data) => {
-    chatroom = data;
-    changeChattingWithUser(userInfo);
-    refetchCurrentUser(chatroom);
+    return data;
   });
 };
 

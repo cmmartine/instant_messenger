@@ -5,7 +5,11 @@ export default function OpenChatroomButton(props) {
   const { userInfo, changeChattingWithUser, refetchCurrentUser } = props;
 
   const createAndOpenChatbox = () => {
-    createChatroom(userInfo, refetchCurrentUser, changeChattingWithUser);
+    createChatroom(userInfo).then((data) => {
+      let chatroom = data;
+      changeChattingWithUser(userInfo);
+      refetchCurrentUser(chatroom);
+    });
   };
 
   return(
