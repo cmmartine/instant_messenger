@@ -13,7 +13,7 @@ export default function UserList(props) {
 
   useEffect(() => {
     if (!usersFetched) {
-      getUsers(setAllUsers);
+      getUsersForList();
       setUsersFetched(true);
     };
   });
@@ -26,8 +26,17 @@ export default function UserList(props) {
           <UserMessageNotification userInfo={user}/>
         </div>
   })
-
     return <ul className='user-list'>{userList}</ul>
+  };
+
+  const getUsersForList = () => {
+    getUsers().then((data) => {
+      let userArray = [];
+    data.map((user) => {
+      userArray.push(user);
+    });
+    setAllUsers(userArray);
+    });
   };
 
   if (allUsers != []) {

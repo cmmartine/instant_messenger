@@ -8,15 +8,11 @@ export const getCurrentUserInfo = () => {
   });
 };
 
-export const getUsers = (setAllUsers) => {
-  fetch('/users/index')
+export const getUsers = () => {
+  return fetch('/users/index')
   .then((res) => res.json())
   .then((data) => {
-    let userArray = [];
-    data.map((user) => {
-      userArray.push(user);
-    });
-    setAllUsers(userArray);
+    return data;
   });
 };
 
