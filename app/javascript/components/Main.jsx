@@ -19,7 +19,7 @@ export default function Main() {
   const [currentChatroom, setCurrentChatroom] = useState();
 
   useEffect(() => {
-      getCurrentUserInfo(setCurrentUserInfo, openChatroomConnections);
+      applyCurrentUserInfo();
   }, []);
 
   function openChatroomConnections(chatrooms, newCurrentChatroom) {
@@ -42,7 +42,15 @@ export default function Main() {
   };
 
   function refetchCurrentUser(newCurrentChatroom) {
-    getCurrentUserInfo(setCurrentUserInfo, openChatroomConnections, newCurrentChatroom);
+    applyCurrentUserInfo(newCurrentChatroom);
+  };
+
+  function applyCurrentUserInfo(newCurrentChatroom= {id: null}) {
+    getCurrentUserInfo().then((data) => {
+      let currentUserData = { ...data };
+      setCurrentUserInfo(currentUserData);
+      openChatroomConnections(currentUserData.chatrooms, newCurrentChatroom);
+    });
   };
 
   if (currentUserInfo && chattingWithUser && currentChatroom) {
