@@ -9,9 +9,9 @@ export default function ChatroomMessages() {
   const [messagesChatroom, setMessagesChatroom] = useState({id: null});
   
   useEffect(() => {
-    getMessages(currentChatroom, setAllMessages, setMessagesChatroom);
+    getChatroomMessages();
     if (currentChatroom.connection) {
-      currentChatroom.connection.received = () => {getMessages(currentChatroom, setAllMessages, setMessagesChatroom)};
+      currentChatroom.connection.received = () => {getChatroomMessages()};
     };
     return() => {
       if (currentChatroom.connection) {
@@ -26,6 +26,15 @@ export default function ChatroomMessages() {
     });
 
     return <ul>{messageList}</ul>
+  };
+
+  const getChatroomMessages = () => {
+    getMessages(currentChatroom).then((data) => {
+      const messages = data[0];
+      const chatroom_id = data[1];
+      setAllMessages(messages);
+      setMessagesChatroom(chatroom_id);
+    });
   };
 
   if (allMessages.length && (currentChatroom.info.id == messagesChatroom.id)) {

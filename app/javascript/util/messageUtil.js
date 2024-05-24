@@ -1,8 +1,8 @@
 import { getCsrfToken } from "./csrfTokenUtil";
 
-export const getMessages = (currentChatroom, setAllMessages, setMessagesChatroom) => {
+export const getMessages = (currentChatroom) => {
   let csrf = getCsrfToken();
-  fetch('chatrooms/messages', {
+  return fetch('chatrooms/messages', {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
@@ -16,10 +16,7 @@ export const getMessages = (currentChatroom, setAllMessages, setMessagesChatroom
   ).then((res) => {
     return res.json();
   }).then((data) => {
-    const messages = data[0];
-    const chatroom_id = data[1];
-    setAllMessages(messages);
-    setMessagesChatroom(chatroom_id);
+    return data;
   });
 };
 
