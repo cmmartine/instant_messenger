@@ -25,9 +25,12 @@ export default function UserMessageNotification(props) {
   });
 
   const matchChatroomForUser = () => {
-    findChatroom(userInfo, chatroom, setChatroom);
     let matchedChatroom;
-    if (chatroom) {
+    if (!chatroom) {
+      findChatroom(userInfo).then((data) => {
+          setChatroom(data);
+      });
+    } else if (chatroom) {
       chatrooms.forEach((room) => {
         if (room.info.id == chatroom.id) {
            matchedChatroom = room;

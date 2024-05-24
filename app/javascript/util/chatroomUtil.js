@@ -21,9 +21,9 @@ export const createChatroom = (userInfo) => {
   });
 };
 
-export const findChatroom = (userInfo, chatroom, setChatroom) => {
+export const findChatroom = (userInfo) => {
   let csrf = getCsrfToken();
-  fetch('chatrooms/match_chatroom', {
+  return fetch('chatrooms/match_chatroom', {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
@@ -37,8 +37,6 @@ export const findChatroom = (userInfo, chatroom, setChatroom) => {
   ).then((res) => {
     return res.json();
   }).then((data) => {
-    if (!chatroom) {
-      setChatroom(data);
-    }
+    return data;
   });
 };
