@@ -44,23 +44,42 @@ describe("OpenChatroomButton", () => {
     );
   };
 
-  beforeEach(async () => {
-    jest.spyOn(chatroomUtil, 'findChatroom').mockResolvedValue(fakeRetrievedChatroom);
-    jest.spyOn(messageUtil, 'checkNewestMessageReadStatus').mockResolvedValue({ read_status: false });
-    jest.spyOn(messageUtil, 'changeMessagesReadStatus').mockImplementation(jest.fn());
+  describe('With read_status false', () => {
+    beforeEach(async () => {
+      jest.spyOn(chatroomUtil, 'findChatroom').mockResolvedValue(fakeRetrievedChatroom);
+      jest.spyOn(messageUtil, 'checkNewestMessageReadStatus').mockResolvedValue({ read_status: false });
+      jest.spyOn(messageUtil, 'changeMessagesReadStatus').mockImplementation(jest.fn());
+    });
+  
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+  
+    it("shows New Messages! text when user is not in the room", async () => {
+      renderUserMessageNotification(fakeChatroomIds.differentFromRetrievedRoom);
+      expect(await screen.findByText('New Message!')).toBeVisible();
+    });
+  
+    it("does NOT show New Messages! text when user is in the room", async () => {
+      renderUserMessageNotification(fakeChatroomIds.sameAsRetrievedRoom);
+      expect(await screen.findByText('New Message!')).not.toBeVisible();
+    });
   });
 
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
-
-  it("shows New Messages! text when user is not in a room that has a message with read_status false", async () => {
-    renderUserMessageNotification(fakeChatroomIds.differentFromRetrievedRoom);
-    expect(await screen.findByText('New Message!')).toBeVisible();
-  });
-
-  it("does NOT show New Messages! text when user is in the room that has a message with read_status false", async () => {
-    renderUserMessageNotification(fakeChatroomIds.sameAsRetrievedRoom);
-    expect(await screen.findByText('New Message!')).not.toBeVisible();
+  describe('With read_status true', () => {
+    beforeEach(async () => {
+      jest.spyOn(chatroomUtil, 'findChatroom').mockResolvedValue(fakeRetrievedChatroom);
+      jest.spyOn(messageUtil, 'checkNewestMessageReadStatus').mockResolvedValue({ read_status: true });
+      jest.spyOn(messageUtil, 'changeMessagesReadStatus').mockImplementation(jest.fn());
+    });
+  
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+  
+    it("does NOT show New Messages! text when user is in the room", async () => {
+      renderUserMessageNotification(fakeChatroomIds.sameAsRetrievedRoom);
+      expect(await screen.findByText('New Message!')).not.toBeVisible();
+    });
   });
 })
