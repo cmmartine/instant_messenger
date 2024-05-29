@@ -14,22 +14,29 @@ describe("OpenChatroomButton", () => {
     username: "Herbert"
   };
 
-  let fakeCurrentChatroom = { 
-    info: { id: 2, active_status: true }, 
-    connection: jest.fn() 
-  }
+  let fakeChatroomIds = {
+    sameAsRetrievedRoom: 1,
+    differentFromRetrievedRoom: 2
+  };
 
   let fakeRetrievedChatroom = {
     id: 1,
     active_status: true
-  }
+  };
 
   let chatrooms = [{ info: { id: 1, active_status: true }, connection: { received: jest.fn() }}];
 
+  function fakeCurrentChatroom(currentChatroomId) {
+    let fakeCurrentChatroom = { 
+      info: { id: currentChatroomId, active_status: true }, 
+      connection: jest.fn() 
+    };
+    return fakeCurrentChatroom;
+  };
 
-  function renderUserMessageNotification() {
+  function renderUserMessageNotification(currentChatroomId) {
     return render(
-      <CurrentChatroomContext.Provider value={fakeCurrentChatroom}>
+      <CurrentChatroomContext.Provider value={fakeCurrentChatroom(currentChatroomId)}>
         <ChatroomContext.Provider value={chatrooms}>
           <UserMessageNotification userInfo={fakeUser} />
         </ChatroomContext.Provider>
@@ -47,8 +54,13 @@ describe("OpenChatroomButton", () => {
     jest.restoreAllMocks();
   });
 
-  it("shows New Messages text when user is not in a room that has a message with read_status false", async () => {
-    renderUserMessageNotification();
-    expect(await screen.findByText('New Message!')).toBeInTheDocument();
+  it("shows New Messages! text when user is not in a room that has a message with read_status false", async () => {
+    renderUserMessageNotification(fakeChatroomIds.differentFromRetrievedRoom);
+    expect(await screen.findByText('New Message!')).toBeVisible();
+  });
+
+  it("does NOT show New Messages! text when user is in the room that has a message with read_status false", async () => {
+    renderUserMessageNotification(fakeChatroomIds.sameAsRetrievedRoom);
+    expect(await screen.findByText('New Message!')).not.toBeVisible();
   });
 })

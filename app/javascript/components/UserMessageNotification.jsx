@@ -57,11 +57,17 @@ export default function UserMessageNotification(props) {
     });
   };
 
-  if (unreadMessage && !isChatroomCurrentlyOpen()) {
+ if (unreadMessage && !isChatroomCurrentlyOpen()) {
     return(
       <div>
         New Message!
       </div>
     )
-  };
+  } else if (!unreadMessage && isChatroomCurrentlyOpen()) {
+    return(
+      <div style={{display: 'none'}}>
+        New Message!
+      </div>
+    )
+  } 
 }
