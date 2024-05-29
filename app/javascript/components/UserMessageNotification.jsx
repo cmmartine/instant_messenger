@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ChatroomContext, CurrentChatroomContext } from "./Main";
-import { findChatroom } from "../util/chatroomUtil";
+import { findOrCreateChatroom } from "../util/chatroomUtil";
 import { checkNewestMessageReadStatus, changeMessagesReadStatus } from "../util/messageUtil";
 
 export default function UserMessageNotification(props) {
@@ -27,7 +27,7 @@ export default function UserMessageNotification(props) {
   const matchChatroomForUser = () => {
     let matchedChatroom;
     if (!chatroom) {
-      findChatroom(userInfo).then((data) => {
+      findOrCreateChatroom(userInfo).then((data) => {
           setChatroom(data);
       });
     } else if (chatroom) {

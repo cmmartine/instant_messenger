@@ -1,11 +1,11 @@
 import React from "react";
-import { createChatroom } from "../util/chatroomUtil";
+import { findOrCreateChatroom } from "../util/chatroomUtil";
 
 export default function OpenChatroomButton(props) {
   const { userInfo, changeChattingWithUser, refetchCurrentUser } = props;
 
   const createAndOpenChatbox = () => {
-    createChatroom(userInfo).then((data) => {
+    findOrCreateChatroom(userInfo).then((data) => {
       let chatroom = data;
       changeChattingWithUser(userInfo);
       refetchCurrentUser(chatroom);

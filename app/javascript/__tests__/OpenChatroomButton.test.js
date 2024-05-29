@@ -29,7 +29,7 @@ describe("OpenChatroomButton", () => {
 
   beforeEach(async () => {
     jest.spyOn(global, 'fetch').mockResolvedValue({ status: 200, json: jest.fn().mockResolvedValue(fakeChatroom) });
-    jest.spyOn(chatroomUtil, 'createChatroom');
+    jest.spyOn(chatroomUtil, 'findOrCreateChatroom');
   });
 
   afterEach(() => {
@@ -45,7 +45,7 @@ describe("OpenChatroomButton", () => {
     renderOpenChatroomButton();
     await userEvent.click(screen.getByText(`${fakeUser.username}`));
     expect(fetch).toBeCalled();
-    expect(chatroomUtil.createChatroom).toBeCalled();
+    expect(chatroomUtil.findOrCreateChatroom).toBeCalled();
   })
 
   it("changes the user being chatted with", async() => {

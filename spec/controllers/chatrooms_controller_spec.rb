@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ChatroomsController, type: :controller do
-  describe 'POST create' do
+  describe 'POST find_or_create' do
     describe 'without a chatroom between current user and selected user' do
       login_user
       create_second_user
@@ -12,7 +12,7 @@ RSpec.describe ChatroomsController, type: :controller do
           userId: 2
         } }
 
-        post :create, params: chatroom_params, as: :json
+        post :find_or_create, params: chatroom_params, as: :json
         all_chatrooms = Chatroom.all
 
         expect(all_chatrooms.length).to eq(1)
@@ -32,7 +32,7 @@ RSpec.describe ChatroomsController, type: :controller do
         subject.current_user.chatrooms << test_chatroom
         User.find(2).chatrooms << test_chatroom
 
-        post :create, params: chatroom_params, as: :json
+        post :find_or_create, params: chatroom_params, as: :json
         all_chatrooms = Chatroom.all
 
         expect(all_chatrooms.length).to eq(1)

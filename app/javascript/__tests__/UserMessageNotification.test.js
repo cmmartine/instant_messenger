@@ -46,7 +46,7 @@ describe("OpenChatroomButton", () => {
 
   describe('With read_status false', () => {
     beforeEach(async () => {
-      jest.spyOn(chatroomUtil, 'findChatroom').mockResolvedValue(fakeRetrievedChatroom);
+      jest.spyOn(chatroomUtil, 'findOrCreateChatroom').mockResolvedValue(fakeRetrievedChatroom);
       jest.spyOn(messageUtil, 'checkNewestMessageReadStatus').mockResolvedValue({ read_status: false });
       jest.spyOn(messageUtil, 'changeMessagesReadStatus').mockImplementation(jest.fn());
     });
@@ -68,7 +68,7 @@ describe("OpenChatroomButton", () => {
 
   describe('With read_status true', () => {
     beforeEach(async () => {
-      jest.spyOn(chatroomUtil, 'findChatroom').mockResolvedValue(fakeRetrievedChatroom);
+      jest.spyOn(chatroomUtil, 'findOrCreateChatroom').mockResolvedValue(fakeRetrievedChatroom);
       jest.spyOn(messageUtil, 'checkNewestMessageReadStatus').mockResolvedValue({ read_status: true });
       jest.spyOn(messageUtil, 'changeMessagesReadStatus').mockImplementation(jest.fn());
     });

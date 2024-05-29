@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ChatroomsController < ApplicationController
-  def create
+  def find_or_create
     found_chatroom = find_chatroom
     if !found_chatroom
       new_room = Chatroom.create!(active_status: chatroom_params[:active_status])
@@ -19,15 +19,6 @@ class ChatroomsController < ApplicationController
     sorted_messages = [sort_messages(chatrooms_messages), { id: chatroom.id }]
     if sorted_messages
       render json: sorted_messages
-    else
-      render json: nil.to_json
-    end
-  end
-
-  def match_chatroom
-    found_chatroom = find_chatroom
-    if found_chatroom
-      render json: found_chatroom
     else
       render json: nil.to_json
     end
