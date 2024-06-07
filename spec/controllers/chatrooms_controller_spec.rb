@@ -54,6 +54,23 @@ RSpec.describe ChatroomsController, type: :controller do
 
         expect(response.body).to include('testing post messages')
       end
+
+      it 'orders those messages upon return so the oldest created_at is first in the array' do
+        chatroom_params = { chatroom: {
+          chatroom_id: 1
+        } }
+        today = DateTime.current
+        yesterday = DateTime.current - 1
+        Chatroom.create(active_status: true)
+        Message.create({ body: 'Message from today', user_id: 1, chatroom_id: 1, created_at: today })
+        Message.create({ body: 'Message from yesterday', user_id: 1, chatroom_id: 1, created_at: yesterday })
+        # Messages in chatroom before being sorted
+        expect(Chatroom.find(1).messages[0].body).to include('Message from today')
+
+        post :messages, params: chatroom_params, as: :json
+        # Messages in response after being sorted
+        expect(JSON.parse(response.body)[0][0]['body']).to include('Message from yesterday')
+      end
     end
   end
 end
