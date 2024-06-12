@@ -59,9 +59,9 @@ export default function Main() {
         <CurrentUserContext.Provider value={currentUserInfo}>
           <ChatroomContext.Provider value={chatrooms}>
             <CurrentChatroomContext.Provider value={currentChatroom}>
-              <NavBar/>
-              <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser}/>
-              <div id='chatroom-outer-container'>
+              <div className='components-wrapper'>
+                <NavBar/>
+                <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser}/>
                 <Chatroom chattingWithUser={chattingWithUser}/>
               </div>
             </CurrentChatroomContext.Provider>

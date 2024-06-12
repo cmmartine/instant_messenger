@@ -6,7 +6,7 @@ export default function Chatroom(props) {
   const { chattingWithUser } = props;
 
   return (
-    <div className='chatroom-inner-container'>
+    <div className='chatroom-container'>
       <div className='chatroom-message-list'>
         <div>{chattingWithUser.username}</div>
         <ChatroomMessages/>

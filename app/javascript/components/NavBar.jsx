@@ -6,7 +6,7 @@ export default function NavBar() {
   const currentUser = useContext(CurrentUserContext);
 
   return(
-    <div>
+    <div className='navbar-container'>
       <h2>{currentUser.username}</h2>
       <button type='submit' onClick={() => {
         logout()

@@ -31,3 +31,4 @@ import "../router";
 import "../components/Main";
 import "../channels/consumer"
 import "../channels/chatroom_channel"
+import "../styles/general.css"
