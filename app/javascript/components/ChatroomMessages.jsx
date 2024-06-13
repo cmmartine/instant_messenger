@@ -25,7 +25,7 @@ export default function ChatroomMessages() {
       return <li key={message.id}>{message.body}</li>
     });
 
-    return <ul>{messageList}</ul>
+    return <ul className='message-list'>{messageList}</ul>
   };
 
   const getChatroomMessages = () => {

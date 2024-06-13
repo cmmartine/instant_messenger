@@ -4,4 +4,10 @@
   grid-row: 1 / 2;
   justify-content: space-between;
   height: 80px;
+  padding: 5px 10px;
+}
+
+.navbar-btn {
+  height: 30px;
+  width: 70px;
 }

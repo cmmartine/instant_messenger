@@ -2,6 +2,7 @@
 @import './components/main.css';
 @import './components/navbar.css';
 @import './components/userlist.css';
+@import './components//chatroom-messages.css';
 
  body {
   margin: 0;
