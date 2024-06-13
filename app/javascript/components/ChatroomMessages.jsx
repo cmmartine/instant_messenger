@@ -39,7 +39,7 @@ export default function ChatroomMessages() {
 
   if (allMessages.length && (currentChatroom.info.id == messagesChatroom.id)) {
     return (
-      <div>
+      <div className='messages-container'>
         {createMessageList()}
       </div>
     );

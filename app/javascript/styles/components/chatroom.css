@@ -1,4 +1,27 @@
 .chatroom-container {
   grid-column: 2 / 3;
   grid-row: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+  background: rgb(207, 207, 207);
+  height: 70%;
+  width: 70%;
+  border-left: 2px solid rgb(228, 228, 228);
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+.chatroom-topbar {
+  display: flex;
+  align-items: center;
+  height: 20px;
+  width: calc(100% - 50px);
+  padding: 5px 25px;
+  background: rgb(4,0,139);
+  background: linear-gradient(90deg, rgba(4,0,139,1) 0%, rgba(106,147,212,1) 100%);
+  color: white;
+  border-top: 2px solid rgb(228, 228, 228);
+  font-weight: bold;
 }

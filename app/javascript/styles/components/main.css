@@ -1,6 +1,6 @@
 .components-wrapper {
   display: grid;
-  grid-template-columns: 1fr 2.5fr;
+  grid-template-columns: 25% 75%;
   grid-template-rows: 50px 1fr;
   height: 100%;
   padding-left: 15px;

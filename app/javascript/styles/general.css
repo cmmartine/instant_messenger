@@ -3,6 +3,7 @@
 @import './components/navbar.css';
 @import './components/userlist.css';
 @import './components//chatroom-messages.css';
+@import './components/messagebox.css';
 
  body {
   margin: 0;

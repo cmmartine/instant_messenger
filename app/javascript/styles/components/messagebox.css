@@ -1,0 +1,25 @@
+#chatroom-message-form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin-top: 15px;
+  height: calc(50% - 20px - 15px) /* -20px for the chatroom-topbar */
+}
+
+#message-box-text {
+  display: flex;
+  align-self: center;
+  width: 100%;
+  height: calc(80% - 55px); /* -55px for the button */
+}
+
+.send-message-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-end;
+  width: 60px;
+  height: 50px;
+  margin-top: 5px;
+  font-size: xx-large;
+}

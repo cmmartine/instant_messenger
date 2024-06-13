@@ -7,10 +7,8 @@ export default function Chatroom(props) {
 
   return (
     <div className='chatroom-container'>
-      <div className='chatroom-message-list'>
-        <div>{chattingWithUser.username}</div>
-        <ChatroomMessages/>
-      </div>
+      <div className='chatroom-topbar'>{chattingWithUser.username}</div>
+      <ChatroomMessages/>
       <MessageBox chattingWithUser={chattingWithUser}/>
     </div>
   );

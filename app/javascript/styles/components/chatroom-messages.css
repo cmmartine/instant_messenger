@@ -1,3 +1,24 @@
+.messages-container {
+  display: flex;
+  height: 50%;
+  width: 80%;
+}
+
 .message-list {
+  display: flex;
+  flex-direction: column;
   list-style: none;
+  background: white;
+  max-height: 100%;
+  max-width: 100%;
+  border-left: 2px solid black;
+  border-top: 2px solid black;
+  border-right: 2px solid rgb(228, 228, 228);
+  border-bottom: 2px solid rgb(228, 228, 228);
+  list-style: none;
+  padding: 10px 10px 0px 10px;
+  margin-top: 25px;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  overflow-y: scroll;
 }

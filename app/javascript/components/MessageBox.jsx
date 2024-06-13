@@ -16,11 +16,11 @@ export default function MessageBox(props) {
   return(
     <form id='chatroom-message-form'>
       <textarea id='message-box-text' aria-label='new-message' rows='1' columns='60' spellCheck='true' onChange={(e) => {setNewMessage(e.target.value)}}/>
-      <button type='submit' onClick={(e) => {
+      <button className='send-message-btn' type='submit' onClick={(e) => {
         e.preventDefault();
         postMessage(newMessage, currentChatroom);
         resetMessage();
-      }}>Send</button>
+      }}>📮</button>
     </form>
   );
 }
