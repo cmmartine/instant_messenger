@@ -32,3 +32,4 @@ import "../components/Main";
 import "../channels/consumer"
 import "../channels/chatroom_channel"
 import "../styles/general.css"
+import '../styles/images/meadow-wallpaper.jpg';

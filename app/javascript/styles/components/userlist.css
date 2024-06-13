@@ -1,4 +1,44 @@
 .userlist-sidebar {
+  display: flex;
+  flex-direction: column;
   grid-column: 1 / 2;
   grid-row: 2 / 3;
+  background: rgb(207, 207, 207);
+  height: 70%;
+  width: 80%;
+  border-left: 2px solid rgb(228, 228, 228);
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+.buddies-tab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: fit-content;
+  padding: 4px;
+  margin-bottom: 0px;
+  margin-left: 10px;
+  border-radius: 4px 4px 0px 0px;
+  box-shadow: inset 0.1em 0.1em rgb(228, 228, 228),
+              inset 0.1em 0.1em rgb(228, 228, 228),
+              0.1em 0 rgb(53, 53, 53);
+}
+
+.userlist {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0px;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 70%;
+  border-left: 2px solid black;
+  border-top: 2px solid black;
+  border-right: 2px solid rgb(228, 228, 228);
+  border-bottom: 2px solid rgb(228, 228, 228);
+  list-style: none;
+  padding: 10px 10px 0px 10px;
+  overflow: scroll;
 }

@@ -26,7 +26,7 @@ export default function UserList(props) {
           <UserMessageNotification userInfo={user}/>
         </div>
   })
-    return <ul className='user-list'>{userList}</ul>
+    return <ul className='userlist'>{userList}</ul>
   };
 
   const getUsersForList = () => {
@@ -42,9 +42,7 @@ export default function UserList(props) {
   if (allUsers != []) {
     return(
       <div className='userlist-sidebar'>
-        <div className={currentUser.id}>
-          <h3>{currentUser.username}</h3>
-        </div>
+        <h3 className='buddies-tab'>Buddies</h3>
         {makeUserList()}
       </div>
     )
