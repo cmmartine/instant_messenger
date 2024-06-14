@@ -23,4 +23,5 @@
   hyphens: auto;
   overflow-y: scroll;
   white-space: pre-wrap;
+  flex-direction: column-reverse;
 }

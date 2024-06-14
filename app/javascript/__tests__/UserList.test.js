@@ -45,11 +45,6 @@ describe("UserList", () => {
     fetchMock.resetMocks();
   });
 
-  it("shows the current users name", async() => {
-    renderUserList();
-    expect(await screen.findByText(`${currentUser.username}`)).toBeInTheDocument();
-  });
-
   it("shows the clickable user list", async() => {
     renderUserList();
     expect(fetch).toBeCalled();

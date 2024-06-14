@@ -21,7 +21,8 @@ export default function ChatroomMessages() {
   }, [currentChatroom]);
 
   const createMessageList = () => {
-    const messageList = allMessages.map((message) => {
+    // Reverse array so .message-list flex-direction: column-reverse keeps time order top to bottom
+    const messageList = allMessages.reverse().map((message) => {
       return <li key={message.id}>{message.body}</li>
     });
 
