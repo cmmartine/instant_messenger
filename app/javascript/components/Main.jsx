@@ -62,7 +62,7 @@ export default function Main() {
               <div className='components-wrapper'>
                 <NavBar/>
                 <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser}/>
-                <Chatroom chattingWithUser={chattingWithUser}/>
+                <Chatroom chattingWithUser={chattingWithUser} changeCurrentChatroom={changeCurrentChatroom}/>
               </div>
             </CurrentChatroomContext.Provider>
           </ChatroomContext.Provider>
