@@ -11,6 +11,7 @@
   align-self: center;
   width: 100%;
   height: calc(80% - 55px); /* -55px for the button */
+  resize: none;
 }
 
 .send-message-btn {
