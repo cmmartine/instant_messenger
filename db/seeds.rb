@@ -10,9 +10,9 @@
 user1 = User.create!(username: 'Alfred', email: 'alfred1@chatroom.com', password: 'Alfred1!', password_confirmation: 'Alfred1!')
 user2 = User.create!(username: 'Bianca', email: 'bianca1@chatroom.com', password: 'Bianca1!', password_confirmation: 'Bianca1!')
 user3 = User.create!(username: 'Cleetus', email: 'cleetus1@chatroom.com', password: 'Cleetus1!', password_confirmation: 'Cleetus1!')
-user4 = User.create!(username: 'Diana', email: 'diana1@chatroom.com', password: 'Diana1!', password_confirmation: 'Diana1!')
+user4 = User.create!(username: 'Diana', email: 'diana1@chatroom.com', password: 'Diana12!', password_confirmation: 'Diana12!')
 user5 = User.create!(username: 'Evelyn', email: 'evelyn1@chatroom.com', password: 'Evelyn1!', password_confirmation: 'Evelyn1!')
-user6 = User.create!(username: 'Fred', email: 'fred1@chatroom.com', password: 'Fred1!', password_confirmation: 'Fred1!')
+user6 = User.create!(username: 'Freddy', email: 'freddy1@chatroom.com', password: 'Freddy1!', password_confirmation: 'Freddy1!')
 
 chatroom1 = Chatroom.create!(active_status: true)
 user1.chatrooms << chatroom1
