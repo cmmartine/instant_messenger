@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import ChatroomMessages from "../components/ChatroomMessages";
-import { CurrentChatroomContext } from "../components/Main";
+import { CurrentChatroomContext, CurrentUserContext } from "../components/Main";
 import * as messageUtil from "../util/messageUtil";
 
 require('jest-fetch-mock').enableMocks();
@@ -24,12 +24,18 @@ describe("ChatroomMessages", () => {
 
   let fakeChatroom = { info: { id: 1, active_status: true } };
   let fakeChatroomId  = { id: 1 };
+  let currentUser = {
+    username: 'Alfred',
+    id: 1
+  };
 
   function renderMessageList() {
     return render(
-      <CurrentChatroomContext.Provider value={fakeChatroom}>
-        <ChatroomMessages/>
-      </CurrentChatroomContext.Provider>
+      <CurrentUserContext.Provider value={currentUser}>
+        <CurrentChatroomContext.Provider value={fakeChatroom}>
+          <ChatroomMessages/>
+        </CurrentChatroomContext.Provider>
+      </CurrentUserContext.Provider>
     );
   };
 
