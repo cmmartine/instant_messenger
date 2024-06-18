@@ -62,8 +62,8 @@ export default function ChatroomMessages(props) {
     );
   } else {
     return (
-      <div>
-        Start Chatting!
+      <div className='messages-container'>
+        <ul className='message-list'><li className='message'>Start Chatting!</li></ul>
       </div>
     );
   }
