@@ -27,3 +27,9 @@
   border-right: 2px solid black;
   border-bottom: 2px solid black;
 }
+
+.navbar-username {
+  max-width: calc(100% - 70px - 25px);
+  overflow-x: scroll;
+  margin-right: 25px;
+}

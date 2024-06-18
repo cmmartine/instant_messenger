@@ -7,7 +7,7 @@ export default function NavBar() {
 
   return(
     <div className='navbar-container'>
-      <h2>{currentUser.username}</h2>
+      <h2 className='navbar-username'>{currentUser.username}</h2>
       <button className='navbar-btn' type='submit' onClick={() => {
         logout()
         }}>Log Out</button>

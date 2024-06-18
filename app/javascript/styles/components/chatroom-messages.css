@@ -11,7 +11,6 @@
   background: white;
   max-height: 100%;
   max-width: 100%;
-  min-width: 100%;
   border-left: 2px solid black;
   border-top: 2px solid black;
   border-right: 2px solid rgb(228, 228, 228);
@@ -28,6 +27,7 @@
 
 .message {
   display: flex;
+  max-width: 100%;
   overflow-wrap: break-word;
   hyphens: auto;
   white-space: pre-wrap;
@@ -37,16 +37,22 @@
 }
 
 .message-body {
-  max-width: 100%;
+  max-width: 80%;
   overflow-wrap: break-word;
-  hyphens: auto;
-  white-space: pre-wrap;
 }
 
 .current-user-message {
+  max-width: 20%;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  white-space: pre-wrap;
   color: blue;
 }
 
 .other-user-message {
+  max-width: 20%;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  white-space: pre-wrap;
   color: red;
 }
