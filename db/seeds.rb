@@ -13,6 +13,7 @@ user3 = User.create!(username: 'Cleetus', email: 'cleetus1@chatroom.com', passwo
 user4 = User.create!(username: 'Diana', email: 'diana1@chatroom.com', password: 'Diana12!', password_confirmation: 'Diana12!')
 user5 = User.create!(username: 'Evelyn', email: 'evelyn1@chatroom.com', password: 'Evelyn1!', password_confirmation: 'Evelyn1!')
 user6 = User.create!(username: 'Freddy', email: 'freddy1@chatroom.com', password: 'Freddy1!', password_confirmation: 'Freddy1!')
+user7 = User.create!(username: 'LongestUsername12345', email: 'longestusername@chatroom.com', password: 'Longestusername1!', password_confirmation: 'Longestusername1!')
 
 chatroom1 = Chatroom.create!(active_status: true)
 user1.chatrooms << chatroom1

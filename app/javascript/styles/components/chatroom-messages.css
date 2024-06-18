@@ -25,3 +25,28 @@
   white-space: pre-wrap;
   flex-direction: column-reverse;
 }
+
+.message {
+  display: flex;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  white-space: pre-wrap;
+  max-width: 100%;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.message-body {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  white-space: pre-wrap;
+}
+
+.current-user-message {
+  color: blue;
+}
+
+.other-user-message {
+  color: red;
+}

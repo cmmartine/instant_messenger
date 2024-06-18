@@ -17,7 +17,7 @@ export default function Chatroom(props) {
         <div>{chattingWithUser.username}</div>
         <button className='chatroom-exit-btn' onClick={exitChatroom}>X</button>
       </div>
-      <ChatroomMessages/>
+      <ChatroomMessages chattingWithUser={chattingWithUser}/>
       <MessageBox chattingWithUser={chattingWithUser}/>
     </div>
   );

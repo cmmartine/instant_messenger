@@ -3,7 +3,8 @@ import { useContext, useEffect, useState } from "react";
 import { CurrentChatroomContext, CurrentUserContext } from "./Main";
 import { getMessages } from "../util/messageUtil";
 
-export default function ChatroomMessages() {
+export default function ChatroomMessages(props) {
+  const { chattingWithUser } = props;
   const currentChatroom = useContext(CurrentChatroomContext);
   const currentUser = useContext(CurrentUserContext);
   const [allMessages, setAllMessages] = useState([]);
@@ -24,17 +25,24 @@ export default function ChatroomMessages() {
   const createMessageList = () => {
     // Reverse array so .message-list flex-direction: column-reverse keeps time order top to bottom
     const messageList = allMessages.reverse().map((message) => {
-      const user = whichUserIsMessageFrom(message);
-      return <li key={message.id} className={user}>{message.body}</li>
+      return selectMessageType(message);
     });
 
     return <ul className='message-list'>{messageList}</ul>
   };
 
-  const whichUserIsMessageFrom = (message) => {
-    console.log(message)
-    console.log(currentUser)
-    return message.user_id == currentUser.id ? 'current-user-message' : 'other-user-message';
+  const selectMessageType = (message) => {
+    if(message.user_id == currentUser.id) {
+      return <li key={message.id} className='message'>
+        <div className='current-user-message'>{currentUser.username}: </div>
+        <div className='message-body'>{message.body}</div>
+      </li>
+    } else {
+      return <li key={message.id} className='message'>
+        <div className='other-user-message'>{chattingWithUser.username}: </div>
+        <div className='message-body'>{message.body}</div>
+      </li>
+    };
   };
 
   const getChatroomMessages = () => {

@@ -24,16 +24,21 @@ describe("ChatroomMessages", () => {
 
   let fakeChatroom = { info: { id: 1, active_status: true } };
   let fakeChatroomId  = { id: 1 };
+
   let currentUser = {
     username: 'Alfred',
     id: 1
+  };
+
+  let chattingWithUser = {
+    username: "fakeuser"
   };
 
   function renderMessageList() {
     return render(
       <CurrentUserContext.Provider value={currentUser}>
         <CurrentChatroomContext.Provider value={fakeChatroom}>
-          <ChatroomMessages/>
+          <ChatroomMessages chattingWithUser={chattingWithUser}/>
         </CurrentChatroomContext.Provider>
       </CurrentUserContext.Provider>
     );
