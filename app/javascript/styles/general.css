@@ -4,6 +4,7 @@
 @import './components/userlist.css';
 @import './components//chatroom-messages.css';
 @import './components/messagebox.css';
+@import './devise-forms.css';
 
  body {
   margin: 0;
