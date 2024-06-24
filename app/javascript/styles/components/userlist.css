@@ -4,7 +4,7 @@
   grid-column: 1 / 2;
   grid-row: 2 / 3;
   background: rgb(207, 207, 207);
-  height: 70%;
+  height: 70vh;
   width: 80%;
   border-left: 2px solid rgb(228, 228, 228);
   border-right: 2px solid black;
