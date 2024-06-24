@@ -8,6 +8,16 @@ class MessagesController < ApplicationController
     end
   end
 
+  def create_ai_chatroom_messages
+    message = Message.create!(body: message_params[:body], user_id: current_user.id, chatroom_id: message_params[:chatroom_id])
+    if message.valid?
+      ChatroomChannel.broadcast_to(Chatroom.find(message_params[:chatroom_id]), message.body)
+      chatbot_response = SendAiMessageJob.perform_now(message)
+      Message.create!(body: chatbot_response, user_id: User.chatbot_id, chatroom_id: message_params[:chatroom_id])
+      ChatroomChannel.broadcast_to(Chatroom.find(message_params[:chatroom_id]), chatbot_response)
+    end
+  end
+
   def most_recent_message_read_status
     chatroom = Chatroom.find(message_params[:chatroom_id])
     message_read_status = chatroom.most_recent_non_current_user_message_status(current_user.id)

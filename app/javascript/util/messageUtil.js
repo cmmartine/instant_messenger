@@ -37,6 +37,23 @@ export const postMessage = (message, currentChatroom) => {
   );
 };
 
+export const postAIChatroomMessages = (message, currentChatroom) => {
+  let csrf = getCsrfToken();
+  fetch('messages/create_ai_chatroom_messages', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+      'X-CSRF-Token': csrf,
+    },
+    body: 
+      JSON.stringify({message: {
+        body: message,
+        chatroom_id: currentChatroom.info.id
+      }})
+    }
+  );
+};
+
 export const checkNewestMessageReadStatus = (chatroom_id) => {
   let csrf = getCsrfToken();
   return fetch('messages/most_recent_message_read_status', {

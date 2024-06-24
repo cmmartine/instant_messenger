@@ -12,6 +12,10 @@ class User < ApplicationRecord
   has_many :messages
   has_and_belongs_to_many :chatrooms
 
+  def self.chatbot_id
+    find_by(username: 'Chatbot').id
+  end
+
   private
 
   def password_complexity
