@@ -15,4 +15,12 @@ RSpec.describe User, type: :model do
     it { should_not allow_value('Password1').for(:password) }
   end
 
+  describe 'self.chatbot_id' do
+    it 'returns the correct id for username of Chatbot' do
+      ai_chatbot = User.new(username: 'Chatbot', id: 2)
+      ai_chatbot.save(validate: false)
+      return_id = User.chatbot_id
+      expect(return_id).to be(2)
+    end
+  end
 end
