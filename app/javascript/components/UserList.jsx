@@ -21,7 +21,7 @@ export default function UserList(props) {
   const makeUserList = () => {
     const userList = allUsers.map((user) => {
       if (currentUser.id !== user.id)
-        return <div key={user.id}>
+        return <div key={user.id} className='userlist-components'>
           <OpenChatroomButton userInfo={user} changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser}/>
           <UserMessageNotification userInfo={user}/>
         </div>

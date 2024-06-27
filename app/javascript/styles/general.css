@@ -4,6 +4,7 @@
 @import './components/userlist.css';
 @import './components//chatroom-messages.css';
 @import './components/messagebox.css';
+@import './components/user-message-notification.css';
 @import './devise-forms.css';
 
  body {

@@ -87,7 +87,7 @@ export default function Main() {
   } else {
     return (
       <div>
-        Please refresh the page
+        Loading...
       </div>
     );
   }

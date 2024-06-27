@@ -70,17 +70,17 @@ export default function UserMessageNotification(props) {
 
  if (userIsTyping) {
     return(
-      <div>...</div>
+      <div className='loader'></div>
     )
   } else if (unreadMessage && !isChatroomCurrentlyOpen()) {
     return(
-      <div>
+      <div className='new-message'>
         New Message!
       </div>
     )
   } else if (!unreadMessage && isChatroomCurrentlyOpen()) {
     return(
-      <div style={{display: 'none'}}>
+      <div style={{display: 'none'}} className='new-message'>
         New Message!
       </div>
     )
