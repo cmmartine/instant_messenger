@@ -24,6 +24,14 @@ class ChatroomsController < ApplicationController
     end
   end
 
+  def user_is_typing
+    ChatroomChannel.broadcast_to(Chatroom.find(chatroom_params[:chatroom_id]), { user_is_typing: { status: true, current_user_id: current_user.id } })
+  end
+
+  def user_is_not_typing
+    ChatroomChannel.broadcast_to(Chatroom.find(chatroom_params[:chatroom_id]), { user_is_typing: { status: false, current_user_id: current_user.id } })
+  end
+
   private
 
   def chatroom_params

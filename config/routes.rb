@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   post 'messages/update_chatroom_messages_read_status'
   post 'chatrooms/find_or_create'
   post 'chatrooms/messages'
+  post 'chatrooms/user_is_typing'
+  post 'chatrooms/user_is_not_typing'
   mount ActionCable.server => '/cable'
   get 'users/index'
   get 'users/current_user_info'

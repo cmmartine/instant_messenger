@@ -4,17 +4,17 @@ class MessagesController < ApplicationController
   def create
     message = Message.create!(body: message_params[:body], user_id: current_user.id, chatroom_id: message_params[:chatroom_id])
     if message.valid?
-      ChatroomChannel.broadcast_to(Chatroom.find(message_params[:chatroom_id]), message.body)
+      ChatroomChannel.broadcast_to(Chatroom.find(message_params[:chatroom_id]), { finished_message: message.body })
     end
   end
 
   def create_ai_chatroom_messages
     message = Message.create!(body: message_params[:body], user_id: current_user.id, chatroom_id: message_params[:chatroom_id])
     if message.valid?
-      ChatroomChannel.broadcast_to(Chatroom.find(message_params[:chatroom_id]), message.body)
+      ChatroomChannel.broadcast_to(Chatroom.find(message_params[:chatroom_id]), { finished_message: message.body })
       chatbot_response = SendAiMessageJob.perform_now(message)
       Message.create!(body: chatbot_response, user_id: User.chatbot_id, chatroom_id: message_params[:chatroom_id])
-      ChatroomChannel.broadcast_to(Chatroom.find(message_params[:chatroom_id]), chatbot_response)
+      ChatroomChannel.broadcast_to(Chatroom.find(message_params[:chatroom_id]), { finished_message: chatbot_response })
     end
   end
 
