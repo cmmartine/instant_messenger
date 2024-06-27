@@ -9,18 +9,18 @@ Run the following in your terminal:
 
 `CMAKE_ARGS="-DLLAMA_BLAS=ON -DLLAMA_BLAS_VENDOR=OpenBLAS" pip install llama-cpp-python`
 
-`Then run the following commands on any system:
-   git clone https://github.com/h2oai/h2ogpt.git
-   cd h2ogpt
-   pip install -r requirements.txt
-   pip install -r reqs_optional/requirements_optional_langchain.txt
+   #### Then run the following commands on any system:
+   `git clone https://github.com/h2oai/h2ogpt.git`
+   `cd h2ogpt`
+   `pip install -r requirements.txt`
+   `pip install -r reqs_optional/requirements_optional_langchain.txt`
 
-   pip uninstall llama_cpp_python llama_cpp_python_cuda -y
-   pip install -r reqs_optional/requirements_optional_llamacpp_gpt4all.txt --no-cache-dir
+   `pip uninstall llama_cpp_python llama_cpp_python_cuda -y`
+   `pip install -r reqs_optional/requirements_optional_llamacpp_gpt4all.txt --no-cache-dir`
 
-   pip install -r reqs_optional/requirements_optional_langchain.urls.txt
-   # GPL, only run next line if that is ok:
-   pip install -r reqs_optional/requirements_optional_langchain.gpllike.txt
+   `pip install -r reqs_optional/requirements_optional_langchain.urls.txt`
+   #### GPL, only run next line if that is ok:
+   `pip install -r reqs_optional/requirements_optional_langchain.gpllike.txt`
 
-   # choose up to 32768 if have enough GPU memory:
-   python3 generate.py --base_model=TheBloke/Mistral-7B-Instruct-v0.2-GGUF --prompt_type=mistral --max_seq_len=4096`
+   #### choose up to 32768 if have enough GPU memory:
+   `python3 generate.py --base_model=TheBloke/Mistral-7B-Instruct-v0.2-GGUF --prompt_type=mistral --max_seq_len=4096`
