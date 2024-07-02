@@ -1,5 +1,13 @@
 # README
 
+## First time set up
+Run the following:
+`docker compose build`
+`docker compose run --rm rails bin/rails db:create`
+`docker compose run --rm rails bin/rails db:migrate`
+`docker compose run --rm rails bin/rails db:seed`
+Then `docker compose up` can be used when starting the application
+
 ## H2OAI Setup - to enable the chatbot
 See the following link if you encounter any trouble while following the below steps https://github.com/h2oai/h2ogpt#get-started
 

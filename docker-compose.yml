@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5555:5432
+    networks:
+      - messenger
+
+  rails:
+    build: ./
+    command: /usr/bin/supervisord
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/instant-messenger
+    depends_on:
+      - postgres
+    networks:
+      - messenger
+    env_file:
+      - './docker-bin/env.sh'
+
+volumes:
+  postgres:
+
+networks:
+  messenger:
