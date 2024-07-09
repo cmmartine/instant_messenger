@@ -15,6 +15,7 @@ services:
     command: /usr/bin/supervisord
     ports:
       - 3000:3000
+      - 7860:7860
     volumes:
       - .:/instant-messenger
     depends_on:
