@@ -17,6 +17,13 @@
   min-height: 100vh;
   background: rgb(236, 236, 236);
   background: url(./images/meadow-wallpaper.jpg);
+  background-size: cover;
+}
+
+.body-dark {
+  background: rgb(14, 7, 78);
+  background: url(./images/bliss-at-night-meadow.png);
+  background-size: cover;
 }
 
 code {

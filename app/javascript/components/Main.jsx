@@ -4,11 +4,13 @@ import NavBar from "./NavBar";
 import UserList from "./UserList";
 import Chatroom from "./Chatroom";
 import { getCurrentUserInfo } from "../util/userUtil";
+import { THEMES } from "../constants/themes";
 
 export const CurrentUserContext = createContext();
 export const ChatroomContext = createContext();
 export const CurrentChatroomContext = createContext();
 export const CableContext = createContext();
+export const LightDarkContext = createContext();
 
 const actionCableUrl = process.env.NODE_ENV === 'production' ? 'wss://<your-deployed-app-domain>.com/cable' : 'ws://localhost:3000/cable'
 
@@ -17,6 +19,7 @@ export default function Main() {
   const [chattingWithUser, setChattingWithUser] = useState();
   const [chatrooms, setChatrooms] = useState([]);
   const [currentChatroom, setCurrentChatroom] = useState();
+  const [lightOrDark, setLightOrDark] = useState(THEMES.light);
 
   useEffect(() => {
       applyCurrentUserInfo();
@@ -53,17 +56,30 @@ export default function Main() {
     });
   };
 
+  function changeLightDarkTheme() {
+    const body = document.body;
+    if (lightOrDark == THEMES.light) {
+      setLightOrDark(THEMES.dark)
+      body.classList.add('body-dark');
+    } else {
+      setLightOrDark(THEMES.light);
+      body.classList.remove('body-dark');
+    }
+  };
+
   if (currentUserInfo && chattingWithUser && currentChatroom) {
     return (
       <CableContext.Provider value={actionCableUrl}>
         <CurrentUserContext.Provider value={currentUserInfo}>
           <ChatroomContext.Provider value={chatrooms}>
             <CurrentChatroomContext.Provider value={currentChatroom}>
-              <div className='components-wrapper'>
-                <NavBar/>
-                <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser}/>
-                <Chatroom chattingWithUser={chattingWithUser} changeCurrentChatroom={changeCurrentChatroom}/>
-              </div>
+              <LightDarkContext.Provider value={lightOrDark}>
+                <div className='components-wrapper'>
+                  <NavBar/>
+                  <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeLightDarkTheme={changeLightDarkTheme}/>
+                  <Chatroom chattingWithUser={chattingWithUser} changeCurrentChatroom={changeCurrentChatroom}/>
+                </div>
+              </LightDarkContext.Provider>
             </CurrentChatroomContext.Provider>
           </ChatroomContext.Provider>
         </CurrentUserContext.Provider>
@@ -75,10 +91,12 @@ export default function Main() {
         <CurrentUserContext.Provider value={currentUserInfo}>
           <ChatroomContext.Provider value={chatrooms}>
             <CurrentChatroomContext.Provider value={currentChatroom}>
-            <div className='components-wrapper'>
-                <NavBar/>
-                <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser}/>
-            </div>
+              <LightDarkContext.Provider value={lightOrDark}>
+                <div className='components-wrapper'>
+                    <NavBar/>
+                    <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeLightDarkTheme={changeLightDarkTheme}/>
+                </div>
+              </LightDarkContext.Provider>
             </CurrentChatroomContext.Provider>
           </ChatroomContext.Provider>
         </CurrentUserContext.Provider>

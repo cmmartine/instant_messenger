@@ -3,13 +3,14 @@ import { useState, useEffect, useContext } from "react";
 import { CurrentUserContext } from "./Main";
 import OpenChatroomButton from "./OpenChatroomButton";
 import UserMessageNotification from "./UserMessageNotification";
+import LightDarkModeBtn from "./LightDarkModeBtn";
 import { getUsers } from "../util/userUtil";
 
 export default function UserList(props) {
   const [allUsers, setAllUsers] = useState([]);
   const [usersFetched, setUsersFetched] = useState(false);
   const currentUser = useContext(CurrentUserContext);
-  const { changeChattingWithUser, refetchCurrentUser } = props;
+  const { changeChattingWithUser, refetchCurrentUser, changeLightDarkTheme } = props;
 
   useEffect(() => {
     if (!usersFetched) {
@@ -44,6 +45,7 @@ export default function UserList(props) {
       <div className='userlist-sidebar'>
         <h3 className='buddies-tab'>Buddies</h3>
         {makeUserList()}
+        <LightDarkModeBtn changeLightDarkTheme={changeLightDarkTheme}/>
       </div>
     )
   } else {
