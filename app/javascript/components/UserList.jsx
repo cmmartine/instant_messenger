@@ -5,11 +5,14 @@ import OpenChatroomButton from "./OpenChatroomButton";
 import UserMessageNotification from "./UserMessageNotification";
 import LightDarkModeBtn from "./LightDarkModeBtn";
 import { getUsers } from "../util/userUtil";
+import { LightDarkContext } from "./Main";
+import { THEMES } from "../constants/themes";
 
 export default function UserList(props) {
   const [allUsers, setAllUsers] = useState([]);
   const [usersFetched, setUsersFetched] = useState(false);
   const currentUser = useContext(CurrentUserContext);
+  const lightDarkTheme = useContext(LightDarkContext);
   const { changeChattingWithUser, refetchCurrentUser, changeLightDarkTheme } = props;
 
   useEffect(() => {
@@ -20,6 +23,7 @@ export default function UserList(props) {
   });
 
   const makeUserList = () => {
+    const userListCss = lightDarkTheme == THEMES.light ? 'userlist' : 'userlist userlist-dark';
     const userList = allUsers.map((user) => {
       if (currentUser.id !== user.id)
         return <div key={user.id} className='userlist-components'>
@@ -27,7 +31,7 @@ export default function UserList(props) {
           <UserMessageNotification userInfo={user}/>
         </div>
   })
-    return <ul className='userlist'>{userList}</ul>
+    return <ul className={userListCss}>{userList}</ul>
   };
 
   const getUsersForList = () => {
@@ -40,19 +44,37 @@ export default function UserList(props) {
     });
   };
 
-  if (allUsers != []) {
-    return(
-      <div className='userlist-sidebar'>
-        <h3 className='buddies-tab'>Buddies</h3>
-        {makeUserList()}
-        <LightDarkModeBtn changeLightDarkTheme={changeLightDarkTheme}/>
-      </div>
-    )
-  } else {
-    return(
-      <div>
-        Loading...
-      </div>
-    )
-  };
+  if (lightDarkTheme == THEMES.light) {
+    if (allUsers != []) {
+      return(
+        <div className='userlist-sidebar'>
+          <h3 className='buddies-tab'>Buddies</h3>
+          {makeUserList()}
+          <LightDarkModeBtn changeLightDarkTheme={changeLightDarkTheme}/>
+        </div>
+      )
+    } else {
+      return(
+        <div>
+          Loading...
+        </div>
+      )
+    };
+  } else if (lightDarkTheme == THEMES.dark) {
+    if (allUsers != []) {
+      return(
+        <div className='userlist-sidebar userlist-sidebar-dark'>
+          <h3 className='buddies-tab buddies-tab-dark'>Buddies</h3>
+          {makeUserList()}
+          <LightDarkModeBtn changeLightDarkTheme={changeLightDarkTheme}/>
+        </div>
+      )
+    } else {
+      return(
+        <div>
+          Loading...
+        </div>
+      )
+    };
+  }
 }
