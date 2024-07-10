@@ -2,11 +2,14 @@ import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { CurrentChatroomContext, CurrentUserContext } from "./Main";
 import { getMessages } from "../util/messageUtil";
+import { LightDarkContext } from "./Main";
+import { THEMES } from "../constants/themes";
 
 export default function ChatroomMessages(props) {
   const { chattingWithUser } = props;
   const currentChatroom = useContext(CurrentChatroomContext);
   const currentUser = useContext(CurrentUserContext);
+  const lightDarkTheme = useContext(LightDarkContext);
   const [allMessages, setAllMessages] = useState([]);
   const [messagesChatroom, setMessagesChatroom] = useState({id: null});
   
@@ -23,12 +26,13 @@ export default function ChatroomMessages(props) {
   }, [currentChatroom]);
 
   const createMessageList = () => {
+    const messageListCss = lightDarkTheme == THEMES.light ? 'message-list' : 'message-list message-list-dark';
     // Reverse array so .message-list flex-direction: column-reverse keeps time order top to bottom
     const messageList = allMessages.reverse().map((message) => {
       return selectMessageType(message);
     });
 
-    return <ul className='message-list'>{messageList}</ul>
+    return <ul className={messageListCss}>{messageList}</ul>
   };
 
   const selectMessageType = (message) => {
@@ -54,18 +58,34 @@ export default function ChatroomMessages(props) {
     });
   };
 
-  if (allMessages.length && (currentChatroom.info.id == messagesChatroom.id)) {
-    return (
-      <div className='messages-container'>
-        {createMessageList()}
-      </div>
-    );
-  } else {
-    return (
-      <div className='messages-container'>
-        <ul className='message-list'><li className='message'>Start Chatting!</li></ul>
-      </div>
-    );
+  if (lightDarkTheme == THEMES.light) {
+    if (allMessages.length && (currentChatroom.info.id == messagesChatroom.id)) {
+      return (
+        <div className='messages-container'>
+          {createMessageList()}
+        </div>
+      );
+    } else {
+      return (
+        <div className='messages-container'>
+          <ul className='message-list'><li className='message'>Start Chatting!</li></ul>
+        </div>
+      );
+    }
+  } else if (lightDarkTheme == THEMES.dark) {
+      if (allMessages.length && (currentChatroom.info.id == messagesChatroom.id)) {
+        return (
+          <div className='messages-container'>
+            {createMessageList()}
+          </div>
+        );
+      } else {
+        return (
+          <div className='messages-container messages-container-dark'>
+            <ul className='message-list message-list-dark'><li className='message'>Start Chatting!</li></ul>
+          </div>
+        );
+      }
   }
     
 }

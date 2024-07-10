@@ -42,7 +42,7 @@
 
 .chatroom-container-dark {
   background: rgb(54, 54, 54);
-  border-left: 2px solid rgb(80, 80, 80);
+  border-left: 2px solid black;
   border-right: 2px solid rgb(80, 80, 80);
   border-bottom: 2px solid rgb(80, 80, 80);
 }
@@ -51,7 +51,7 @@
   background: rgb(4,0,139);
   background: linear-gradient(90deg, rgba(4,0,139,1) 0%, rgba(106,147,212,1) 100%);
   color: white;
-  border-top: 2px solid rgb(80, 80, 80);
+  border-top: 2px solid black;
 }
 
 .chatroom-exit-btn-dark {

@@ -57,3 +57,11 @@
   white-space: pre-wrap;
   color: red;
 }
+
+.message-list-dark {
+  background: rgb(160, 160, 160);
+  border-left: 2px solid black;
+  border-top: 2px solid black;
+  border-right: 2px solid rgb(106, 106, 106);
+  border-bottom: 2px solid rgb(106, 106, 106);
+}
