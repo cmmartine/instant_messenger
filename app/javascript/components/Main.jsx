@@ -3,7 +3,7 @@ import ChatroomChannel from "../channels/chatroom_channel";
 import NavBar from "./NavBar";
 import UserList from "./UserList";
 import Chatroom from "./Chatroom";
-import { getCurrentUserInfo } from "../util/userUtil";
+import { getCurrentUserInfo, currentTheme } from "../util/userUtil";
 import { THEMES } from "../constants/themes";
 
 export const CurrentUserContext = createContext();
@@ -23,6 +23,7 @@ export default function Main() {
 
   useEffect(() => {
       applyCurrentUserInfo();
+      checkCurrentTheme();
   }, []);
 
   function openChatroomConnections(chatrooms, newCurrentChatroom) {
@@ -53,6 +54,14 @@ export default function Main() {
       let currentUserData = { ...data };
       setCurrentUserInfo(currentUserData);
       openChatroomConnections(currentUserData.chatrooms, newCurrentChatroom);
+    });
+  };
+
+  function checkCurrentTheme() {
+    currentTheme().then((data) => {
+      setLightOrDark(data.theme);
+      const body = document.body;
+      body.classList.add('body-' + `${data.theme}`);
     });
   };
 

@@ -16,6 +16,18 @@ export const getUsers = () => {
   });
 };
 
+export const setTheme = () => {
+  fetch('/users/set_theme')
+};
+
+export const currentTheme = () => {
+  return fetch('/users/current_theme')
+  .then((res) => res.json())
+  .then((data) => {
+    return data;
+  });
+};
+
 export const logout = () => {
   let csrf = getCsrfToken();
   fetch('/users/sign_out', {

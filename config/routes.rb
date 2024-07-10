@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get 'users/index'
   get 'users/current_user_info'
   get 'users/current_users_chatrooms'
+  get 'users/set_theme'
+  get 'users/current_theme'
   devise_for :users
   root 'main#index'
   get '/*path' => 'main#index'

@@ -14,4 +14,12 @@ class UsersController < ApplicationController
     }
     render json: @current_user_info
   end
+
+  def set_theme
+    current_user.theme == 'light' ? User.update(current_user.id, theme: 'dark') : User.update(current_user.id, theme: 'light')
+  end
+
+  def current_theme
+    render json: { theme: current_user.theme }
+  end
 end

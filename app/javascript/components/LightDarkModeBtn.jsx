@@ -1,6 +1,7 @@
 import React from "react";
 import { useContext } from "react";
 import { LightDarkContext } from "./Main";
+import { setTheme } from "../util/userUtil";
 import { THEMES } from "../constants/themes";
 
 export default function LightDarkModeBtn(props) {
@@ -11,6 +12,7 @@ export default function LightDarkModeBtn(props) {
     return(
       <div className='theme-btn change-to-dark-btn' onClick={(e) => {
         e.preventDefault();
+        setTheme();
         changeLightDarkTheme();
       }}>🔅</div>
     )
@@ -18,6 +20,7 @@ export default function LightDarkModeBtn(props) {
     return(
       <div className='theme-btn change-to-light-btn' onClick={(e) => {
         e.preventDefault();
+        setTheme();
         changeLightDarkTheme();
       }}>🌙</div>
     )
