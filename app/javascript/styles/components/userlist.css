@@ -51,9 +51,9 @@
 
 .userlist-sidebar-dark {
   background: rgb(54, 54, 54);
-  border-left: 2px solid black;
-  border-right: 2px solid rgb(80, 80, 80);
-  border-bottom: 2px solid rgb(80, 80, 80);
+  border-left: 2px solid rgb(80, 80, 80);
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
 }
 
 .buddies-tab-dark {
