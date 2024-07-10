@@ -9,17 +9,17 @@ export default function LightDarkModeBtn(props) {
 
   if (lightDarkTheme == THEMES.light) {
     return(
-      <div className='change-to-dark-btn' onClick={(e) => {
+      <div className='theme-btn change-to-dark-btn' onClick={(e) => {
         e.preventDefault();
         changeLightDarkTheme();
-      }}>Sun</div>
+      }}>🔅</div>
     )
   } else if (lightDarkTheme == THEMES.dark) {
     return(
-      <div className='change-to-light-btn' onClick={(e) => {
+      <div className='theme-btn change-to-light-btn' onClick={(e) => {
         e.preventDefault();
         changeLightDarkTheme();
-      }}>Moon</div>
+      }}>🌙</div>
     )
   }
 };

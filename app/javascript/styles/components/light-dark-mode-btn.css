@@ -1,0 +1,24 @@
+.theme-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-end;
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+  border: 1px;
+}
+
+.theme-btn:hover {
+  background: rgb(128, 128, 128);
+  border-radius: 20px;
+}
+
+.change-to-dark-btn {
+  font-size: xxx-large;
+}
+
+.change-to-light-btn {
+  font-size: xx-large;
+  color: white;
+}
