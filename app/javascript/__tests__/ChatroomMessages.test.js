@@ -3,6 +3,8 @@ import "@testing-library/jest-dom";
 import ChatroomMessages from "../components/ChatroomMessages";
 import { CurrentChatroomContext, CurrentUserContext } from "../components/Main";
 import * as messageUtil from "../util/messageUtil";
+import { LightDarkContext } from "../components/Main";
+import { THEMES } from "../constants/themes";
 
 require('jest-fetch-mock').enableMocks();
 
@@ -38,7 +40,9 @@ describe("ChatroomMessages", () => {
     return render(
       <CurrentUserContext.Provider value={currentUser}>
         <CurrentChatroomContext.Provider value={fakeChatroom}>
-          <ChatroomMessages chattingWithUser={chattingWithUser}/>
+          <LightDarkContext.Provider value={THEMES.light}>
+            <ChatroomMessages chattingWithUser={chattingWithUser}/>
+          </LightDarkContext.Provider>
         </CurrentChatroomContext.Provider>
       </CurrentUserContext.Provider>
     );

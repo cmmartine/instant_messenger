@@ -14,7 +14,7 @@ export default function LightDarkModeBtn(props) {
         e.preventDefault();
         setTheme();
         changeLightDarkTheme();
-      }}>🔅</div>
+      }}>{THEMES.lightIcon}</div>
     )
   } else if (lightDarkTheme == THEMES.dark) {
     return(
@@ -22,7 +22,7 @@ export default function LightDarkModeBtn(props) {
         e.preventDefault();
         setTheme();
         changeLightDarkTheme();
-      }}>🌙</div>
+      }}>{THEMES.darkIcon}</div>
     )
   }
 };

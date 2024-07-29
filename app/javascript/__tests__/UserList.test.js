@@ -3,6 +3,8 @@ import "@testing-library/jest-dom";
 import UserList from "../components/UserList";
 import { CurrentUserContext, ChatroomContext } from "../components/Main";
 import * as userUtil from "../util/userUtil";
+import { LightDarkContext } from "../components/Main";
+import { THEMES } from "../constants/themes";
 
 require('jest-fetch-mock').enableMocks();
 
@@ -30,7 +32,9 @@ describe("UserList", () => {
       return render(
         <CurrentUserContext.Provider value={currentUser}>
           <ChatroomContext.Provider value={chatrooms}>
-            <UserList/>
+            <LightDarkContext.Provider value={THEMES.light}>
+              <UserList/>
+            </LightDarkContext.Provider>
           </ChatroomContext.Provider>
         </CurrentUserContext.Provider>
     );

@@ -2,6 +2,8 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Chatroom from "../components/Chatroom";
 import userEvent from "@testing-library/user-event";
+import { LightDarkContext } from "../components/Main";
+import { THEMES } from "../constants/themes";
 
 jest.mock("../components/ChatroomMessages", () => () => {
   const MockChatroomMessages = "ChatroomMessages";
@@ -23,7 +25,9 @@ describe("Chatroom", () => {
 
   function renderChatroom() {
     return render(
-      <Chatroom chattingWithUser={chattingWithUser} changeCurrentChatroom={changeCurrentChatroom}/>
+      <LightDarkContext.Provider value={THEMES.light}>
+        <Chatroom chattingWithUser={chattingWithUser} changeCurrentChatroom={changeCurrentChatroom}/>
+      </LightDarkContext.Provider>
     );
   };
 

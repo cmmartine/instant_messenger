@@ -5,6 +5,8 @@ import MessageBox from "../components/MessageBox";
 import * as chatroomUtil from "../util/chatroomUtil";
 import * as messageUtil from "../util/messageUtil";
 import { CurrentChatroomContext } from "../components/Main";
+import { LightDarkContext } from "../components/Main";
+import { THEMES } from "../constants/themes";
 
 require('jest-fetch-mock').enableMocks();
 
@@ -40,7 +42,9 @@ describe("MessageBox", () => {
   function renderMessageBox(user) {
     return render( 
       <CurrentChatroomContext.Provider value={fakeCurrentChatroom()}>
-        <MessageBox chattingWithUser={user}/>
+        <LightDarkContext.Provider value={THEMES.light}>
+          <MessageBox chattingWithUser={user}/>
+        </LightDarkContext.Provider>
       </CurrentChatroomContext.Provider>
     )
   };
