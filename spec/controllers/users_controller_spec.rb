@@ -25,4 +25,34 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to be_successful
     end
   end
+
+  describe 'GET set_theme' do
+    login_user
+    it 'updates the theme from light (default) to dark' do
+      get :set_theme
+      expect(User.first.theme).to eq('dark')
+    end
+
+    it 'updates the theme from dark to light' do
+      User.update(User.first.id, theme: 'dark')
+      get :set_theme
+      expect(User.first.theme).to eq('light')
+    end
+  end
+
+  describe 'GET current_theme' do
+    login_user
+    it 'returns light when the current users theme is light (default)' do
+      get :current_theme
+      data = JSON.parse(response.body)
+      expect(data['theme']).to eq('light')
+    end
+
+    it 'returns dark when the current users theme is dark' do
+      User.update(User.first.id, theme: 'dark')
+      get :current_theme
+      data = JSON.parse(response.body)
+      expect(data['theme']).to eq('dark')
+    end
+  end
 end

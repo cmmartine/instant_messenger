@@ -17,6 +17,7 @@ class UsersController < ApplicationController
 
   def set_theme
     current_user.theme == 'light' ? User.update(current_user.id, theme: 'dark') : User.update(current_user.id, theme: 'light')
+    head :ok
   end
 
   def current_theme
