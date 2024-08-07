@@ -1,12 +1,8 @@
 # README
 
-## First time set up
-First time set up will take some time because this installs all the h2oai dependencies and the ai model.
+## Set up
+First time set up will take some time because this installs all the h2oai dependencies and the ai model in the docker container.
 
-Run the following:
-`docker compose build`
-`docker compose run --rm rails bin/rails db:create`
-`docker compose run --rm rails bin/rails db:migrate`
-`docker compose run --rm rails bin/rails db:seed`
+Run `make build` for first time setup.
 
-`docker compose up` can now be used when starting the application and previous steps do not need to be run every time.
+`make up` and `make down` are then used to start and stop the containers.
