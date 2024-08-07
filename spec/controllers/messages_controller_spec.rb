@@ -26,15 +26,17 @@ RSpec.describe MessagesController, type: :controller do
       message_params = {
         message: {
           body: 'Test message',
-          user_id: 1,
           chatroom_id: 1
         }
       }
       ai_chatbot = User.new(username: 'Chatbot', id: 2)
       ai_chatbot.save(validate: false)
 
+      message = Message.new(id: 1, body: 'Test message', user_id: 1, chatroom_id: 1)
+      allow(SendAiMessageJob).to receive(:perform_now).with(message).and_return('Finished')
       post :create_ai_chatroom_messages, params: message_params, as: :json
       all_messages = Message.all
+
       expect(all_messages.length).to eq(2)
       expect(Message.first.user_id).to be(1)
       expect(Message.last.user_id).to be(2)
