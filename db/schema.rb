@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_10_174328) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_08_130453) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,6 +36,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_10_174328) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "requests", force: :cascade do |t|
+    t.bigint "sending_user_id", null: false
+    t.bigint "receiving_user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["receiving_user_id"], name: "index_requests_on_receiving_user_id"
+    t.index ["sending_user_id"], name: "index_requests_on_sending_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -52,4 +61,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_10_174328) do
 
   add_foreign_key "messages", "chatrooms"
   add_foreign_key "messages", "users"
+  add_foreign_key "requests", "users", column: "receiving_user_id"
+  add_foreign_key "requests", "users", column: "sending_user_id"
 end
