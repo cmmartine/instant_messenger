@@ -1,6 +1,8 @@
 # frozen-string-literal: true
 
 Rails.application.routes.draw do
+  post 'requests/accept'
+  post 'requests/reject'
   post 'messages/create'
   post 'messages/create_ai_chatroom_messages'
   post 'messages/most_recent_message_read_status'
