@@ -48,7 +48,10 @@ export default function UserList(props) {
     if (allUsers != []) {
       return(
         <div className='userlist-sidebar'>
-          <h3 className='buddies-tab'>Buddies</h3>
+          <div className='userlist-tab-container'>
+            <h4 className='userlist-tab'>Buddies</h4>
+            <h4 className='userlist-tab'>Requests</h4>
+          </div>
           {makeUserList()}
           <LightDarkModeBtn changeLightDarkTheme={changeLightDarkTheme}/>
         </div>
@@ -64,7 +67,10 @@ export default function UserList(props) {
     if (allUsers != []) {
       return(
         <div className='userlist-sidebar userlist-sidebar-dark'>
-          <h3 className='buddies-tab buddies-tab-dark'>Buddies</h3>
+          <div className='userlist-tab-container'>
+            <h4 className='userlist-tab userlist-tab-dark'>Buddies</h4>
+            <h4 className='userlist-tab userlist-tab-dark'>Requests</h4>
+          </div>
           {makeUserList()}
           <LightDarkModeBtn changeLightDarkTheme={changeLightDarkTheme}/>
         </div>
