@@ -27,8 +27,7 @@ export default function ChatroomMessages(props) {
 
   const createMessageList = () => {
     const messageListCss = lightDarkTheme == THEMES.light ? 'message-list' : 'message-list message-list-dark';
-    // Reverse array so .message-list flex-direction: column-reverse keeps time order top to bottom
-    const messageList = allMessages.reverse().map((message) => {
+    const messageList = allMessages.map((message) => {
       return selectMessageType(message);
     });
 
@@ -51,7 +50,8 @@ export default function ChatroomMessages(props) {
 
   const getChatroomMessages = () => {
     getMessages(currentChatroom).then((data) => {
-      const messages = data[0];
+      // Reverse array so .message-list flex-direction: column-reverse keeps time order top to bottom
+      const messages = data[0].reverse();
       const chatroom_id = data[1];
       setAllMessages(messages);
       setMessagesChatroom(chatroom_id);
