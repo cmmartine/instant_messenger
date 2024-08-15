@@ -4,6 +4,7 @@ import { CurrentUserContext } from "./Main";
 import OpenChatroomButton from "./OpenChatroomButton";
 import UserMessageNotification from "./UserMessageNotification";
 import LightDarkModeBtn from "./LightDarkModeBtn";
+import UserSearchBar from "./UserSearchBar";
 import { getUsers } from "../util/userUtil";
 import { LightDarkContext } from "./Main";
 import { THEMES } from "../constants/themes";
@@ -48,6 +49,7 @@ export default function UserList(props) {
     if (allUsers != []) {
       return(
         <div className='userlist-sidebar'>
+          <UserSearchBar />
           <div className='userlist-tab-container'>
             <h4 className='userlist-tab'>Buddies</h4>
             <h4 className='userlist-tab'>Requests</h4>
@@ -67,6 +69,7 @@ export default function UserList(props) {
     if (allUsers != []) {
       return(
         <div className='userlist-sidebar userlist-sidebar-dark'>
+          <UserSearchBar />
           <div className='userlist-tab-container'>
             <h4 className='userlist-tab userlist-tab-dark'>Buddies</h4>
             <h4 className='userlist-tab userlist-tab-dark'>Requests</h4>

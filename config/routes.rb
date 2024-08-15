@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get 'users/current_users_chatrooms'
   get 'users/set_theme'
   get 'users/current_theme'
+  post 'users/search'
   devise_for :users
   root 'main#index'
   get '/*path' => 'main#index'
