@@ -31,17 +31,17 @@ export default function UserList(props) {
           <OpenChatroomButton userInfo={user} changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser}/>
           <UserMessageNotification userInfo={user}/>
         </div>
-  })
+    })
     return <ul className={userListCss}>{userList}</ul>
   };
 
   const getUsersForList = () => {
     getUsers().then((data) => {
       let userArray = [];
-    data.map((user) => {
-      userArray.push(user);
-    });
-    setAllUsers(userArray);
+      data.map((user) => {
+        userArray.push(user);
+      });
+      setAllUsers(userArray);
     });
   };
 
