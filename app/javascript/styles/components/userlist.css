@@ -5,16 +5,18 @@
   grid-row: 2 / 3;
   background: rgb(207, 207, 207);
   height: 70vh;
-  width: calc(80% - 10px);
+  width: calc(80% - 20px);
   border-left: 2px solid rgb(228, 228, 228);
   border-right: 2px solid black;
   border-bottom: 2px solid black;
   padding-left: 10px;
+  padding-right: 10px;
 }
 
 .userlist-tab-container {
   display: flex;
   flex-direction: row;
+  height: fit-content;
 }
 
 .userlist-tab {
@@ -24,6 +26,7 @@
   height: 40px;
   width: fit-content;
   padding: 4px;
+  margin-top: 2px;
   margin-bottom: 0px;
   margin-right: 2px;
   border-radius: 4px 4px 0px 0px;

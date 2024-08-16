@@ -17,11 +17,15 @@ export default function UserSearchResultBox(props) {
     return <ul className={userSearchListCss}>{userSearchList}</ul>
   };
 
-  if (foundUsers != []) {
+  if (foundUsers.length > 0) {
     return(
-      <div>
+      <div className='user-search-list-container'>
         {makeUserSearchList()}
       </div>
+    )
+  } else {
+    return(
+      <div className='user-search-list-container'></div>
     )
   }
 };

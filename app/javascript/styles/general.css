@@ -5,6 +5,8 @@
 @import './components//chatroom-messages.css';
 @import './components/messagebox.css';
 @import './components/user-message-notification.css';
+@import './components//user-searchbar.css';
+@import './components//user-search-result-box.css';
 @import './components//light-dark-mode-btn.css';
 @import './devise-forms.css';
 

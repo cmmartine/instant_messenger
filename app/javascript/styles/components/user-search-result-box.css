@@ -1,0 +1,23 @@
+.user-search-list-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  height: 35px;
+  margin-top: 3px;
+}
+
+.user-search-list {
+  width: calc(100% -4px);
+  background: white;
+  margin-top: 0px;
+  padding: 2px;
+}
+
+.user-search-list-dark {
+  background: rgb(160, 160, 160);
+}
+
+.user-search-list-component {
+  max-width: 100%;
+}

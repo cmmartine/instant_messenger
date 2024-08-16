@@ -18,36 +18,36 @@ export default function UserSearchBar() {
 
   if (lightDarkTheme == THEMES.light) {
     return(
-      <div>
+      <div className='user-search-container'>
         <form className='user-searchbar' onSubmit={(e) => {
           e.preventDefault();
           if(searchValue !== '') {
             searchAllUsers(searchValue);
           };
         }}>
-          <input type='search' onChange={(e) => {
+          <input type='search' className='search-input' onChange={(e) => {
             e.preventDefault();
             setSearchValue(e.target.value);
           }}/>
-          <button type="submit">Search</button>
+          <button type="submit" className='search-btn'>Search</button>
         </form>
         <UserSearchResultBox foundUsers={foundUsers}/>
       </div>
     );
   } else if (lightDarkTheme == THEMES.dark) {
     return(
-      <div>
+      <div className='user-search-container'>
         <form className='user-searchbar user-searchbar-dark' onSubmit={(e) => {
           e.preventDefault();
           if(searchValue !== '') {
             searchAllUsers(searchValue);
           };
         }}>
-          <input type='search' onChange={(e) => {
+          <input type='search' className='search-input search-input-dark' onChange={(e) => {
             e.preventDefault();
             setSearchValue(e.target.value);
           }}/>
-          <button type="submit">Search</button>
+          <button type="submit" className='search-btn search-btn-dark'>Search</button>
         </form>
         <UserSearchResultBox foundUsers={foundUsers}/>
       </div>

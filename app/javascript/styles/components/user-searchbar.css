@@ -1,0 +1,35 @@
+.user-search-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-searchbar {
+  display: flex;
+  width: 95%;
+  justify-content: space-between;
+}
+
+.user-searchbar-dark {
+  display: flex;
+  width: 95%;
+  justify-content: space-between;
+}
+
+.search-input {
+
+}
+
+.search-input-dark {
+  background: rgb(160, 160, 160);
+}
+
+.search-btn {
+
+}
+
+.search-btn-dark{
+  background: rgb(160, 160, 160);
+}
