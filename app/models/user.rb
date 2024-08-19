@@ -20,7 +20,7 @@ class User < ApplicationRecord
   end
 
   def self.search(user_input)
-    where(['username LIKE ?', "#{user_input}"])
+    where(['username LIKE ?', "%#{user_input}%"])
   end
 
   def self.filter_search_to_name_and_id(search_results)
