@@ -1,6 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
 import ChatroomChannel from "../channels/chatroom_channel";
-import NavBar from "./NavBar";
 import UserList from "./UserList";
 import Chatroom from "./Chatroom";
 import { getCurrentUserInfo, currentTheme } from "../util/userUtil";
@@ -84,7 +83,6 @@ export default function Main() {
             <CurrentChatroomContext.Provider value={currentChatroom}>
               <LightDarkContext.Provider value={lightOrDark}>
                 <div className='components-wrapper'>
-                  <NavBar/>
                   <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeLightDarkTheme={changeLightDarkTheme}/>
                   <Chatroom chattingWithUser={chattingWithUser} changeCurrentChatroom={changeCurrentChatroom}/>
                 </div>
@@ -102,7 +100,6 @@ export default function Main() {
             <CurrentChatroomContext.Provider value={currentChatroom}>
               <LightDarkContext.Provider value={lightOrDark}>
                 <div className='components-wrapper'>
-                    <NavBar/>
                     <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeLightDarkTheme={changeLightDarkTheme}/>
                 </div>
               </LightDarkContext.Provider>

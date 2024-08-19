@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { CurrentUserContext } from "./Main";
+import NavBar from "./NavBar";
 import OpenChatroomButton from "./OpenChatroomButton";
 import UserMessageNotification from "./UserMessageNotification";
 import LightDarkModeBtn from "./LightDarkModeBtn";
@@ -8,6 +9,7 @@ import UserSearchBar from "./UserSearchBar";
 import { getUsers } from "../util/userUtil";
 import { LightDarkContext } from "./Main";
 import { THEMES } from "../constants/themes";
+import setupDraggingAndResizing from "../util/dragAndResize";
 
 export default function UserList(props) {
   const [allUsers, setAllUsers] = useState([]);
@@ -17,6 +19,8 @@ export default function UserList(props) {
   const { changeChattingWithUser, refetchCurrentUser, changeLightDarkTheme } = props;
 
   useEffect(() => {
+    const dataType='user-list';
+    setupDraggingAndResizing(dataType);
     if (!usersFetched) {
       getUsersForList();
       setUsersFetched(true);
@@ -48,14 +52,19 @@ export default function UserList(props) {
   if (lightDarkTheme == THEMES.light) {
     if (allUsers != []) {
       return(
-        <div className='userlist-sidebar'>
-          <UserSearchBar />
-          <div className='userlist-tab-container'>
-            <h4 className='userlist-tab'>Buddies</h4>
-            <h4 className='userlist-tab'>Requests</h4>
+        <div className='userlist-sidebar-container' data-draggable-user-list='true' data-resizable-user-list='true'>
+          <div className='navbar-outer-container' data-drag-handle-user-list='true'>
+            <NavBar/>
           </div>
-          {makeUserList()}
-          <LightDarkModeBtn changeLightDarkTheme={changeLightDarkTheme}/>
+          <div className='userlist-sidebar'>
+            <UserSearchBar />
+            <div className='userlist-tab-container'>
+              <h4 className='userlist-tab'>Buddies</h4>
+              <h4 className='userlist-tab'>Requests</h4>
+            </div>
+            {makeUserList()}
+            <LightDarkModeBtn changeLightDarkTheme={changeLightDarkTheme}/>
+          </div>
         </div>
       )
     } else {
@@ -68,14 +77,19 @@ export default function UserList(props) {
   } else if (lightDarkTheme == THEMES.dark) {
     if (allUsers != []) {
       return(
-        <div className='userlist-sidebar userlist-sidebar-dark'>
-          <UserSearchBar />
-          <div className='userlist-tab-container'>
-            <h4 className='userlist-tab userlist-tab-dark'>Buddies</h4>
-            <h4 className='userlist-tab userlist-tab-dark'>Requests</h4>
+        <div className='userlist-sidebar-container' data-draggable-user-list='true' data-resizable-user-list='true'>
+          <div className='navbar-outer-container' data-drag-handle-user-list='true'>
+            <NavBar/>
           </div>
-          {makeUserList()}
-          <LightDarkModeBtn changeLightDarkTheme={changeLightDarkTheme}/>
+          <div className='userlist-sidebar userlist-sidebar-dark'>
+            <UserSearchBar />
+            <div className='userlist-tab-container'>
+              <h4 className='userlist-tab userlist-tab-dark'>Buddies</h4>
+              <h4 className='userlist-tab userlist-tab-dark'>Requests</h4>
+            </div>
+            {makeUserList()}
+            <LightDarkModeBtn changeLightDarkTheme={changeLightDarkTheme}/>
+          </div>
         </div>
       )
     } else {

@@ -1,6 +1,7 @@
 .user-search-container {
   display: flex;
   flex-direction: column;
+  width: 85%;
   margin-top: 5px;
   justify-content: center;
   align-items: center;
@@ -8,14 +9,13 @@
 
 .user-searchbar {
   display: flex;
-  width: 95%;
-  justify-content: space-between;
+  width: 100%;
+  height: 25px;
+  justify-content: space-around;
 }
 
 .user-searchbar-dark {
-  display: flex;
-  width: 95%;
-  justify-content: space-between;
+  
 }
 
 .search-input {
@@ -27,7 +27,7 @@
 }
 
 .search-btn {
-
+  height: 24px;
 }
 
 .search-btn-dark{
