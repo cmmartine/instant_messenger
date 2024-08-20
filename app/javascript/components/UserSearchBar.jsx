@@ -16,6 +16,10 @@ export default function UserSearchBar() {
     });
   };
 
+  const resetFoundUsers = () => {
+    setFoundUsers('');
+  };
+
   if (lightDarkTheme == THEMES.light) {
     return(
       <div className='user-search-container'>
@@ -31,7 +35,7 @@ export default function UserSearchBar() {
           }}/>
           <button type="submit" className='search-btn'>Search</button>
         </form>
-        <UserSearchResultBox foundUsers={foundUsers}/>
+        <UserSearchResultBox foundUsers={foundUsers} resetFoundUsers={resetFoundUsers}/>
       </div>
     );
   } else if (lightDarkTheme == THEMES.dark) {
@@ -49,7 +53,7 @@ export default function UserSearchBar() {
           }}/>
           <button type="submit" className='search-btn search-btn-dark'>Search</button>
         </form>
-        <UserSearchResultBox foundUsers={foundUsers}/>
+        <UserSearchResultBox foundUsers={foundUsers} resetFoundUsers={resetFoundUsers}/>
       </div>
     );
   }

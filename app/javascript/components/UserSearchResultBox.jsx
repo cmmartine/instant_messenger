@@ -1,11 +1,33 @@
 import React from "react";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { LightDarkContext } from "./Main";
 import { THEMES } from "../constants/themes";
 
 export default function UserSearchResultBox(props) {
-  const { foundUsers } = props;
+  const { foundUsers, resetFoundUsers } = props;
   const lightDarkTheme = useContext(LightDarkContext);
+
+  useEffect(() => {
+    const searchContainer = document.getElementsByClassName('user-search-list-container')[0];
+    if (searchContainer) {
+      let containerPosition = findElementPosition(searchContainer);
+      document.addEventListener('click', (e) => {closeResultBox(e, containerPosition)});
+    }
+  }, [foundUsers]);
+
+  const findElementPosition = (searchContainer) => {
+    return searchContainer.getBoundingClientRect();
+  };
+
+  const closeResultBox = (e, containerPosition) => {
+    let posX = e.clientX;
+    let posY = e.clientY;
+    const posXOutOfBox = posX < containerPosition.left || posX > containerPosition.right;
+    const posYOutofBox = posY < containerPosition.top || posY > containerPosition.bottom;
+    if (posXOutOfBox || posYOutofBox) {
+      resetFoundUsers();
+    };
+  };
   
   const makeUserSearchList = () => {
     const userSearchListCss = lightDarkTheme == THEMES.light ? 'user-search-list' : 'user-search-list user-search-list-dark';
@@ -22,10 +44,6 @@ export default function UserSearchResultBox(props) {
       <div className='user-search-list-container'>
         {makeUserSearchList()}
       </div>
-    )
-  } else {
-    return(
-      <div className='user-search-list-container'></div>
     )
   }
 };

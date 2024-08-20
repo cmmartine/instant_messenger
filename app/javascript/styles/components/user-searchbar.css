@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: column;
   width: 85%;
+  height: 90px;
   margin-top: 5px;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
