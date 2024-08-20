@@ -55,4 +55,39 @@ RSpec.describe UsersController, type: :controller do
       expect(data['theme']).to eq('dark')
     end
   end
+
+  describe 'POST search' do
+    login_user
+
+    before do
+      User.create(username: 'Bianca', email: 'bianca1@chatroom.com', password: 'Bianca1!', password_confirmation: 'Bianca1!')
+      User.create(username: 'Brittney', email: 'brittney1@chatroom.com', password: 'Brittney1!', password_confirmation: 'Brittney1!')
+    end
+
+    search_params_lower_b = {
+      user: {
+        user_search_input: 'b'
+      }
+    }
+
+    search_params_upper_a = {
+      user: {
+        user_search_input: 'A'
+      }
+    }
+
+    it 'returns json with usernames and ids for all users containing the letter b regardless of case' do
+      post :search, params: search_params_lower_b, as: :json
+      expect(response.body).to include('Bianca')
+      expect(response.body).to include('Brittney')
+      expect(response.body).to include('2')
+      expect(response.body).to include('3')
+    end
+
+    it 'returns json with usernames and ids for all users containing the letter a regardless of case' do
+      post :search, params: search_params_upper_a, as: :json
+      expect(response.body).to include('Bianca')
+      expect(response.body).to include('2')
+    end
+  end
 end
