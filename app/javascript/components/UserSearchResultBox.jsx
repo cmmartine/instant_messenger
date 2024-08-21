@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { LightDarkContext } from "./Main";
 import { THEMES } from "../constants/themes";
 
