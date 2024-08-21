@@ -1,6 +1,6 @@
 .userlist-sidebar-container {
-  height: 50%;
-  width: 20%;
+  height: 600px;
+  width: 300px;
 }
 
 .userlist-sidebar {
@@ -67,6 +67,7 @@
   border-left: 2px solid rgb(80, 80, 80);
   border-right: 2px solid black;
   border-bottom: 2px solid black;
+  color: white;
 }
 
 .userlist-tab-dark {
@@ -77,7 +78,7 @@
 }
 
 .userlist-dark {
-  background: rgb(160, 160, 160);
+  background: rgb(24, 24, 24);
   border-left: 2px solid black;
   border-top: 2px solid black;
   border-right: 2px solid rgb(106, 106, 106);

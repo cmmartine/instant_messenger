@@ -3,19 +3,29 @@
   display: flex;
   flex-direction: column;
   width: 95%;
-  height: 35px;
+  height: 30px;
   margin-top: 3px;
 }
 
 .user-search-list {
   width: calc(100% -4px);
   background: white;
+  border-left: 2px solid black;
+  border-top: 2px solid black;
+  border-right: 2px solid rgb(228, 228, 228);
+  border-bottom: 2px solid rgb(228, 228, 228);
+  border-radius: 5px;
   margin-top: 0px;
-  padding: 2px;
+  padding: 5px 8px;
 }
 
 .user-search-list-dark {
-  background: rgb(160, 160, 160);
+  background: rgb(24, 24, 24);
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  border-top: 2px solid rgb(80, 80, 80);
+  border-left: 2px solid rgb(80, 80, 80);
+  box-shadow: 5px 5px 5px rgb(182, 182, 182);
 }
 
 .user-search-list-component {

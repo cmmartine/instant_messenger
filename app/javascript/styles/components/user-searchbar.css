@@ -24,7 +24,12 @@
 }
 
 .search-input-dark {
-  background: rgb(160, 160, 160);
+  background: rgb(24, 24, 24);
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid rgb(80, 80, 80);
+  border-bottom: 2px solid rgb(80, 80, 80);
+  color: white;
 }
 
 .search-btn {
@@ -32,5 +37,11 @@
 }
 
 .search-btn-dark{
-  background: rgb(160, 160, 160);
+  background: rgb(54, 54, 54);
+  box-shadow: inset 0.1em 0.1em rgb(70, 70, 70);
+  border-left: 2px solid rgb(80, 80, 80);
+  border-top: 2px solid rgb(80, 80, 80);
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  color: white;
 }
