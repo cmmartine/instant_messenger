@@ -8,6 +8,7 @@ export default function RequestBtn(props) {
   const { userId } = props;
   const lightDarkTheme = useContext(LightDarkContext);
   const [pendingRequestStatus, setPendingRequestStatus] = useState(false);
+  const [fetchedPendingStatus, setFetchedPendingStatus] = useState(false);
 
   useEffect(() => {
     checkRequests();
@@ -20,6 +21,7 @@ export default function RequestBtn(props) {
   const checkRequests = () => {
     checkForPendingRequest(userId).then((data) => {
       setPendingRequestStatus(data);
+      setFetchedPendingStatus(true);
     });
   };
 
@@ -27,14 +29,16 @@ export default function RequestBtn(props) {
     const buttonCss = lightDarkTheme == THEMES.light ? 'request-btn' : 'request-btn request-btn-dark';
     const buttonDisabled = pendingRequestStatus ? true : false;
     const buttonText = pendingRequestStatus ? 'Pending' : 'Add Buddy';
-    return(
-      <button className={buttonCss} disabled={buttonDisabled} onClick={(e) => {
-        e.preventDefault();
-        sendNewRequest();
-      }}>
-        {buttonText}
-      </button>
-    )
+    if (fetchedPendingStatus) {
+      return(
+        <button className={buttonCss} disabled={buttonDisabled} onClick={(e) => {
+          e.preventDefault();
+          sendNewRequest();
+        }}>
+          {buttonText}
+        </button>
+      )
+    }
   };
 
   return(
