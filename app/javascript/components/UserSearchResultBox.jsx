@@ -1,5 +1,6 @@
 import React from "react";
 import { useContext, useEffect } from "react";
+import RequestBtn from "./RequestBtn";
 import { LightDarkContext } from "./Main";
 import { THEMES } from "../constants/themes";
 
@@ -33,7 +34,8 @@ export default function UserSearchResultBox(props) {
     const userSearchListCss = lightDarkTheme == THEMES.light ? 'user-search-list' : 'user-search-list user-search-list-dark';
     const userSearchList = foundUsers.map((user) => {
         return <div key={user.id} className='user-search-list-components'>
-          {user.username}
+          <div>{user.username}</div>
+          <RequestBtn userId={user.id}/>
         </div>
     })
     return <ul className={userSearchListCss}>{userSearchList}</ul>

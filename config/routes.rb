@@ -1,6 +1,7 @@
 # frozen-string-literal: true
 
 Rails.application.routes.draw do
+  post 'requests/create'
   post 'requests/accept'
   post 'requests/reject'
   post 'messages/create'
