@@ -1,34 +1,43 @@
 import React from "react";
-import { useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { LightDarkContext } from "./Main";
 import { THEMES } from "../constants/themes";
-import { postNewRequest } from "../util/requestUtil";
+import { postNewRequest, checkForPendingRequest } from "../util/requestUtil";
 
 export default function RequestBtn(props) {
   const { userId } = props;
   const lightDarkTheme = useContext(LightDarkContext);
+  const [pendingRequestStatus, setPendingRequestStatus] = useState(false);
+
+  useEffect(() => {
+    checkRequests();
+  }, []);
 
   const sendNewRequest = () => {
     postNewRequest(userId);
   };
 
-  if (lightDarkTheme == THEMES.light) {
+  const checkRequests = () => {
+    checkForPendingRequest(userId).then((data) => {
+      setPendingRequestStatus(data);
+    });
+  };
+
+  const selectBtn = () => {
+    const buttonCss = lightDarkTheme == THEMES.light ? 'request-btn' : 'request-btn request-btn-dark';
+    const buttonDisabled = pendingRequestStatus ? true : false;
+    const buttonText = pendingRequestStatus ? 'Pending' : 'Add Buddy';
     return(
-      <button className='request-btn' onClick={(e) => {
+      <button className={buttonCss} disabled={buttonDisabled} onClick={(e) => {
         e.preventDefault();
         sendNewRequest();
       }}>
-        Add Buddy
+        {buttonText}
       </button>
     )
-  } else if (lightDarkTheme == THEMES.dark) {
-    return(
-      <button className='request-btn request-btn-dark' onClick={(e) => {
-        e.preventDefault();
-        sendNewRequest();
-      }}>
-        Add Buddy
-      </button>
-    )
-  }
+  };
+
+  return(
+    selectBtn()
+  )
 };

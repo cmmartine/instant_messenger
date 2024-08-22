@@ -9,6 +9,11 @@ class RequestsController < ApplicationController
   def reject
   end
 
+  def pending_request
+    is_there_a_pending_request = current_user.open_request_with_user?(request_params[:user_id])
+    render json: is_there_a_pending_request
+  end
+
   private
 
   def request_params

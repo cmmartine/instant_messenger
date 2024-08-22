@@ -32,6 +32,12 @@ class User < ApplicationRecord
     end
   end
 
+  def open_request_with_user?(user_id)
+    matching_sent_request = sent_requests.find_by('receiving_user_id = ?', user_id)
+    matching_received_request = received_requests.find_by('sending_user_id = ?', user_id)
+    matching_sent_request || matching_received_request ? true : false
+  end
+
   private
 
   def password_complexity

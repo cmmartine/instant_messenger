@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post 'requests/create'
   post 'requests/accept'
   post 'requests/reject'
+  post 'requests/pending_request'
   post 'messages/create'
   post 'messages/create_ai_chatroom_messages'
   post 'messages/most_recent_message_read_status'
