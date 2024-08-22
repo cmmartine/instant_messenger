@@ -9,22 +9,22 @@ export default function UserSearchResultBox(props) {
   const lightDarkTheme = useContext(LightDarkContext);
 
   useEffect(() => {
-    const searchContainer = document.getElementsByClassName('user-search-list-container')[0];
-    if (searchContainer) {
-      let containerPosition = findElementPosition(searchContainer);
-      document.addEventListener('click', (e) => {closeResultBox(e, containerPosition)});
+    const searchList = document.getElementsByClassName('user-search-list')[0];
+    if (searchList) {
+      let listPosition = findElementPosition(searchList);
+      document.addEventListener('click', (e) => {closeResultBox(e, listPosition)});
     }
   }, [foundUsers]);
 
-  const findElementPosition = (searchContainer) => {
-    return searchContainer.getBoundingClientRect();
+  const findElementPosition = (searchList) => {
+    return searchList.getBoundingClientRect();
   };
 
-  const closeResultBox = (e, containerPosition) => {
+  const closeResultBox = (e, listPosition) => {
     let posX = e.clientX;
     let posY = e.clientY;
-    const posXOutOfBox = posX < containerPosition.left || posX > containerPosition.right;
-    const posYOutofBox = posY < containerPosition.top || posY > containerPosition.bottom;
+    const posXOutOfBox = posX < listPosition.left || posX > listPosition.right;
+    const posYOutofBox = posY < listPosition.top || posY > listPosition.bottom;
     if (posXOutOfBox || posYOutofBox) {
       resetFoundUsers();
     };
