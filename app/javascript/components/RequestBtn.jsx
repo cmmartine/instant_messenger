@@ -12,8 +12,7 @@ export default function RequestBtn(props) {
     postNewRequest(userId);
   };
 
-  // Chatbot does not need to be added as a buddy
-  if (lightDarkTheme == THEMES.light && userId != 1) {
+  if (lightDarkTheme == THEMES.light) {
     return(
       <button className='request-btn' onClick={(e) => {
         e.preventDefault();
@@ -22,7 +21,7 @@ export default function RequestBtn(props) {
         Add Buddy
       </button>
     )
-  } else if (lightDarkTheme == THEMES.dark && userId != 1) {
+  } else if (lightDarkTheme == THEMES.dark) {
     return(
       <button className='request-btn request-btn-dark' onClick={(e) => {
         e.preventDefault();
