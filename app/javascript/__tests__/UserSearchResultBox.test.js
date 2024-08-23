@@ -2,10 +2,15 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import UserSearchResultBox from "../components/UserSearchResultBox";
-import { LightDarkContext } from "../components/Main";
+import { CurrentUserContext, LightDarkContext } from "../components/Main";
 import { THEMES } from "../constants/themes";
 
 require('jest-fetch-mock').enableMocks();
+
+jest.mock("../components/RequestBtn", () => () => {
+  const MockRequestBtn = "RequestBtn";
+  return <MockRequestBtn/>
+});
 
 describe("UserSearchResultBox", () => {
 
@@ -20,14 +25,21 @@ describe("UserSearchResultBox", () => {
     }
   ];
 
+  let currentUser = {
+    username: 'Alfred',
+    id: 1
+  };
+
   const resetFoundUsers = jest.fn();
 
   function renderUserSearchResultBox() {
     render(
-      <LightDarkContext.Provider value={THEMES.light}>
-        <div data-testid='click-test'></div>
-        <UserSearchResultBox foundUsers={foundUsers} resetFoundUsers={resetFoundUsers}/>
-      </LightDarkContext.Provider> 
+      <CurrentUserContext.Provider value={currentUser}>
+        <LightDarkContext.Provider value={THEMES.light}>
+          <div data-testid='click-test'></div>
+          <UserSearchResultBox foundUsers={foundUsers} resetFoundUsers={resetFoundUsers}/>
+        </LightDarkContext.Provider> 
+      </CurrentUserContext.Provider>
     );
   };
 

@@ -6,6 +6,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  after_create :add_chatbot_buddy
+
   validates :username, presence: true, uniqueness: true, length: { in: 3..20 }
   validate :password_complexity
 
@@ -17,6 +19,11 @@ class User < ApplicationRecord
 
   def self.chatbot_id
     find_by(username: 'Chatbot').id
+  end
+
+  def add_chatbot_buddy
+    chatbot = User.find_by(username: 'Chatbot')
+    chatbot ? Buddy.create!(user_id: id, buddy_id: chatbot.id) : nil
   end
 
   def self.search(user_input)

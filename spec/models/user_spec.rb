@@ -24,6 +24,15 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'add_chatbot_buddy' do
+    it 'adds chatbot to a newly created users buddy list' do
+      ai_chatbot = User.new(username: 'Chatbot')
+      ai_chatbot.save(validate: false)
+      user = User.create(username: 'Bianca', email: 'bianca1@chatroom.com', password: 'Bianca1!', password_confirmation: 'Bianca1!')
+      expect(user.buddies.first.buddy_id).to eq(ai_chatbot.id)
+    end
+  end
+
   describe 'self.search' do
     before do
       User.create(username: 'Bianca', email: 'bianca1@chatroom.com', password: 'Bianca1!', password_confirmation: 'Bianca1!')
