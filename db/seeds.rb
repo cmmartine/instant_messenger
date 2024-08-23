@@ -38,3 +38,14 @@ user3.chatrooms << chatroom2
 Message.create!(body: 'Room #2!', read_status: true, user_id: user3.id, chatroom_id: chatroom2.id)
 Message.create!(body: 'Room 2 Buddies!', read_status: true, user_id: user1.id, chatroom_id: chatroom2.id)
 Message.create!(body: 'Yea!', read_status: true, user_id: user3.id, chatroom_id: chatroom2.id)
+
+Request.create!(sending_user_id: user1.id, receiving_user_id: user2.id)
+Request.create!(sending_user_id: user3.id, receiving_user_id: user1.id)
+
+Request.create!(sending_user_id: user1.id, receiving_user_id: user4.id, status: 'accepted')
+Buddy.create!(user_id: user1.id, buddy_id: user4.id)
+Buddy.create!(user_id: user4.id, buddy_id: user1.id)
+
+Request.create!(sending_user_id: user5.id, receiving_user_id: user1.id, status: 'accepted')
+Buddy.create!(user_id: user1.id, buddy_id: user5.id)
+Buddy.create!(user_id: user5.id, buddy_id: user1.id)
