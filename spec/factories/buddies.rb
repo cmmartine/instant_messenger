@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :buddy do
-    user { nil }
-    buddy { nil }
+    user { FactoryBot.create(:user) }
+    buddy { FactoryBot.create(:user) }
   end
 end

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :request do
-    sending_user { nil }
-    receiving_user { nil }
+    sending_user { FactoryBot.create(:user) }
+    receiving_user { FactoryBot.create(:user) }
   end
 end
