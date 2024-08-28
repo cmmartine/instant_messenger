@@ -8,7 +8,7 @@
 }
 
 .user-search-list {
-  width: calc(100% -4px);
+  width: calc(100% - 4px);
   background: white;
   border-left: 2px solid black;
   border-top: 2px solid black;
