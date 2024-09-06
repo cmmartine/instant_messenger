@@ -45,6 +45,10 @@ class User < ApplicationRecord
     matching_sent_request || matching_received_request ? true : false
   end
 
+  def pending_received_requests
+    received_requests.where('status = ?', 'pending')
+  end
+
   private
 
   def password_complexity

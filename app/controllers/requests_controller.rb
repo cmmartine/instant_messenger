@@ -14,6 +14,12 @@ class RequestsController < ApplicationController
     render json: is_there_a_pending_request
   end
 
+  def pending_received_requests
+    pending_received_requests = current_user.pending_received_requests
+    pending_requests_noncurrent_user_and_id = Request.ids_and_noncurrent_users(pending_received_requests)
+    render json: pending_requests_noncurrent_user_and_id
+  end
+
   private
 
   def request_params

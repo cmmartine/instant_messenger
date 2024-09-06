@@ -7,6 +7,7 @@ import UserMessageNotification from "./UserMessageNotification";
 import LightDarkModeBtn from "./LightDarkModeBtn";
 import UserSearchBar from "./UserSearchBar";
 import { getUsers } from "../util/userUtil";
+import { getPendingReceivedRequests } from "../util/requestUtil";
 import { LightDarkContext } from "./Main";
 import { THEMES } from "../constants/themes";
 import { LIST_TYPES } from "../constants/listTypes";
@@ -15,6 +16,7 @@ import setupDraggingAndResizing from "../util/dragAndResize";
 export default function UserList(props) {
   const [listType, setListType] = useState(LIST_TYPES.buddies);
   const [allUsers, setAllUsers] = useState([]);
+  const [receivedRequests, setReceivedRequests] = useState([]);
   const [usersFetched, setUsersFetched] = useState(false);
   const currentUser = useContext(CurrentUserContext);
   const lightDarkTheme = useContext(LightDarkContext);
@@ -25,6 +27,7 @@ export default function UserList(props) {
     setupDraggingAndResizing(dataType);
     if (!usersFetched) {
       getUsersForList();
+      getUsersPendingRequests();
       setUsersFetched(true);
     };
   });
@@ -34,7 +37,7 @@ export default function UserList(props) {
       case LIST_TYPES.buddies:
         return makeBuddyList();
       case LIST_TYPES.requests:
-        return makeRequestList();
+        return makePendingRequestList();
       default:
         return <div>Error, please reload the page</div>
     };
@@ -52,12 +55,13 @@ export default function UserList(props) {
     return <ul className={userListCss}>{userList}</ul>
   };
 
-  const makeRequestList = () => {
+  const makePendingRequestList = () => {
     const userListCss = lightDarkTheme == THEMES.light ? 'userlist' : 'userlist userlist-dark';
-    const userList = 
-      <div key={''} className='userlist-components'>
-          
+    const userList = receivedRequests.map((request) => {
+      return <div key={request.id} className='userlist-components'>
+        {request.username} Accept Reject
       </div>
+    })
     
     return <ul className={userListCss}>{userList}</ul>
   };
@@ -70,6 +74,16 @@ export default function UserList(props) {
       });
       setAllUsers(userArray);
     });
+  };
+
+  const getUsersPendingRequests = () => {
+    getPendingReceivedRequests().then((data) => {
+      let requestArray = [];
+      data.map((request) => {
+        requestArray.push(request);
+      });
+      setReceivedRequests(requestArray);
+    })
   };
 
   if (lightDarkTheme == THEMES.light) {

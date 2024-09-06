@@ -13,7 +13,7 @@ down: #stops the docker containers
 	docker compose down
 
 rails: #run rails server without h2oai
-	docker compose run -p 3000:3000 --rm rails rails s -b '0.0.0.0'
+	docker compose run -p 3000:3000 rails rails s -b '0.0.0.0'
 
 rspec: #run rails rspec tests
 	docker compose exec rails rspec

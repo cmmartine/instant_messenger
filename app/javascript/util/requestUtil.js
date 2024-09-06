@@ -35,3 +35,11 @@ export const checkForPendingRequest = (userId) => {
     return data;
   });
 };
+
+export const getPendingReceivedRequests = () => {
+  return fetch('requests/pending_received_requests')
+  .then((res) => res.json())
+  .then((data) => {
+    return data;
+  });
+};
