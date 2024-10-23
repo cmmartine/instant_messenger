@@ -8,8 +8,8 @@ RSpec.describe Chatroom, type: :model do
 
   describe '.most_recent_non_current_user_message_status' do
     let!(:chatroom) { Chatroom.create }
-    let!(:current_user) { User.create(username: 'Alfred', email: 'alfred1@chatroom.com', password: 'Alfred1!', password_confirmation: 'Alfred1!') }
-    let!(:non_current_user) { User.create(username: 'Bianca', email: 'bianca1@chatroom.com', password: 'Bianca1!', password_confirmation: 'Bianca1!') }
+    let!(:current_user) { FactoryBot.create(:user) }
+    let!(:non_current_user) { FactoryBot.create(:user) }
 
     it 'returns true when there are no non_current_user messages' do
       current_user.chatrooms << chatroom

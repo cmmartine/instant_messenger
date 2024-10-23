@@ -26,14 +26,13 @@ RSpec.describe Request, type: :model do
     second_request = nil
 
     before do
-      current_user = User.create(id: 1, username: 'Bianca', email: 'bianca1@chatroom.com', password: 'Bianca1!', password_confirmation: 'Bianca1!')
-      first_other_user = User.create(id: 2, username: 'Brittney', email: 'brittney1@chatroom.com', password: 'Brittney1!', password_confirmation: 'Brittney1!')
-      second_other_user = User.create(id: 3, username: 'Cleetus', email: 'cleetus1@chatroom.com', password: 'Cleetus1!', password_confirmation: 'Cleetus1!')
+      current_user = FactoryBot.create(:user)
+      first_other_user = FactoryBot.create(:user)
+      second_other_user = FactoryBot.create(:user)
       first_request = Request.create(sending_user_id: first_other_user.id, receiving_user_id: current_user.id)
       second_request = Request.create(sending_user_id: second_other_user.id, receiving_user_id: current_user.id)
     end
- 
- 
+
     context 'when only one request is in the array argument' do
       it 'returns an array containing the requests id and noncurrent_users username' do
         expect(Request.ids_and_noncurrent_usernames([first_request], current_user.id)).to eq(
