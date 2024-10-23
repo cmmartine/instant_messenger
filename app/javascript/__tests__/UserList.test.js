@@ -1,8 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import userEvent from "@testing-library/user-event";
 import UserList from "../components/UserList";
 import { CurrentUserContext, ChatroomContext } from "../components/Main";
 import * as userUtil from "../util/userUtil";
+import * as requestUtil from "../util/requestUtil";
 import { LightDarkContext } from "../components/Main";
 import { THEMES } from "../constants/themes";
 
@@ -43,17 +45,60 @@ describe("UserList", () => {
   beforeEach(async () => {
     jest.spyOn(global, 'fetch').mockResolvedValue({ status: 200, json: jest.fn().mockResolvedValue(fakeUserList) });
     jest.spyOn(userUtil, 'getUsers');
+    jest.spyOn(requestUtil, 'getPendingReceivedRequests');
   });
 
   afterEach(() => {
     fetchMock.resetMocks();
   });
 
-  it("shows the clickable user list", async() => {
-    renderUserList();
-    expect(fetch).toBeCalled();
-    expect(userUtil.getUsers).toBeCalled();
-    expect(await screen.findByText(`${fakeUserList[0].username}`)).toBeInTheDocument();
-    expect(await screen.findByText(`${fakeUserList[1].username}`)).toBeInTheDocument();
+  describe("By default", () => {
+    it("makes a call to retrieve the current users buddies", async() => {
+      renderUserList();
+      expect(fetch).toBeCalled();
+      expect(userUtil.getUsers).toBeCalled();
+    });
+
+    it("shows a list of buddies", async() => {
+      renderUserList();
+      let buddyList = screen.getByTestId('buddy-list');
+      expect(buddyList).toBeInTheDocument();
+      expect(await screen.findByText(`${fakeUserList[0].username}`)).toBeInTheDocument();
+      expect(await screen.findByText(`${fakeUserList[1].username}`)).toBeInTheDocument();
+    });
+  });
+
+  describe("When the request tab is clicked", () => {
+    it("makes a call to retrieve the current users pending received requests", async() => {
+      renderUserList();
+      let requestTab = screen.getByTestId('requests-tab');
+      await userEvent.click(requestTab);
+      expect(fetch).toBeCalled();
+      expect(requestUtil.getPendingReceivedRequests).toBeCalled();
+    });
+  
+    it("shows a list of the current users pending received requests", async() => {
+      renderUserList();
+      let requestTab = screen.getByTestId('requests-tab');
+      await userEvent.click(requestTab);
+      let requestList = screen.getByTestId('requests-list');
+      expect(requestList).toBeInTheDocument();
+      expect(await screen.findByText(`${fakeUserList[0].username}`)).toBeInTheDocument();
+      expect(await screen.findByText(`${fakeUserList[1].username}`)).toBeInTheDocument();
+    });
+  });
+
+  describe("When the request tab is currently open and then the buddy tab is clicked", () => {
+    it("shows a list of buddies", async() => {
+      renderUserList();
+      let requestTab = screen.getByTestId('requests-tab');
+      let buddyTab = screen.getByTestId('buddy-tab');
+      await userEvent.click(requestTab);
+      await userEvent.click(buddyTab);
+      let buddyList = screen.getByTestId('buddy-list');
+      expect(buddyList).toBeInTheDocument();
+      expect(await screen.findByText(`${fakeUserList[0].username}`)).toBeInTheDocument();
+      expect(await screen.findByText(`${fakeUserList[1].username}`)).toBeInTheDocument();
+    });
   });
 })

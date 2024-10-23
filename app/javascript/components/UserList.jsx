@@ -52,18 +52,20 @@ export default function UserList(props) {
           <UserMessageNotification userInfo={user}/>
         </div>
     })
-    return <ul className={userListCss}>{userList}</ul>
+    return <ul className={userListCss} data-testid='buddy-list'>{userList}</ul>
   };
 
   const makePendingRequestList = () => {
     const userListCss = lightDarkTheme == THEMES.light ? 'userlist' : 'userlist userlist-dark';
     const userList = receivedRequests.map((request) => {
       return <div key={request.id} className='userlist-components'>
-        {request.username} Accept Reject
+        <div>{request.username}</div> 
+        Accept 
+        Reject
       </div>
     })
     
-    return <ul className={userListCss}>{userList}</ul>
+    return <ul className={userListCss} data-testid='requests-list'>{userList}</ul>
   };
 
   const getUsersForList = () => {
@@ -96,8 +98,8 @@ export default function UserList(props) {
           <div className='userlist-sidebar'>
             <UserSearchBar />
             <div className='userlist-tab-container'>
-              <h4 className='userlist-tab buddies-tab' onClick={() => setListType(LIST_TYPES.buddies)}>Buddies</h4>
-              <h4 className='userlist-tab requests-tab' onClick={() => setListType(LIST_TYPES.requests)}>Requests</h4>
+              <h4 className='userlist-tab buddies-tab' data-testid='buddy-tab' onClick={() => setListType(LIST_TYPES.buddies)}>Buddies</h4>
+              <h4 className='userlist-tab requests-tab' data-testid='requests-tab' onClick={() => setListType(LIST_TYPES.requests)}>Requests</h4>
             </div>
             {renderList()}
             <LightDarkModeBtn changeLightDarkTheme={changeLightDarkTheme}/>
