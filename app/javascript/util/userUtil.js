@@ -8,8 +8,8 @@ export const getCurrentUserInfo = () => {
   });
 };
 
-export const getUsers = () => {
-  return fetch('/users/index')
+export const getUsersBuddies = () => {
+  return fetch('/users/buddies')
   .then((res) => res.json())
   .then((data) => {
     return data;

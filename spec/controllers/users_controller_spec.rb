@@ -1,18 +1,34 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
-  describe 'GET index' do
+  describe 'GET buddies' do
     describe 'with user logged in' do
       login_user
       it 'returns a 200 success response' do
-        get :index
+        get :buddies
         expect(response).to be_successful
+      end
+
+      it 'returns the users buddies' do
+        current_user = User.first
+        buddy_user = FactoryBot.create(:user)
+        Buddy.create(user_id: current_user.id, buddy_id: buddy_user.id)
+        get :buddies
+        buddies_array = JSON.parse(response.body)
+        expect(buddies_array[0]['id']).to eq(buddy_user.id)
+        expect(buddies_array[0]['username']).to eq(buddy_user.username)
+      end
+
+      it 'returns a blank array when the user has no buddies' do
+        get :buddies
+        buddies_array = JSON.parse(response.body)
+        expect(buddies_array).to eq([])
       end
     end
 
     describe 'with user NOT logged in' do
       it 'does not return successfully' do
-        get :index
+        get :buddies
         expect(response).to_not be_successful
       end
     end

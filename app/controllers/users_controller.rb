@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  def index
-    @users = User.all
-    render json: @users
+  def buddies
+    buddies = current_user.buddies
+    filtered_buddies = Buddy.filter_to_usernames_and_ids(buddies)
+    render json: filtered_buddies
   end
 
   def current_user_info

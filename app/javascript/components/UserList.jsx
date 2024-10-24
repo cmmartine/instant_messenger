@@ -6,7 +6,7 @@ import OpenChatroomButton from "./OpenChatroomButton";
 import UserMessageNotification from "./UserMessageNotification";
 import LightDarkModeBtn from "./LightDarkModeBtn";
 import UserSearchBar from "./UserSearchBar";
-import { getUsers } from "../util/userUtil";
+import { getUsersBuddies } from "../util/userUtil";
 import { getPendingReceivedRequests } from "../util/requestUtil";
 import { LightDarkContext } from "./Main";
 import { THEMES } from "../constants/themes";
@@ -69,7 +69,7 @@ export default function UserList(props) {
   };
 
   const getUsersForList = () => {
-    getUsers().then((data) => {
+    getUsersBuddies().then((data) => {
       let userArray = [];
       data.map((user) => {
         userArray.push(user);

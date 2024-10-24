@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   post 'chatrooms/user_is_typing'
   post 'chatrooms/user_is_not_typing'
   mount ActionCable.server => '/cable'
-  get 'users/index'
+  get 'users/buddies'
   get 'users/current_user_info'
   get 'users/current_users_chatrooms'
   get 'users/set_theme'

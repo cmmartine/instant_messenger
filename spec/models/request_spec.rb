@@ -19,19 +19,11 @@ RSpec.describe Request, type: :model do
   end
 
   describe 'self.ids_and_noncurrent_usernames' do
-    current_user = nil
-    first_other_user = nil
-    second_other_user = nil
-    first_request = nil
-    second_request = nil
-
-    before do
-      current_user = FactoryBot.create(:user)
-      first_other_user = FactoryBot.create(:user)
-      second_other_user = FactoryBot.create(:user)
-      first_request = Request.create(sending_user_id: first_other_user.id, receiving_user_id: current_user.id)
-      second_request = Request.create(sending_user_id: second_other_user.id, receiving_user_id: current_user.id)
-    end
+    let!(:current_user) { FactoryBot.create(:user) }
+    let!(:first_other_user) { FactoryBot.create(:user) }
+    let!(:second_other_user) { FactoryBot.create(:user) }
+    let!(:first_request) { Request.create(sending_user_id: first_other_user.id, receiving_user_id: current_user.id) }
+    let!(:second_request) { Request.create(sending_user_id: second_other_user.id, receiving_user_id: current_user.id) }
 
     context 'when only one request is in the array argument' do
       it 'returns an array containing the requests id and noncurrent_users username' do
