@@ -6,6 +6,7 @@ import OpenChatroomButton from "./OpenChatroomButton";
 import UserMessageNotification from "./UserMessageNotification";
 import LightDarkModeBtn from "./LightDarkModeBtn";
 import UserSearchBar from "./UserSearchBar";
+import AcceptAndRejectRequestBtns from "./AcceptAndRejectRequestBtns";
 import { getUsersBuddies } from "../util/userUtil";
 import { getPendingReceivedRequests } from "../util/requestUtil";
 import { LightDarkContext } from "./Main";
@@ -60,8 +61,7 @@ export default function UserList(props) {
     const userList = receivedRequests.map((request) => {
       return <div key={request.id} className='userlist-components'>
         <div>{request.username}</div> 
-        Accept 
-        Reject
+        <AcceptAndRejectRequestBtns requestId={request.id} resetUsersFetched={resetUsersFetched}/>
       </div>
     })
     
@@ -86,6 +86,10 @@ export default function UserList(props) {
       });
       setReceivedRequests(requestArray);
     })
+  };
+
+  const resetUsersFetched = () => {
+    setUsersFetched(false);
   };
 
   if (lightDarkTheme == THEMES.light) {

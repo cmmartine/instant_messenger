@@ -43,3 +43,35 @@ export const getPendingReceivedRequests = () => {
     return data;
   });
 };
+
+export const acceptBuddyRequest = (requestId) => {
+  let csrf = getCsrfToken();
+  return fetch('requests/accept', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+      'X-CSRF-Token': csrf,
+    },
+    body: 
+      JSON.stringify({request: {
+        request_id: requestId
+      }})
+    }
+  );
+};
+
+export const rejectBuddyRequest = (requestId) => {
+  let csrf = getCsrfToken();
+  return fetch('requests/reject', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+      'X-CSRF-Token': csrf,
+    },
+    body: 
+      JSON.stringify({request: {
+        request_id: requestId
+      }})
+    }
+  );
+};
