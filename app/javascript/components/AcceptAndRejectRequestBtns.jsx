@@ -11,7 +11,7 @@ export default function AcceptAndRejectRequestBtns(props) {
   const generateButtons = () => {
     const buttonCss = lightDarkTheme == THEMES.light ? 'request-btn' : 'request-btn request-btn-dark';
       return(
-        <div>
+        <div className='accept-reject-btns-container'>
           <button className={`${buttonCss} accept-btn`} onClick={(e) => {
             e.preventDefault();
             acceptBuddyRequest(requestId).then(() => {

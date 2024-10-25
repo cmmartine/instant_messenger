@@ -8,6 +8,7 @@
 @import './components//user-searchbar.css';
 @import './components//user-search-result-box.css';
 @import './components//light-dark-mode-btn.css';
+@import './components//request-btns.css';
 @import './devise-forms.css';
 
  body {

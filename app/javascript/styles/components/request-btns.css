@@ -1,0 +1,57 @@
+.request-btn {
+  display: flex;
+  align-items: center;
+  height: 25px;
+  width: fit-content;
+  background: rgb(207, 207, 207);
+  border: none;
+  box-shadow: inset 0.15em 0.15em rgb(216, 216, 216);
+  font-weight: bold;
+  border-left: 2px solid rgb(228, 228, 228);
+  border-top: 2px solid rgb(228, 228, 228);
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+.request-btn:hover {
+  background: rgb(151, 151, 151);
+  box-shadow: inset 0.15em 0.15em rgb(160, 160, 160);
+  border-left: 2px solid rgb(163, 163, 163);
+  border-top: 2px solid rgb(163, 163, 163);
+}
+
+.request-btn:disabled {
+  background: rgb(151, 151, 151);
+  box-shadow: inset 0.15em 0.15em rgb(160, 160, 160);
+  border-left: 2px solid rgb(163, 163, 163);
+  border-top: 2px solid rgb(163, 163, 163);
+}
+
+.request-btn-dark {
+  background: rgb(54, 54, 54);
+  box-shadow: inset 0.15em 0.15em rgb(70, 70, 70);
+  border-left: 2px solid rgb(80, 80, 80);
+  border-top: 2px solid rgb(80, 80, 80);
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  color: white;
+}
+
+.accept-reject-btns-container {
+  display: flex;
+  margin-left: 5px;
+}
+
+.accept-btn:hover {
+  background: green;
+  box-shadow: inset 0.15em 0.15em rgb(1, 145, 1);
+  border-left: 2px solid rgb(1, 145, 1);
+  border-top: 2px solid rgb(1, 145, 1);
+}
+
+.reject-btn:hover {
+  background: red;
+  box-shadow: inset 0.15em 0.15em rgb(248, 55, 55);
+  border-left: 2px solid rgb(248, 55, 55);
+  border-top: 2px solid rgb(248, 55, 55);
+}
