@@ -9,7 +9,7 @@ require('jest-fetch-mock').enableMocks();
 
 jest.mock("../components/RequestBtn", () => () => {
   const MockRequestBtn = "RequestBtn";
-  return <MockRequestBtn/>
+  return <MockRequestBtn data-testid='mock-request-btn'/>
 });
 
 describe("UserSearchResultBox", () => {
@@ -22,6 +22,10 @@ describe("UserSearchResultBox", () => {
     {
       username: 'Ron',
       id: 3
+    },
+    {
+      username: 'Hermione',
+      id: 4
     }
   ];
 
@@ -30,6 +34,13 @@ describe("UserSearchResultBox", () => {
     id: 1
   };
 
+  let allBuddies = [
+    {
+      username: 'Hermione',
+      id: 4
+    }
+  ]
+
   const resetFoundUsers = jest.fn();
 
   function renderUserSearchResultBox() {
@@ -37,7 +48,7 @@ describe("UserSearchResultBox", () => {
       <CurrentUserContext.Provider value={currentUser}>
         <LightDarkContext.Provider value={THEMES.light}>
           <div data-testid='click-test'></div>
-          <UserSearchResultBox foundUsers={foundUsers} resetFoundUsers={resetFoundUsers}/>
+          <UserSearchResultBox foundUsers={foundUsers} resetFoundUsers={resetFoundUsers} allBuddies={allBuddies}/>
         </LightDarkContext.Provider> 
       </CurrentUserContext.Provider>
     );
@@ -51,6 +62,11 @@ describe("UserSearchResultBox", () => {
     renderUserSearchResultBox();
     expect(await screen.findByText(`${foundUsers[0].username}`)).toBeInTheDocument();
     expect(await screen.findByText(`${foundUsers[1].username}`)).toBeInTheDocument();
+  });
+
+  it('does not render request buttons for users that are buddies', async() => {
+    renderUserSearchResultBox();
+    expect(await screen.findAllByTestId('mock-request-btn')).toHaveLength(2);
   });
 
   it('calls resetFoundUsers when something outside of component is clicked', async() => {

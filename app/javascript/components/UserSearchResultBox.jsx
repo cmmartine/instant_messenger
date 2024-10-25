@@ -5,7 +5,7 @@ import { CurrentUserContext, LightDarkContext } from "./Main";
 import { THEMES } from "../constants/themes";
 
 export default function UserSearchResultBox(props) {
-  const { foundUsers, resetFoundUsers } = props;
+  const { foundUsers, resetFoundUsers, allBuddies } = props;
   const lightDarkTheme = useContext(LightDarkContext);
   const currentUser = useContext(CurrentUserContext);
 
@@ -34,14 +34,37 @@ export default function UserSearchResultBox(props) {
   const makeUserSearchList = () => {
     const userSearchListCss = lightDarkTheme == THEMES.light ? 'user-search-list' : 'user-search-list user-search-list-dark';
     const userSearchList = foundUsers.map((user) => {
-        if (user.id != 1 && user.id != currentUser.id) {
+        if (!isUserTheChatbot(user) && !isUserTheCurrentUser(user)) {
           return <div key={user.id} className='user-search-list-components'>
             <div>{user.username}</div>
-            <RequestBtn userId={user.id}/>
+            {generateRequestButton(user)}
           </div>
         }
     })
     return <ul className={userSearchListCss}>{userSearchList}</ul>
+  };
+
+  const generateRequestButton = (user) => {
+    return isUserAlreadyABuddy(user) ? null : <RequestBtn userId={user.id}/>;
+  };
+
+  const isUserAlreadyABuddy = (user) => {
+    let isUserABuddy = false;
+    allBuddies.forEach((buddy) => {
+      if (buddy.id == user.id) {
+        isUserABuddy = true
+      };
+    });
+
+    return isUserABuddy;
+  };
+
+  const isUserTheChatbot = (user) => {
+    return user.id == 1
+  };
+
+  const isUserTheCurrentUser = (user) => {
+    return user.id == currentUser.id
   };
 
   if (foundUsers.length > 0) {

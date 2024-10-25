@@ -12,7 +12,7 @@ describe("UserSearchBar", () => {
   function renderUserSearchBar() {
     return render(
       <LightDarkContext.Provider value={THEMES.light}>
-        <UserSearchBar/>
+        <UserSearchBar allBuddies={[]}/>
       </LightDarkContext.Provider>
     );
   };

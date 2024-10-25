@@ -5,7 +5,8 @@ import { THEMES } from "../constants/themes";
 import { searchUsers } from "../util/userUtil";
 import UserSearchResultBox from "./UserSearchResultBox";
 
-export default function UserSearchBar() {
+export default function UserSearchBar(props) {
+  const { allBuddies } = props;
   const lightDarkTheme = useContext(LightDarkContext);
   const [searchValue, setSearchValue] = useState('');
   const [foundUsers, setFoundUsers] = useState([]);
@@ -35,7 +36,7 @@ export default function UserSearchBar() {
           }}/>
           <button type="submit" className='search-btn'>Search</button>
         </form>
-        <UserSearchResultBox foundUsers={foundUsers} resetFoundUsers={resetFoundUsers}/>
+        <UserSearchResultBox foundUsers={foundUsers} resetFoundUsers={resetFoundUsers} allBuddies={allBuddies}/>
       </div>
     );
   } else if (lightDarkTheme == THEMES.dark) {
@@ -53,7 +54,7 @@ export default function UserSearchBar() {
           }}/>
           <button type="submit" className='search-btn search-btn-dark'>Search</button>
         </form>
-        <UserSearchResultBox foundUsers={foundUsers} resetFoundUsers={resetFoundUsers}/>
+        <UserSearchResultBox foundUsers={foundUsers} resetFoundUsers={resetFoundUsers} allBuddies={allBuddies}/>
       </div>
     );
   }

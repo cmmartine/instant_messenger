@@ -21,7 +21,6 @@ export default function UserMessageNotification(props) {
         if (data.finished_message) {
           checkReadStatus(matchedChatroom)
         } else if (data.user_is_typing) {
-          console.log(data)
           const isCurrentUserTyping = data.user_is_typing.current_user_id == currentUser.id;
           data.user_is_typing.status && !isCurrentUserTyping ? setUserIsTyping(true) : setUserIsTyping(false);
         };

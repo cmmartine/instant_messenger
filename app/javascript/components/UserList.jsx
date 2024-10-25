@@ -16,7 +16,7 @@ import setupDraggingAndResizing from "../util/dragAndResize";
 
 export default function UserList(props) {
   const [listType, setListType] = useState(LIST_TYPES.buddies);
-  const [allUsers, setAllUsers] = useState([]);
+  const [allBuddies, setAllBuddies] = useState([]);
   const [receivedRequests, setReceivedRequests] = useState([]);
   const [usersFetched, setUsersFetched] = useState(false);
   const currentUser = useContext(CurrentUserContext);
@@ -46,7 +46,7 @@ export default function UserList(props) {
 
   const makeBuddyList = () => {
     const userListCss = lightDarkTheme == THEMES.light ? 'userlist' : 'userlist userlist-dark';
-    const userList = allUsers.map((user) => {
+    const userList = allBuddies.map((user) => {
       if (currentUser.id !== user.id)
         return <div key={user.id} className='userlist-components'>
           <OpenChatroomButton userInfo={user} changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser}/>
@@ -70,11 +70,11 @@ export default function UserList(props) {
 
   const getUsersForList = () => {
     getUsersBuddies().then((data) => {
-      let userArray = [];
+      let buddyArray = [];
       data.map((user) => {
-        userArray.push(user);
+        buddyArray.push(user);
       });
-      setAllUsers(userArray);
+      setAllBuddies(buddyArray);
     });
   };
 
@@ -93,14 +93,14 @@ export default function UserList(props) {
   };
 
   if (lightDarkTheme == THEMES.light) {
-    if (allUsers != []) {
+    if (allBuddies != []) {
       return(
         <div className='userlist-sidebar-container' data-draggable-user-list='true' data-resizable-user-list='true'>
           <div className='navbar-outer-container' data-drag-handle-user-list='true'>
             <NavBar/>
           </div>
           <div className='userlist-sidebar'>
-            <UserSearchBar />
+            <UserSearchBar allBuddies={allBuddies}/>
             <div className='userlist-tab-container'>
               <h4 className='userlist-tab buddies-tab' data-testid='buddy-tab' onClick={() => setListType(LIST_TYPES.buddies)}>Buddies</h4>
               <h4 className='userlist-tab requests-tab' data-testid='requests-tab' onClick={() => setListType(LIST_TYPES.requests)}>Requests</h4>
@@ -118,14 +118,14 @@ export default function UserList(props) {
       )
     };
   } else if (lightDarkTheme == THEMES.dark) {
-    if (allUsers != []) {
+    if (allBuddies != []) {
       return(
         <div className='userlist-sidebar-container' data-draggable-user-list='true' data-resizable-user-list='true'>
           <div className='navbar-outer-container' data-drag-handle-user-list='true'>
             <NavBar/>
           </div>
           <div className='userlist-sidebar userlist-sidebar-dark'>
-            <UserSearchBar />
+            <UserSearchBar allBuddies={allBuddies}/>
             <div className='userlist-tab-container'>
               <h4 className='userlist-tab userlist-tab-dark buddies-tab' onClick={() => setListType(LIST_TYPES.buddies)}>Buddies</h4>
               <h4 className='userlist-tab userlist-tab-dark requests-tab' onClick={() => setListType(LIST_TYPES.requests)}>Requests</h4>
