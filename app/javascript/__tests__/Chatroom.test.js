@@ -15,6 +15,11 @@ jest.mock("../components/MessageBox", () => () => {
   return <MockMessageBox/>
 });
 
+jest.mock("../components/SpeechToTextBtn", () => () => {
+  const MockSpeechToTextBtn = "SpeechToTextBtn";
+  return <MockSpeechToTextBtn/>
+});
+
 describe("Chatroom", () => {
 
   let chattingWithUser = {

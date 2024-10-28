@@ -10,6 +10,11 @@ import { THEMES } from "../constants/themes";
 
 require('jest-fetch-mock').enableMocks();
 
+jest.mock("../components/SpeechToTextBtn", () => () => {
+  const MockSpeechToTextBtn = "SpeechToTextBtn";
+  return <MockSpeechToTextBtn/>
+});
+
 describe("MessageBox", () => {
 
   let chattingWithUser = {

@@ -37,3 +37,29 @@
 .send-message-btn-dark {
   background: rgb(160, 160, 160);
 }
+
+.send-message-btn-dark:hover {
+  background-color: rgb(206, 206, 206);
+}
+
+#record-button {
+  display: flex;
+  align-self: flex-end;
+  background-image: url(../images/icons8-microphone-44.png);
+  background-size: 75%;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-width: 40px;
+  min-height:40px;
+  border-radius: 20px;
+  margin: 4px;
+}
+
+#record-button:hover {
+  background-color: rgb(219, 219, 219);
+}
+
+.record-button-dark {
+  background: rgb(160, 160, 160);
+  border: rgb(22, 22, 22) 2px solid;
+}

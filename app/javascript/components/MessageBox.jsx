@@ -1,6 +1,7 @@
 import React from "react";
 import { useContext, useState } from "react";
 import { CurrentChatroomContext } from "./Main";
+import SpeechToTextBtn from "./SpeechToTextBtn";
 import { postMessage, postAIChatroomMessages } from "../util/messageUtil";
 import { postUserIsTyping, postUserIsNotTyping } from "../util/chatroomUtil";
 import { LightDarkContext } from "./Main";
@@ -46,6 +47,7 @@ export default function MessageBox(props) {
           }
           resetMessage();
         }}>📮</button>
+        <SpeechToTextBtn setNewMessage={setNewMessage}/>
       </form>
     );
   } else if (lightDarkTheme == THEMES.dark) {
@@ -66,6 +68,7 @@ export default function MessageBox(props) {
           }
           resetMessage();
         }}>📮</button>
+        <SpeechToTextBtn setNewMessage={setNewMessage}/>
       </form>
     );
   }
