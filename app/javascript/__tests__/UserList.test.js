@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import UserList from "../components/UserList";
 import { CurrentUserContext, ChatroomContext } from "../components/Main";
@@ -7,8 +6,6 @@ import * as userUtil from "../util/userUtil";
 import * as requestUtil from "../util/requestUtil";
 import { LightDarkContext } from "../components/Main";
 import { THEMES } from "../constants/themes";
-
-require('jest-fetch-mock').enableMocks();
 
 describe("UserList", () => {
 
@@ -46,10 +43,6 @@ describe("UserList", () => {
     jest.spyOn(global, 'fetch').mockResolvedValue({ status: 200, json: jest.fn().mockResolvedValue(fakeUserList) });
     jest.spyOn(userUtil, 'getUsersBuddies');
     jest.spyOn(requestUtil, 'getPendingReceivedRequests');
-  });
-
-  afterEach(() => {
-    fetchMock.resetMocks();
   });
 
   describe("By default", () => {

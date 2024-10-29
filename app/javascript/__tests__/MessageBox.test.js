@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import MessageBox from "../components/MessageBox";
 import * as chatroomUtil from "../util/chatroomUtil";
@@ -7,8 +6,6 @@ import * as messageUtil from "../util/messageUtil";
 import { CurrentChatroomContext } from "../components/Main";
 import { LightDarkContext } from "../components/Main";
 import { THEMES } from "../constants/themes";
-
-require('jest-fetch-mock').enableMocks();
 
 jest.mock("../components/SpeechToTextBtn", () => () => {
   const MockSpeechToTextBtn = "SpeechToTextBtn";
@@ -38,10 +35,6 @@ describe("MessageBox", () => {
     jest.spyOn(chatroomUtil, 'postUserIsNotTyping').mockImplementation(jest.fn());
     jest.spyOn(messageUtil, 'postMessage').mockImplementation(jest.fn());
     jest.spyOn(messageUtil, 'postAIChatroomMessages').mockImplementation(jest.fn());
-  });
-
-  afterEach(() => {
-    jest.restoreAllMocks();
   });
 
   function renderMessageBox(user) {

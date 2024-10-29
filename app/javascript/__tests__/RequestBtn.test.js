@@ -1,12 +1,9 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import RequestBtn from "../components/RequestBtn";
 import * as requestUtil from "../util/requestUtil";
 import { LightDarkContext } from "../components/Main";
 import { THEMES } from "../constants/themes";
-
-require('jest-fetch-mock').enableMocks();
 
 describe("RequestBtn", () => {
   let userId = 1;
@@ -18,10 +15,6 @@ describe("RequestBtn", () => {
       </LightDarkContext.Provider>
     );
   };
-
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
   
   describe("When there is already a pending request", () => {
     beforeEach(async () => {

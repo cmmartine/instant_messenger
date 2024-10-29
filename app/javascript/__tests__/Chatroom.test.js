@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import Chatroom from "../components/Chatroom";
 import userEvent from "@testing-library/user-event";
 import { LightDarkContext } from "../components/Main";

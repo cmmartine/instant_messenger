@@ -1,12 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import ChatroomMessages from "../components/ChatroomMessages";
 import { CurrentChatroomContext, CurrentUserContext } from "../components/Main";
 import * as messageUtil from "../util/messageUtil";
 import { LightDarkContext } from "../components/Main";
 import { THEMES } from "../constants/themes";
-
-require('jest-fetch-mock').enableMocks();
 
 describe("ChatroomMessages", () => {
   let fakeMessages = [
@@ -51,10 +48,6 @@ describe("ChatroomMessages", () => {
   beforeEach(async () => {
     jest.spyOn(global, 'fetch').mockResolvedValue({ status: 200, json: jest.fn().mockResolvedValue([fakeMessages, fakeChatroomId]) });
     jest.spyOn(messageUtil, 'getMessages');
-  });
-
-  afterEach(() => {
-    fetchMock.resetMocks();
   });
 
   it("Displays the messages obtained from getMessages fetch", async() => {

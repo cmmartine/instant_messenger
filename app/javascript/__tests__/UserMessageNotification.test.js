@@ -1,11 +1,8 @@
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import UserMessageNotification from "../components/UserMessageNotification";
 import * as chatroomUtil from "../util/chatroomUtil";
 import * as messageUtil from "../util/messageUtil";
 import { CurrentChatroomContext, ChatroomContext } from "../components/Main";
-
-require('jest-fetch-mock').enableMocks();
 
 describe("OpenChatroomButton", () => {
 
@@ -51,10 +48,6 @@ describe("OpenChatroomButton", () => {
       jest.spyOn(messageUtil, 'changeMessagesReadStatus').mockImplementation(jest.fn());
     });
   
-    afterEach(() => {
-      jest.restoreAllMocks();
-    });
-  
     it("shows New Messages! text when user is not in the room", async () => {
       renderUserMessageNotification(fakeChatroomIds.differentFromRetrievedRoom);
       expect(await screen.findByText('New Message!')).toBeVisible();
@@ -71,10 +64,6 @@ describe("OpenChatroomButton", () => {
       jest.spyOn(chatroomUtil, 'findOrCreateChatroom').mockResolvedValue(fakeRetrievedChatroom);
       jest.spyOn(messageUtil, 'checkNewestMessageReadStatus').mockResolvedValue({ read_status: true });
       jest.spyOn(messageUtil, 'changeMessagesReadStatus').mockImplementation(jest.fn());
-    });
-  
-    afterEach(() => {
-      jest.restoreAllMocks();
     });
   
     it("does NOT show New Messages! text when user is in the room", async () => {

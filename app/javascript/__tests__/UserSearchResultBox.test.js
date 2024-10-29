@@ -1,11 +1,8 @@
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import UserSearchResultBox from "../components/UserSearchResultBox";
 import { CurrentUserContext, LightDarkContext } from "../components/Main";
 import { THEMES } from "../constants/themes";
-
-require('jest-fetch-mock').enableMocks();
 
 jest.mock("../components/RequestBtn", () => () => {
   const MockRequestBtn = "RequestBtn";
@@ -53,10 +50,6 @@ describe("UserSearchResultBox", () => {
       </CurrentUserContext.Provider>
     );
   };
-
-  afterEach(() => {
-    fetchMock.resetMocks();
-  });
 
   it('renders the users in foundUsers in a list', async() => {
     renderUserSearchResultBox();

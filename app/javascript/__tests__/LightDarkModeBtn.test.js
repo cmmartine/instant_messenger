@@ -1,12 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import LightDarkModeBtn from "../components/LightDarkModeBtn";
 import { LightDarkContext } from "../components/Main";
 import * as userUtil from '../util/userUtil';
 import { THEMES } from "../constants/themes";
-
-require('jest-fetch-mock').enableMocks();
 
 describe("LightDarkModeBtn", () => {
 
@@ -23,10 +20,6 @@ describe("LightDarkModeBtn", () => {
   describe("when current theme is light", () => {
     beforeEach(async () => {
       jest.spyOn(userUtil, 'setTheme').mockImplementation(jest.fn());
-    });
-  
-    afterEach(() => {
-      jest.restoreAllMocks();
     });
 
     it("renders the light theme icon", async() => {
@@ -45,10 +38,6 @@ describe("LightDarkModeBtn", () => {
   describe("when current theme is dark", () => {
     beforeEach(async () => {
       jest.spyOn(userUtil, 'setTheme').mockImplementation(jest.fn());
-    });
-  
-    afterEach(() => {
-      jest.restoreAllMocks();
     });
 
     it("renders the dark theme icon", async() => {

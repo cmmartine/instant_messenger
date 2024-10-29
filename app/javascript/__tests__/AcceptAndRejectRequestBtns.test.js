@@ -1,12 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import AcceptAndRejectRequestBtns from "../components/AcceptAndRejectRequestBtns";
 import * as requestUtil from "../util/requestUtil";
 import { LightDarkContext } from "../components/Main";
 import { THEMES } from "../constants/themes";
-
-require('jest-fetch-mock').enableMocks();
 
 describe("AcceptAndRejectRequestBtns", () => {
   let requestId = 1;
@@ -19,10 +16,6 @@ describe("AcceptAndRejectRequestBtns", () => {
       </LightDarkContext.Provider>
     );
   };
-
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
 
   describe("When the accept button is clicked", () => {
     beforeEach(async() => {
