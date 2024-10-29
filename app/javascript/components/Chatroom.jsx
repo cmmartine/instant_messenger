@@ -2,12 +2,15 @@ import React from "react";
 import { useContext, useEffect } from "react";
 import ChatroomMessages from "./ChatroomMessages";
 import MessageBox from "./MessageBox";
+import { CurrentChatroomContext } from "./Main";
 import { LightDarkContext } from "./Main";
+import { postUserIsNotTyping } from "../util/chatroomUtil";
 import { THEMES } from "../constants/themes";
 import setupDraggingAndResizing from "../util/dragAndResize";
 
 export default function Chatroom(props) {
   const { chattingWithUser, changeCurrentChatroom } = props;
+  const currentChatroom = useContext(CurrentChatroomContext);
   const lightDarkTheme = useContext(LightDarkContext);
 
   useEffect(() => {
@@ -18,6 +21,7 @@ export default function Chatroom(props) {
   const exitChatroom = (e) => {
     e.preventDefault();
     let chatroom;
+    postUserIsNotTyping(currentChatroom.info.id);
     changeCurrentChatroom(chatroom);
   };
 
