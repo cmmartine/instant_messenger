@@ -57,6 +57,7 @@ export const logout = () => {
       'X-CSRF-Token': csrf,
     }
   }).then(() => {
+    localStorage.clear();
     location.reload();
   });
 };
