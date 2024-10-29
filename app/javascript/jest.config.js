@@ -1,5 +1,3 @@
-const { TestEnvironment } = require("jest-environment-jsdom");
-
 module.exports = {
   moduleNameMapper: {
     "^.+\\.svg$": "jest-svg-transformer",
