@@ -11,16 +11,4 @@ class Message < ApplicationRecord
       update(read_status: true)
     end
   end
-
-  def self.send_message_to_chatbot(message)
-    host = ENV.fetch('HOST', 'http://localhost:7860')
-    uri = URI(host)
-
-    input = { "instruction_nochat": message.body }
-
-    req = Net::HTTP.post(uri, input)
-    response = JSON.parse(req.body)
-
-    response['response']
-  end
 end

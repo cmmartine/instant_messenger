@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import MessageBox from "../components/MessageBox";
 import * as chatroomUtil from "../util/chatroomUtil";
 import * as messageUtil from "../util/messageUtil";
-import { CurrentChatroomContext } from "../components/Main";
+import { CurrentChatroomContext, CurrentUserContext } from "../components/Main";
 import { LightDarkContext } from "../components/Main";
 import { THEMES } from "../constants/themes";
 
@@ -22,6 +22,11 @@ describe("MessageBox", () => {
     username: "Chatbot"
   };
 
+  let currentUser = {
+    username: 'Alfred',
+    id: 1
+  };
+
   function fakeCurrentChatroom() {
     let fakeCurrentChatroom = { 
       info: { id: 1, active_status: true }, 
@@ -38,12 +43,14 @@ describe("MessageBox", () => {
   });
 
   function renderMessageBox(user) {
-    return render( 
-      <CurrentChatroomContext.Provider value={fakeCurrentChatroom()}>
-        <LightDarkContext.Provider value={THEMES.light}>
-          <MessageBox chattingWithUser={user}/>
-        </LightDarkContext.Provider>
-      </CurrentChatroomContext.Provider>
+    return render(
+      <CurrentUserContext.Provider value={currentUser}>
+        <CurrentChatroomContext.Provider value={fakeCurrentChatroom()}>
+          <LightDarkContext.Provider value={THEMES.light}>
+            <MessageBox chattingWithUser={user}/>
+          </LightDarkContext.Provider>
+        </CurrentChatroomContext.Provider>
+      </CurrentUserContext.Provider>
     )
   };
 

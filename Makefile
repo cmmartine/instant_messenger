@@ -41,3 +41,6 @@ db-reset: #reset and reseed the database
 
 db-migrate: 
 	docker compose exec rails bin/rails db:migrate
+
+h2oai-log:
+	docker compose exec rails tail /instant-messenger/log/h2oai

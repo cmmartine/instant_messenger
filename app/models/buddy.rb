@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Buddy < ApplicationRecord
   belongs_to :user
   belongs_to :buddy, class_name: :User

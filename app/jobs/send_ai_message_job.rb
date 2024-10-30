@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SendAiMessageJob < ApplicationJob
   def perform(message)
     ai_response = `python3 app/jobs/h2oai_api.py '#{message[:body]}'`

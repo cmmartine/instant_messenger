@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import Chatroom from "../components/Chatroom";
 import userEvent from "@testing-library/user-event";
+import { CurrentChatroomContext } from "../components/Main";
 import { LightDarkContext } from "../components/Main";
 import { THEMES } from "../constants/themes";
 
@@ -25,13 +26,17 @@ describe("Chatroom", () => {
     username: "fakeuser"
   };
 
+  let fakeChatroom = { info: { id: 1, active_status: true } };
+
   const changeCurrentChatroom = jest.fn();
 
   function renderChatroom() {
     return render(
-      <LightDarkContext.Provider value={THEMES.light}>
-        <Chatroom chattingWithUser={chattingWithUser} changeCurrentChatroom={changeCurrentChatroom}/>
-      </LightDarkContext.Provider>
+      <CurrentChatroomContext.Provider value={fakeChatroom}>
+        <LightDarkContext.Provider value={THEMES.light}>
+          <Chatroom chattingWithUser={chattingWithUser} changeCurrentChatroom={changeCurrentChatroom}/>
+        </LightDarkContext.Provider>
+      </CurrentChatroomContext.Provider>
     );
   };
 
