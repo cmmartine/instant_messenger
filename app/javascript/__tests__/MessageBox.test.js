@@ -8,8 +8,7 @@ import { LightDarkContext } from "../components/Main";
 import { THEMES } from "../constants/themes";
 
 jest.mock("../components/SpeechToTextBtn", () => () => {
-  const MockSpeechToTextBtn = "SpeechToTextBtn";
-  return <MockSpeechToTextBtn/>
+  return <button data-testid='record-button'/>
 });
 
 describe("MessageBox", () => {
@@ -56,13 +55,13 @@ describe("MessageBox", () => {
 
   it('calls postMessage when the other user is NOT the bot', async() => {
     renderMessageBox(chattingWithUser);
-    await userEvent.click(screen.getByRole('button'));
+    await userEvent.click(screen.getAllByRole('button')[0]);
     expect(messageUtil.postMessage).toBeCalled();
   });
 
   it('calls postAIChatroomMessages when the other user is the bot', async() => {
     renderMessageBox(chattingWithBot);
-    await userEvent.click(screen.getByRole('button'));
+    await userEvent.click(screen.getAllByRole('button')[0]);
     expect(messageUtil.postAIChatroomMessages).toBeCalled();
   });
 
@@ -70,7 +69,7 @@ describe("MessageBox", () => {
     renderMessageBox(chattingWithUser);
     await userEvent.type(screen.getByRole('textbox'), 'Hello');
     expect(screen.getByRole('textbox').value).toBe('Hello');
-    await userEvent.click(screen.getByRole('button'));
+    await userEvent.click(screen.getAllByRole('button')[0]);
     expect(screen.getByRole('textbox').value).toBe('');
   });
 
@@ -89,5 +88,40 @@ describe("MessageBox", () => {
     await userEvent.type(textbox, 'Hello');
     expect(chatroomUtil.postUserIsTyping).toBeCalled();
     expect(textbox).toHaveValue('Hello');
+  });
+
+  describe('When the user is using a SpeechRecognition non-supported browser', () => {
+    // November 2024 - Firefox is the only unsupported for up to date browsers
+    const unsupportedBrowser = ['Firefox'];
+    beforeEach(() => {
+      jest.spyOn(window.navigator, 'userAgent', 'get').mockReturnValue(unsupportedBrowser[0])
+    });
+
+    afterEach(() => {
+      jest.restoreAllMocks();
+    })
+
+    it('does not render SpeechToTextBtn', async() => {
+      renderMessageBox(chattingWithUser);
+      const speechToTextBtn = await screen.queryByTestId('record-button');
+      expect(speechToTextBtn).not.toBeInTheDocument();
+    })
+  });
+
+  describe('When the user is using a SpeechRecognition supported browser', () => {
+    const supportedBrowser = ['Chrome'];
+    beforeEach(() => {
+      jest.spyOn(window.navigator, 'userAgent', 'get').mockReturnValue(supportedBrowser[0])
+    });
+
+    afterEach(() => {
+      jest.restoreAllMocks();
+    })
+
+    it('does not render SpeechToTextBtn', async() => {
+      renderMessageBox(chattingWithUser);
+      const speechToTextBtn = await screen.queryByTestId('record-button');
+      expect(speechToTextBtn).toBeInTheDocument();
+    })
   });
 });

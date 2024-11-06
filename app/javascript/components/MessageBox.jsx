@@ -51,6 +51,12 @@ export default function MessageBox(props) {
     setNewMessage(storageValue);
   };
 
+  const renderSpeechToTxtBtn = () => {
+    if(!navigator.userAgent.match(/firefox|fxios/i)) {
+      return <SpeechToTextBtn setNewMessage={setNewMessage} localStorageKey={localStorageKey}/>
+    };
+  };
+
   if (lightDarkTheme == THEMES.light) {
     return(
       <form id='chatroom-message-form'>
@@ -70,7 +76,7 @@ export default function MessageBox(props) {
           }
           resetMessage();
         }}>📮</button>
-        <SpeechToTextBtn setNewMessage={setNewMessage}/>
+        {renderSpeechToTxtBtn()}
       </form>
     );
   } else if (lightDarkTheme == THEMES.dark) {
@@ -92,7 +98,7 @@ export default function MessageBox(props) {
           }
           resetMessage();
         }}>📮</button>
-        <SpeechToTextBtn setNewMessage={setNewMessage}/>
+        {renderSpeechToTxtBtn()}
       </form>
     );
   }

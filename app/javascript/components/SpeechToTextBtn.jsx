@@ -4,7 +4,7 @@ import { LightDarkContext } from "./Main";
 import { THEMES } from "../constants/themes";
 
 export default function SpeechToTextBtn(props) {
-  const { setNewMessage } = props;
+  const { setNewMessage, localStorageKey } = props;
   const lightDarkTheme = useContext(LightDarkContext);
 
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition;
@@ -15,6 +15,7 @@ export default function SpeechToTextBtn(props) {
     const transcript = e.results[0][0].transcript;
     let textArea = document.getElementById('message-box-text');
     textArea.value = transcript;
+    localStorage.setItem(localStorageKey, transcript);
     setNewMessage(transcript);
   };
 
