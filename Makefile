@@ -10,10 +10,10 @@ up: #starts the docker containers
 	docker compose up -d
 
 down: #stops the docker containers
-	docker compose down
+	docker compose down --remove-orphans
 
 rails: #run rails server without h2oai
-	docker compose run -p 3000:3000 rails rails s -b '0.0.0.0'
+	docker compose run --rm -d -p 8080:80 nginx
 
 rspec: #run rails rspec tests
 	docker compose exec rails rspec
