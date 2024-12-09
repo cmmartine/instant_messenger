@@ -1,4 +1,5 @@
 import { getCsrfToken } from "./csrfTokenUtil";
+import { apiGetFetch } from "./apiUtil";
 
 export const postNewRequest = (userId) => {
   let csrf = getCsrfToken();
@@ -37,11 +38,7 @@ export const checkForPendingRequest = (userId) => {
 };
 
 export const getPendingReceivedRequests = () => {
-  return fetch('requests/pending_received_requests')
-  .then((res) => res.json())
-  .then((data) => {
-    return data;
-  });
+  return apiGetFetch('requests/pending_received_requests');
 };
 
 export const acceptBuddyRequest = (requestId) => {

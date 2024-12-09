@@ -68,24 +68,14 @@ export default function UserList(props) {
     return <ul className={userListCss} data-testid='requests-list'>{userList}</ul>
   };
 
-  const getUsersForList = () => {
-    getUsersBuddies().then((data) => {
-      let buddyArray = [];
-      data.map((user) => {
-        buddyArray.push(user);
-      });
-      setAllBuddies(buddyArray);
-    });
+  const getUsersForList = async () => {
+    const buddyArray = await getUsersBuddies();
+    setAllBuddies(buddyArray);
   };
 
-  const getUsersPendingRequests = () => {
-    getPendingReceivedRequests().then((data) => {
-      let requestArray = [];
-      data.map((request) => {
-        requestArray.push(request);
-      });
-      setReceivedRequests(requestArray);
-    })
+  const getUsersPendingRequests = async () => {
+    const requestArray = await getPendingReceivedRequests();
+    setReceivedRequests(requestArray);
   };
 
   const resetUsersFetched = () => {

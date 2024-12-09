@@ -1,31 +1,20 @@
 import { getCsrfToken } from "./csrfTokenUtil";
+import { apiGetFetch } from "./apiUtil";
 
-export const getCurrentUserInfo = () => {
-  return fetch('/users/current_user_info')
-  .then((res) => res.json())
-  .then((data) => {
-    return data;
-  });
+export const getCurrentUserInfo =  () => {
+  return apiGetFetch('/users/current_user_info');
 };
 
 export const getUsersBuddies = () => {
-  return fetch('/users/buddies')
-  .then((res) => res.json())
-  .then((data) => {
-    return data;
-  });
+  return apiGetFetch('/users/buddies');
 };
 
 export const setTheme = () => {
-  fetch('/users/set_theme')
+  return apiGetFetch('/users/set_theme')
 };
 
 export const currentTheme = () => {
-  return fetch('/users/current_theme')
-  .then((res) => res.json())
-  .then((data) => {
-    return data;
-  });
+  return apiGetFetch('/users/current_theme')
 };
 
 export const searchUsers = (userInput) => {

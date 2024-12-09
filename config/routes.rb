@@ -17,7 +17,6 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
   get 'users/buddies'
   get 'users/current_user_info'
-  get 'users/current_users_chatrooms'
   get 'users/set_theme'
   get 'users/current_theme'
   post 'users/search'

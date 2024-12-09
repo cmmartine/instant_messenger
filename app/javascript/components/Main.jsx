@@ -48,20 +48,18 @@ export default function Main() {
     applyCurrentUserInfo(newCurrentChatroom);
   };
 
-  function applyCurrentUserInfo(newCurrentChatroom= {id: null}) {
-    getCurrentUserInfo().then((data) => {
+  async function applyCurrentUserInfo(newCurrentChatroom= {id: null}) {
+    const data = await getCurrentUserInfo();
       let currentUserData = { ...data };
       setCurrentUserInfo(currentUserData);
       openChatroomConnections(currentUserData.chatrooms, newCurrentChatroom);
-    });
   };
 
-  function checkCurrentTheme() {
-    currentTheme().then((data) => {
-      setLightOrDark(data.theme);
-      const body = document.body;
-      body.classList.add('body-' + `${data.theme}`);
-    });
+  async function checkCurrentTheme() {
+    const data = await currentTheme();
+    setLightOrDark(data.theme);
+    const body = document.body;
+    body.classList.add('body-' + `${data.theme}`);
   };
 
   function changeLightDarkTheme() {
