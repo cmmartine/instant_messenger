@@ -15,8 +15,7 @@ describe("UserSearchBar", () => {
   };
 
   beforeEach(async () => {
-    jest.spyOn(global, 'fetch').mockResolvedValue({ status: 200, json: jest.fn().mockResolvedValue('') });
-    jest.spyOn(userUtil, 'searchUsers');
+    jest.spyOn(userUtil, 'searchUsers').mockReturnValue([]);
   });
 
   it('does not call searchUsers when the input value is missing', async() => {

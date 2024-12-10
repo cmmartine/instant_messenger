@@ -1,5 +1,5 @@
 import { getCsrfToken } from "./csrfTokenUtil";
-import { apiGetFetch } from "./apiUtil";
+import { apiGetFetch, apiPostFetch } from "./apiUtil";
 
 export const getCurrentUserInfo =  () => {
   return apiGetFetch('/users/current_user_info');
@@ -10,31 +10,20 @@ export const getUsersBuddies = () => {
 };
 
 export const setTheme = () => {
-  return apiGetFetch('/users/set_theme')
+  return apiGetFetch('/users/set_theme');
 };
 
 export const currentTheme = () => {
-  return apiGetFetch('/users/current_theme')
+  return apiGetFetch('/users/current_theme');
 };
 
 export const searchUsers = (userInput) => {
-  let csrf = getCsrfToken();
-  return fetch('/users/search', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-      'X-CSRF-Token': csrf,
-    },
-    body: 
-      JSON.stringify({user: {
-        user_search_input: userInput
-      }})
+  const postParams = {
+    user: {
+      user_search_input: userInput
     }
-  ).then((res) => {
-    return res.json();
-  }).then((data) => {
-    return data;
-  });
+  };
+  return apiPostFetch('/users/search', postParams);
 };
 
 export const logout = () => {

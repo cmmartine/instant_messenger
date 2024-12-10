@@ -11,10 +11,9 @@ export default function UserSearchBar(props) {
   const [searchValue, setSearchValue] = useState('');
   const [foundUsers, setFoundUsers] = useState([]);
 
-  const searchAllUsers = (value) => {
-    searchUsers(value).then((data) => {
-      setFoundUsers(data);
-    });
+  const searchAllUsers = async (value) => {
+    const data = await searchUsers(value);
+    setFoundUsers(data);
   };
 
   const resetFoundUsers = () => {

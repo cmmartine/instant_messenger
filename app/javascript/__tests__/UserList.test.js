@@ -48,7 +48,6 @@ describe("UserList", () => {
   describe("By default", () => {
     it("makes a call to retrieve the current users buddies", async() => {
       renderUserList();
-      // expect(fetch).toBeCalled();
       expect(userUtil.getUsersBuddies).toBeCalled();
     });
 

@@ -50,9 +50,9 @@ export default function Main() {
 
   async function applyCurrentUserInfo(newCurrentChatroom= {id: null}) {
     const data = await getCurrentUserInfo();
-      let currentUserData = { ...data };
-      setCurrentUserInfo(currentUserData);
-      openChatroomConnections(currentUserData.chatrooms, newCurrentChatroom);
+    let currentUserData = { ...data };
+    setCurrentUserInfo(currentUserData);
+    openChatroomConnections(currentUserData.chatrooms, newCurrentChatroom);
   };
 
   async function checkCurrentTheme() {
