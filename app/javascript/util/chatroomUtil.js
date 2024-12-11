@@ -1,4 +1,5 @@
 import { getCsrfToken } from "./csrfTokenUtil";
+import { apiPostFetch } from "./apiUtil";
 
 export const findOrCreateChatroom = (userInfo) => {
   let csrf = getCsrfToken();
@@ -24,37 +25,21 @@ export const findOrCreateChatroom = (userInfo) => {
 };
 
 export const postUserIsTyping = (chatroom_id) => {
-  let csrf = getCsrfToken();
-  return fetch('chatrooms/user_is_typing', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-      'X-CSRF-Token': csrf,
-    },
-    body:
-      JSON.stringify({
-        chatroom: {
-          chatroom_id: chatroom_id
-        }
-      })
-  }
-  );
+  const postParams = {
+    chatroom: {
+      chatroom_id: chatroom_id
+    }
+  };
+
+  return apiPostFetch('chatrooms/user_is_typing', postParams);
 };
 
 export const postUserIsNotTyping = (chatroom_id) => {
-  let csrf = getCsrfToken();
-  return fetch('chatrooms/user_is_not_typing', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-      'X-CSRF-Token': csrf,
-    },
-    body:
-      JSON.stringify({
-        chatroom: {
-          chatroom_id: chatroom_id
-        }
-      })
-  }
-  );
+  const postParams = {
+    chatroom: {
+      chatroom_id: chatroom_id
+    }
+  };
+
+  return apiPostFetch('chatrooms/user_is_not_typing', postParams);
 };

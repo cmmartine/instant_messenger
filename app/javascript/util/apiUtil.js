@@ -32,8 +32,10 @@ export const apiPostFetch = async (url, postParams) => {
       throw new Error(`GET ${url} error: ${res.status}`);
     }
 
-    const json = await res.json();
-    return json;
+    if (res.status !== 204) {
+      const json = await res.json();
+      return json;
+    }
   } catch (error) {
     console.error(error);
   }
