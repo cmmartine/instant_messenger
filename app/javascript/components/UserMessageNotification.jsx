@@ -60,10 +60,9 @@ export default function UserMessageNotification(props) {
     }
   };
 
-  const checkReadStatus = (matchedChatroom) => {
-    checkNewestMessageReadStatus(matchedChatroom.info.id).then((data) => {
-      setUnreadMessage(!data.read_status)
-    });
+  const checkReadStatus = async (matchedChatroom) => {
+    const data = await checkNewestMessageReadStatus(matchedChatroom.info.id);
+    setUnreadMessage(!data.read_status);
   };
 
  if (userIsTyping) {

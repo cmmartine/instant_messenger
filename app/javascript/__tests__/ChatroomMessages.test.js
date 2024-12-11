@@ -46,13 +46,11 @@ describe("ChatroomMessages", () => {
   };
 
   beforeEach(async () => {
-    jest.spyOn(global, 'fetch').mockResolvedValue({ status: 200, json: jest.fn().mockResolvedValue([fakeMessages, fakeChatroomId]) });
-    jest.spyOn(messageUtil, 'getMessages');
+    jest.spyOn(messageUtil, 'getMessages').mockReturnValue([fakeMessages, fakeChatroomId]);
   });
 
   it("Displays the messages obtained from getMessages fetch", async() => {
     renderMessageList();
-    expect(fetch).toBeCalled();
     expect(messageUtil.getMessages).toBeCalled();
     expect(await screen.findByText(`${fakeMessages[0].body}`)).toBeInTheDocument();
     expect(await screen.findByText(`${fakeMessages[1].body}`)).toBeInTheDocument();

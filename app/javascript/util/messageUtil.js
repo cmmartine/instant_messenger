@@ -1,91 +1,55 @@
 import { getCsrfToken } from "./csrfTokenUtil";
+import { apiPostFetch } from "./apiUtil";
 
 export const getMessages = (currentChatroom) => {
-  let csrf = getCsrfToken();
-  return fetch('chatrooms/messages', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-      'X-CSRF-Token': csrf,
-    },
-    body: 
-      JSON.stringify({chatroom: {
-        chatroom_id: currentChatroom.info.id
-      }})
+  const postParams = {
+    chatroom: {
+      chatroom_id: currentChatroom.info.id
     }
-  ).then((res) => {
-    return res.json();
-  }).then((data) => {
-    return data;
-  });
+  };
+
+  return apiPostFetch('chatrooms/messages', postParams);
 };
 
 export const postMessage = (message, currentChatroom) => {
-  let csrf = getCsrfToken();
-  fetch('messages/create', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-      'X-CSRF-Token': csrf,
-    },
-    body: 
-      JSON.stringify({message: {
-        body: message,
-        chatroom_id: currentChatroom.info.id
-      }})
+  const postParams = {
+    message: {
+      body: message,
+      chatroom_id: currentChatroom.info.id
     }
-  );
+  };
+
+  return apiPostFetch('messages/create', postParams);
 };
 
 export const postAIChatroomMessages = (message, currentChatroom) => {
-  let csrf = getCsrfToken();
-  fetch('messages/create_ai_chatroom_messages', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-      'X-CSRF-Token': csrf,
-    },
-    body: 
-      JSON.stringify({message: {
-        body: message,
-        chatroom_id: currentChatroom.info.id
-      }})
+  // This method throws a 504 timeout, from Nginx proxy?
+  const postParams = {
+    message: {
+      body: message,
+      chatroom_id: currentChatroom.info.id
     }
-  );
+  };
+
+  return apiPostFetch('messages/create_ai_chatroom_messages', postParams);
 };
 
 export const checkNewestMessageReadStatus = (chatroom_id) => {
-  let csrf = getCsrfToken();
-  return fetch('messages/most_recent_message_read_status', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-      'X-CSRF-Token': csrf,
-    },
-    body: 
-      JSON.stringify({message: {
-        chatroom_id: chatroom_id
-      }})
+  const postParams = {
+    message: {
+      chatroom_id: chatroom_id
     }
-  ).then((res) => {
-    return res.json();
-  }).then((data) => {
-    return data;
-  });
+  };
+
+  return apiPostFetch('messages/most_recent_message_read_status', postParams)
 };
 
 export const changeMessagesReadStatus = (chatroom_id) => {
-  let csrf = getCsrfToken();
-  fetch('messages/update_chatroom_messages_read_status', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-      'X-CSRF-Token': csrf,
-    },
-    body: 
-      JSON.stringify({message: {
-        chatroom_id: chatroom_id
-      }})
+  const postParams = {
+    message: {
+      chatroom_id: chatroom_id
     }
-  );
+  };
+
+  return apiPostFetch('messages/update_chatroom_messages_read_status', postParams);
 };

@@ -48,14 +48,13 @@ export default function ChatroomMessages(props) {
     };
   };
 
-  const getChatroomMessages = () => {
-    getMessages(currentChatroom).then((data) => {
-      // Reverse array so .message-list flex-direction: column-reverse keeps time order top to bottom
-      const messages = data[0].reverse();
-      const chatroom_id = data[1];
-      setAllMessages(messages);
-      setMessagesChatroom(chatroom_id);
-    });
+  const getChatroomMessages = async () => {
+    const data = await getMessages(currentChatroom);
+    // Reverse array so .message-list flex-direction: column-reverse keeps time order top to bottom
+    const messages = data[0].reverse();
+    const chatroom_id = data[1];
+    setAllMessages(messages);
+    setMessagesChatroom(chatroom_id);
   };
 
   if (lightDarkTheme == THEMES.light) {
