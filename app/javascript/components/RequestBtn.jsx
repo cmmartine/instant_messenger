@@ -18,11 +18,10 @@ export default function RequestBtn(props) {
     postNewRequest(userId);
   };
 
-  const checkRequests = () => {
-    checkForPendingRequest(userId).then((data) => {
-      setPendingRequestStatus(data);
-      setFetchedPendingStatus(true);
-    });
+  const checkRequests = async () => {
+    const data = await checkForPendingRequest(userId)
+    setPendingRequestStatus(data);
+    setFetchedPendingStatus(true);
   };
 
   const selectBtn = () => {

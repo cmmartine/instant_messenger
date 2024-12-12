@@ -18,7 +18,7 @@ describe("RequestBtn", () => {
   
   describe("When there is already a pending request", () => {
     beforeEach(async () => {
-      jest.spyOn(requestUtil, 'checkForPendingRequest').mockResolvedValue(true);
+      jest.spyOn(requestUtil, 'checkForPendingRequest').mockReturnValue(true);
     });
 
     it("the button is disabled", async() => {
@@ -40,7 +40,7 @@ describe("RequestBtn", () => {
 
   describe("When there is NOT a pending request", () => {
     beforeEach(async () => {
-      jest.spyOn(requestUtil, 'checkForPendingRequest').mockResolvedValue(false);
+      jest.spyOn(requestUtil, 'checkForPendingRequest').mockReturnValue(false);
       jest.spyOn(requestUtil, 'postNewRequest')
     });
 

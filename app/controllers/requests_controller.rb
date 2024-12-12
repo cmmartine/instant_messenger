@@ -16,13 +16,13 @@ class RequestsController < ApplicationController
     request.update!(status: STATUSES[:accepted])
     Buddy.create!(user_id: current_user.id, buddy_id: other_user.id)
     Buddy.create!(user_id: other_user.id, buddy_id: current_user.id)
-    head :ok
+    head :no_content
   end
 
   def reject
     request = Request.find(request_params[:request_id])
     request.delete
-    head :ok
+    head :no_content
   end
 
   def pending_request

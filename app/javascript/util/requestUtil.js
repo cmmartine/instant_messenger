@@ -1,40 +1,23 @@
-import { getCsrfToken } from "./csrfTokenUtil";
-import { apiGetFetch } from "./apiUtil";
+import { apiGetFetch, apiPostFetch } from "./apiUtil";
 
 export const postNewRequest = (userId) => {
-  let csrf = getCsrfToken();
-  fetch('requests/create', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-      'X-CSRF-Token': csrf,
-    },
-    body: 
-      JSON.stringify({request: {
-        user_id: userId
-      }})
+  const postParams = {
+    request: {
+      user_id: userId
     }
-  );
+  };
+
+  return apiPostFetch('requests/create', postParams);
 };
 
 export const checkForPendingRequest = (userId) => {
-  let csrf = getCsrfToken();
-  return fetch('requests/pending_request', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-      'X-CSRF-Token': csrf,
-    },
-    body: 
-      JSON.stringify({request: {
-        user_id: userId
-      }})
+  const postParams = {
+    request: {
+      user_id: userId
     }
-  )
-  .then((res) => res.json())
-  .then((data) => {
-    return data;
-  });
+  };
+
+  return apiPostFetch('requests/pending_request', postParams);
 };
 
 export const getPendingReceivedRequests = () => {
@@ -42,33 +25,21 @@ export const getPendingReceivedRequests = () => {
 };
 
 export const acceptBuddyRequest = (requestId) => {
-  let csrf = getCsrfToken();
-  return fetch('requests/accept', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-      'X-CSRF-Token': csrf,
-    },
-    body: 
-      JSON.stringify({request: {
-        request_id: requestId
-      }})
+  const postParams = {
+    request: {
+      request_id: requestId
     }
-  );
+  };
+
+  return apiPostFetch('requests/accept', postParams);
 };
 
 export const rejectBuddyRequest = (requestId) => {
-  let csrf = getCsrfToken();
-  return fetch('requests/reject', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-      'X-CSRF-Token': csrf,
-    },
-    body: 
-      JSON.stringify({request: {
-        request_id: requestId
-      }})
+  const postParams = {
+    request: {
+      request_id: requestId
     }
-  );
+  };
+
+  return apiPostFetch('requests/reject', postParams);
 };
