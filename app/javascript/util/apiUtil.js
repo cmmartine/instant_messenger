@@ -29,7 +29,7 @@ export const apiPostFetch = async (url, postParams) => {
     });
 
     if (!res.ok) {
-      throw new Error(`GET ${url} error: ${res.status}`);
+      throw new Error(`POST ${url} error: ${res.status}`);
     }
 
     if (res.status !== 204) {
