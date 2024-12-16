@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import RequestBtn from "../components/RequestBtn";
 import * as requestUtil from "../util/requestUtil";
 import { LightDarkContext } from "../components/Main";
-import { THEMES } from "../constants/themes";
+import * as THEMES from "../constants/THEMES";
 
 describe("RequestBtn", () => {
   let userId = 1;

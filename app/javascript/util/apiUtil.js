@@ -8,8 +8,10 @@ export const apiGetFetch = async (url) => {
       throw new Error(`GET ${url} error: ${res.status}`);
     }
 
-    const json = await res.json();
-    return json;
+    if (res.status !== 204) {
+      const json = await res.json();
+      return json;
+    }
   } catch (error) {
     console.error(error);
   }

@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 
   def set_theme
     current_user.theme == 'light' ? User.update(current_user.id, theme: 'dark') : User.update(current_user.id, theme: 'light')
-    head :ok
+    head :no_content
   end
 
   def current_theme
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     if found_users
       render json: filtered_users.to_json
     else
-      head :ok
+      head :no_content
     end
   end
 

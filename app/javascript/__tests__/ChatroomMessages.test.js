@@ -3,7 +3,7 @@ import ChatroomMessages from "../components/ChatroomMessages";
 import { CurrentChatroomContext, CurrentUserContext } from "../components/Main";
 import * as messageUtil from "../util/messageUtil";
 import { LightDarkContext } from "../components/Main";
-import { THEMES } from "../constants/themes";
+import * as THEMES from "../constants/THEMES";
 
 describe("ChatroomMessages", () => {
   let fakeMessages = [

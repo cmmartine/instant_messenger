@@ -3,7 +3,7 @@ import ChatroomChannel from "../channels/chatroom_channel";
 import UserList from "./UserList";
 import Chatroom from "./Chatroom";
 import { getCurrentUserInfo, currentTheme } from "../util/userUtil";
-import { THEMES } from "../constants/themes";
+import * as THEMES from "../constants/THEMES";
 
 export const CurrentUserContext = createContext();
 export const ChatroomContext = createContext();

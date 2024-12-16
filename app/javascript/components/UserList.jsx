@@ -10,8 +10,8 @@ import AcceptAndRejectRequestBtns from "./AcceptAndRejectRequestBtns";
 import { getUsersBuddies } from "../util/userUtil";
 import { getPendingReceivedRequests } from "../util/requestUtil";
 import { LightDarkContext } from "./Main";
-import { THEMES } from "../constants/themes";
-import { LIST_TYPES } from "../constants/listTypes";
+import * as THEMES from "../constants/THEMES";
+import * as LIST_TYPES from "../constants/LIST_TYPES";
 import setupDraggingAndResizing from "../util/dragAndResize";
 
 export default function UserList(props) {

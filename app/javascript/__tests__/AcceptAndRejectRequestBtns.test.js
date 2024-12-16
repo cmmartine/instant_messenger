@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import AcceptAndRejectRequestBtns from "../components/AcceptAndRejectRequestBtns";
 import * as requestUtil from "../util/requestUtil";
 import { LightDarkContext } from "../components/Main";
-import { THEMES } from "../constants/themes";
+import * as THEMES from "../constants/THEMES";
 
 describe("AcceptAndRejectRequestBtns", () => {
   let requestId = 1;

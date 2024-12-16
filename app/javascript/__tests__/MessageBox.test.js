@@ -5,7 +5,7 @@ import * as chatroomUtil from "../util/chatroomUtil";
 import * as messageUtil from "../util/messageUtil";
 import { CurrentChatroomContext, CurrentUserContext } from "../components/Main";
 import { LightDarkContext } from "../components/Main";
-import { THEMES } from "../constants/themes";
+import * as THEMES from "../constants/THEMES";
 
 jest.mock("../components/SpeechToTextBtn", () => () => {
   return <button data-testid='record-button'/>

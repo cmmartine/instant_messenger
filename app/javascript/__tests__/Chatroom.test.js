@@ -3,7 +3,7 @@ import Chatroom from "../components/Chatroom";
 import userEvent from "@testing-library/user-event";
 import { CurrentChatroomContext } from "../components/Main";
 import { LightDarkContext } from "../components/Main";
-import { THEMES } from "../constants/themes";
+import * as THEMES from "../constants/THEMES";
 
 jest.mock("../components/ChatroomMessages", () => () => {
   const MockChatroomMessages = "ChatroomMessages";

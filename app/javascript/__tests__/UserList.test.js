@@ -5,7 +5,7 @@ import { CurrentUserContext, ChatroomContext } from "../components/Main";
 import * as userUtil from "../util/userUtil";
 import * as requestUtil from "../util/requestUtil";
 import { LightDarkContext } from "../components/Main";
-import { THEMES } from "../constants/themes";
+import * as THEMES from "../constants/THEMES";
 
 describe("UserList", () => {
 

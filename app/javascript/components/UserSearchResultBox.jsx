@@ -2,7 +2,7 @@ import React from "react";
 import { useContext, useEffect } from "react";
 import RequestBtn from "./RequestBtn";
 import { CurrentUserContext, LightDarkContext } from "./Main";
-import { THEMES } from "../constants/themes";
+import * as THEMES from "../constants/THEMES";
 
 export default function UserSearchResultBox(props) {
   const { foundUsers, resetFoundUsers, allBuddies } = props;

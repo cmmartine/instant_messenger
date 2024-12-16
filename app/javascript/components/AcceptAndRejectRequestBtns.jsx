@@ -2,7 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import { LightDarkContext } from "./Main";
 import { acceptBuddyRequest, rejectBuddyRequest } from "../util/requestUtil";
-import { THEMES } from "../constants/themes";
+import * as THEMES from "../constants/THEMES";
 
 export default function AcceptAndRejectRequestBtns(props) {
   const { requestId, resetUsersFetched } = props;

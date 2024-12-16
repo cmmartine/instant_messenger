@@ -5,7 +5,7 @@ import MessageBox from "./MessageBox";
 import { CurrentChatroomContext } from "./Main";
 import { LightDarkContext } from "./Main";
 import { postUserIsNotTyping } from "../util/chatroomUtil";
-import { THEMES } from "../constants/themes";
+import * as THEMES from "../constants/THEMES";
 import setupDraggingAndResizing from "../util/dragAndResize";
 
 export default function Chatroom(props) {

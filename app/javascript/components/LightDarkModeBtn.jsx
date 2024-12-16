@@ -2,7 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import { LightDarkContext } from "./Main";
 import { setTheme } from "../util/userUtil";
-import { THEMES } from "../constants/themes";
+import * as THEMES from "../constants/THEMES";
 
 export default function LightDarkModeBtn(props) {
   const { changeLightDarkTheme } = props;
