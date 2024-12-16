@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  THEMES = Constants::THEMES
+
   def buddies
     buddies = current_user.buddies
     filtered_buddies = Buddy.filter_to_usernames_and_ids(buddies)
@@ -17,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   def set_theme
-    current_user.theme == 'light' ? User.update(current_user.id, theme: 'dark') : User.update(current_user.id, theme: 'light')
+    current_user.theme == 'light' ? User.update(current_user.id, theme: THEMES['dark']) : User.update(current_user.id, theme: THEMES['light'])
     head :no_content
   end
 

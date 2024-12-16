@@ -1,9 +1,6 @@
 require 'rails_helper'
 
-STATUSES = {
-  'pending': 'pending',
-  'accepted': 'accepted'
-}.freeze
+STATUSES = Constants::REQUEST_STATUSES
 
 RSpec.describe Request, type: :model do
   describe 'associations' do

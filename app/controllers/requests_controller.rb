@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 class RequestsController < ApplicationController
-  STATUSES = {
-    pending: 'pending',
-    accepted: 'accepted'
-  }.freeze
+  STATUSES = Constants::REQUEST_STATUSES
 
   def create
     Request.create!(sending_user_id: current_user.id, receiving_user_id: request_params[:user_id])
@@ -13,7 +10,7 @@ class RequestsController < ApplicationController
   def accept
     request = Request.find(request_params[:request_id])
     other_user = request.sending_user
-    request.update!(status: STATUSES[:accepted])
+    request.update!(status: STATUSES['accepted'])
     Buddy.create!(user_id: current_user.id, buddy_id: other_user.id)
     Buddy.create!(user_id: other_user.id, buddy_id: current_user.id)
     head :no_content
