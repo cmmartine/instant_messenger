@@ -77,3 +77,10 @@
   border-left: 2px solid rgb(129, 129, 129);
   border-top: 2px solid rgb(129, 129, 129);
 }
+
+@media (max-width: 480px) {
+  .chatroom-container {
+    height: 90%;
+    width: 90%;
+  }
+}

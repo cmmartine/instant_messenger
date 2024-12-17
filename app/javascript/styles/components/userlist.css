@@ -84,3 +84,10 @@
   border-right: 2px solid rgb(106, 106, 106);
   border-bottom: 2px solid rgb(106, 106, 106);
 }
+
+@media (max-width: 480px) {
+  .userlist-sidebar-container {
+    height: 90%;
+    width: 90%;
+  }
+}
