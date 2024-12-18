@@ -18,8 +18,8 @@
   "dependencies": {
     "@rails/actioncable": "^7.1.2",
     "actioncable": "^5.2.8-1",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "react-router-dom": "^6.18.0"
   },
   "scripts": {

@@ -57,6 +57,7 @@ COPY docker-bin/. /usr/bin/
 COPY docker-bin/h2oai/startup_ai.sh /home/h2ogpt/
 
 RUN chmod +x /usr/bin/startup.sh
+RUN chmod +x /usr/bin/install-chrome.sh
 RUN chmod +x /home/h2ogpt/startup_ai.sh
 
 ENTRYPOINT ["startup.sh"]

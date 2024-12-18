@@ -44,3 +44,7 @@ db-migrate:
 
 h2oai-log:
 	docker compose exec rails tail /instant-messenger/log/h2oai
+
+install-chrome: #needed to run feature/capybara tests in container
+	docker compose exec rails ../usr/bin/install-chrome.sh
+	docker compose exec rails rm google-chrome-stable_current_amd64.deb

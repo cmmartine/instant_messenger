@@ -37,3 +37,4 @@ node_modules
 # https://vitejs.dev/guide/env-and-mode.html#env-files
 *.local
 
+google-chrome-stable_current_amd64.deb
