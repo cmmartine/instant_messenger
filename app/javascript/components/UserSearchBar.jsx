@@ -29,11 +29,11 @@ export default function UserSearchBar(props) {
             searchAllUsers(searchValue);
           };
         }}>
-          <input type='search' className='search-input' onChange={(e) => {
+          <input type='search' id='search-input' className='search-input' onChange={(e) => {
             e.preventDefault();
             setSearchValue(e.target.value);
           }}/>
-          <button type="submit" className='search-btn'>Search</button>
+          <button type="submit" id='search-btn' className='search-btn'>Search</button>
         </form>
         <UserSearchResultBox foundUsers={foundUsers} resetFoundUsers={resetFoundUsers} allBuddies={allBuddies}/>
       </div>

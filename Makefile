@@ -15,8 +15,13 @@ down: #stops the docker containers
 rails: #run rails server without h2oai
 	docker compose run --rm -d -p 8080:80 nginx
 
-rspec: #run rails rspec tests
-	docker compose exec rails rspec
+rspec: #run rails rspec tests except feature tests
+	docker compose exec rails rspec spec/channels/
+	docker compose exec rails rspec spec/controllers/
+	docker compose exec rails rspec spec/models/
+
+rspec-feature:
+	docker compose exec rails rspec spec/features/
 
 one-rspec: #run passed in rspec
 	docker compose exec rails rspec $(RUN_ARGS)
@@ -48,3 +53,6 @@ h2oai-log:
 install-chrome: #needed to run feature/capybara tests in container
 	docker compose exec rails ../usr/bin/install-chrome.sh
 	docker compose exec rails rm google-chrome-stable_current_amd64.deb
+
+clean:
+	docker compose exec rails rm -r /instant-messenger/tmp/capybara

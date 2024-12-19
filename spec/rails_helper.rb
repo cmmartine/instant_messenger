@@ -11,6 +11,7 @@ require 'devise'
 require_relative 'support/controller_macros'
 require 'capybara/rspec'
 require 'selenium/webdriver'
+require 'support/feature_helpers'
 
 Capybara.register_driver :selenium do |app|
   arguments = [
@@ -18,7 +19,8 @@ Capybara.register_driver :selenium do |app|
     'disable-gpu',
     'no-sandbox',
     'window-size=1920,1080',
-    'privileged'
+    'privileged',
+    'disable-dev-shm-usage'
   ]
 
   preferences = {

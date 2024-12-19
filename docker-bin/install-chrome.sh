@@ -1,5 +1,5 @@
 #!/bin/bash
-install the latest version of Chrome and the Chrome Driver
+# install the latest version of Chrome and the Chrome Driver
 apt-get update && apt-get install -y libnss3-dev
 # version from https://googlechromelabs.github.io/chrome-for-testing/#stable
 version=$(131.0.6778.108)
