@@ -11,7 +11,8 @@
 
       <div class="field">
         <%= f.label :username %><br />
-        <%= f.text_field :username, autofocus: true, autocomplete: "username" %>
+        <%= f.text_field :username, required: true, minlength: 3, autofocus: true, autocomplete: "username" %>
+        <span class="error-message">Username must be at least 3 characters long</span>
       </div>
 
       <div class="field">
@@ -26,10 +27,7 @@
       <div class="field">
         <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
         <%= f.password_field :password, autocomplete: "new-password" %>
-        <% if @minimum_password_length %>
-          <br />
-          <em><%= @minimum_password_length %> characters minimum</em>
-        <% end %>
+        <span class="input-message">Password must be at least 8 characters long and contain 1 uppercase, 1 lowercase, 1 number and 1 special character</span>
       </div>
 
       <div class="field">

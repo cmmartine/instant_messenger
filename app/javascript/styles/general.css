@@ -10,6 +10,7 @@
 @import './components//light-dark-mode-btn.css';
 @import './components//request-btns.css';
 @import './devise-forms.css';
+@import './inputs.css';
 
  body {
   margin: 0;

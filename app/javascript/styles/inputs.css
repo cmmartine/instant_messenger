@@ -1,0 +1,19 @@
+.error-message {
+  display: none;
+  width: 185px;
+  font-size: .8em;
+}
+
+input:focus:invalid ~ .error-message{
+  display: flex;
+}
+
+.input-message {
+  display: none;
+  width: 185px;
+  font-size: .8em;
+}
+
+input:focus ~ .input-message {
+  display: flex;
+}
