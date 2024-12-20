@@ -19,6 +19,14 @@ module FeatureHelpers
     User.find(3)
   end
 
+  def add_buddy(user_to_add)
+    user = first_user
+    return unless user && user_to_add
+
+    Request.create(sending_user_id: user.id, receiving_user_id: user_to_add.id, status: 'accepted')
+    Buddy.create(user_id: user.id, buddy_id: user_to_add.id)
+  end
+
   def login
     user = first_user
     return unless user
