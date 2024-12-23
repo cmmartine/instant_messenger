@@ -25,6 +25,14 @@ module FeatureHelpers
 
     Request.create(sending_user_id: user.id, receiving_user_id: user_to_add.id, status: 'accepted')
     Buddy.create(user_id: user.id, buddy_id: user_to_add.id)
+    Buddy.create(user_id: user_to_add.id, buddy_id: user.id)
+  end
+
+  def create_received_request(user_to_add)
+    user = first_user
+    return unless user && user_to_add
+
+    Request.create(sending_user_id: user_to_add.id, receiving_user_id: user.id)
   end
 
   def login
@@ -52,5 +60,13 @@ module FeatureHelpers
       fill_in 'search-input', with: input
     end
     click_button 'search-btn'
+  end
+
+  def click_buddies_tab
+    find('[data-testid="buddy-tab"]').click
+  end
+
+  def click_requests_tab
+    find('[data-testid="requests-tab"]').click
   end
 end
