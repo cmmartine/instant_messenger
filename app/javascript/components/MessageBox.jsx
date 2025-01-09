@@ -65,7 +65,7 @@ export default function MessageBox(props) {
           localStorage.setItem(localStorageKey, e.target.value);
           isUserTyping(e.target.value);
           }}/>
-        <button className='send-message-btn' type='submit' onClick={(e) => {
+        <button id='send-message-btn' className='send-message-btn' type='submit' onClick={(e) => {
           e.preventDefault();
           if (chattingWithUser.username == 'Chatbot') {
             postAIChatroomMessages(newMessage, currentChatroom)

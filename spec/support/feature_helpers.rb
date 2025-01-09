@@ -26,6 +26,7 @@ module FeatureHelpers
     Request.create(sending_user_id: user.id, receiving_user_id: user_to_add.id, status: 'accepted')
     Buddy.create(user_id: user.id, buddy_id: user_to_add.id)
     Buddy.create(user_id: user_to_add.id, buddy_id: user.id)
+    refresh_page
   end
 
   def create_received_request(user_to_add)
@@ -68,5 +69,16 @@ module FeatureHelpers
 
   def click_requests_tab
     find('[data-testid="requests-tab"]').click
+  end
+
+  def open_chatroom(user)
+    find('li', text: user.username).click
+  end
+
+  def send_message(msg)
+    within('#chatroom-message-form') do
+      fill_in 'message-box-text', with: msg
+    end
+    click_button 'send-message-btn'
   end
 end

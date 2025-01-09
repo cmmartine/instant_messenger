@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Searching for a user', type: :feature, js: true do
+describe 'User Search', type: :feature, js: true do
   include FeatureHelpers
 
   before do
