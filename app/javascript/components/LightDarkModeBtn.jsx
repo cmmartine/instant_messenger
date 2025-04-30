@@ -8,21 +8,15 @@ export default function LightDarkModeBtn(props) {
   const { changeLightDarkTheme } = props;
   const lightDarkTheme = useContext(LightDarkContext);
 
-  if (lightDarkTheme == THEMES.light) {
-    return(
-      <div className='theme-btn change-to-dark-btn' onClick={(e) => {
-        e.preventDefault();
-        setTheme();
-        changeLightDarkTheme();
-      }}>{THEMES.lightIcon}</div>
-    )
-  } else if (lightDarkTheme == THEMES.dark) {
-    return(
-      <div className='theme-btn change-to-light-btn' onClick={(e) => {
-        e.preventDefault();
-        setTheme();
-        changeLightDarkTheme();
-      }}>{THEMES.darkIcon}</div>
-    )
-  }
+  const isDarkTheme = lightDarkTheme === THEMES.dark;
+  const buttonClass = isDarkTheme ? 'theme-btn change-to-light-btn' : 'theme-btn change-to-dark-btn';
+  const icon = isDarkTheme ? THEMES.darkIcon : THEMES.lightIcon;
+
+  return(
+    <div className={buttonClass} onClick={(e) => {
+      e.preventDefault();
+      setTheme();
+      changeLightDarkTheme();
+    }}>{icon}</div>
+  )
 };

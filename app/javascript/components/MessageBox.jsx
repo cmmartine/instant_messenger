@@ -16,6 +16,10 @@ export default function MessageBox(props) {
   const [userIsTyping, setUserIsTyping] = useState(false);
   const localStorageKey = `draftMessageChatroom${currentChatroom.info.id}User${currentUser.id}`;
 
+  const isDarkTheme = lightDarkTheme === THEMES.dark;
+  const textAreaClass = isDarkTheme ? 'message-box-text-dark' : '';
+  const sendButtonClass = isDarkTheme ? 'send-message-btn send-message-btn-dark' : 'send-message-btn';
+
   useEffect(() => {
     useLocalStorageValue(checkLocalStorage());
   }), [];
@@ -57,49 +61,35 @@ export default function MessageBox(props) {
     };
   };
 
-  if (lightDarkTheme == THEMES.light) {
-    return(
-      <form id='chatroom-message-form'>
-        <textarea id='message-box-text' aria-label='new-message' spellCheck='true' onChange={(e) => {
+  return (
+    <form id="chatroom-message-form">
+      <textarea
+        id="message-box-text"
+        className={textAreaClass}
+        aria-label="new-message"
+        spellCheck="true"
+        onChange={(e) => {
           setNewMessage(e.target.value);
           localStorage.setItem(localStorageKey, e.target.value);
           isUserTyping(e.target.value);
-          }}/>
-        <button id='send-message-btn' className='send-message-btn' type='submit' onClick={(e) => {
+        }}
+      />
+      <button
+        className={sendButtonClass}
+        type="submit"
+        onClick={(e) => {
           e.preventDefault();
-          if (chattingWithUser.username == 'Chatbot') {
-            postAIChatroomMessages(newMessage, currentChatroom)
+          if (chattingWithUser.username === 'Chatbot') {
+            postAIChatroomMessages(newMessage, currentChatroom);
           } else {
             postMessage(newMessage, currentChatroom);
             postUserIsNotTyping(currentChatroom.info.id);
             setUserIsTyping(false);
           }
           resetMessage();
-        }}>📮</button>
-        {renderSpeechToTxtBtn()}
-      </form>
-    );
-  } else if (lightDarkTheme == THEMES.dark) {
-    return(
-      <form id='chatroom-message-form'>
-        <textarea id='message-box-text' className='message-box-text-dark' aria-label='new-message' spellCheck='true' onChange={(e) => {
-          setNewMessage(e.target.value);
-          localStorage.setItem(localStorageKey, e.target.value);
-          isUserTyping(e.target.value);
-          }}/>
-        <button className='send-message-btn send-message-btn-dark' type='submit' onClick={(e) => {
-          e.preventDefault();
-          if (chattingWithUser.username == 'Chatbot') {
-            postAIChatroomMessages(newMessage, currentChatroom)
-          } else {
-            postMessage(newMessage, currentChatroom);
-            postUserIsNotTyping(currentChatroom.info.id);
-            setUserIsTyping(false);
-          }
-          resetMessage();
-        }}>📮</button>
-        {renderSpeechToTxtBtn()}
-      </form>
-    );
-  }
+        }}
+      >📮</button>
+      {renderSpeechToTxtBtn()}
+    </form>
+  );
 }

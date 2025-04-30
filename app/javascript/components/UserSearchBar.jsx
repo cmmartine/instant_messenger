@@ -11,6 +11,11 @@ export default function UserSearchBar(props) {
   const [searchValue, setSearchValue] = useState('');
   const [foundUsers, setFoundUsers] = useState([]);
 
+  const isDarkTheme = lightDarkTheme === THEMES.dark;
+  const searchBarClass = isDarkTheme ? 'user-searchbar user-searchbar-dark' : 'user-searchbar';
+  const inputClass = isDarkTheme ? 'search-input search-input-dark' : 'search-input';
+  const buttonClass = isDarkTheme ? 'search-btn search-btn-dark' : 'search-btn';
+
   const searchAllUsers = async (value) => {
     const data = await searchUsers(value);
     setFoundUsers(data);
@@ -20,41 +25,21 @@ export default function UserSearchBar(props) {
     setFoundUsers('');
   };
 
-  if (lightDarkTheme == THEMES.light) {
-    return(
-      <div className='user-search-container'>
-        <form className='user-searchbar' onSubmit={(e) => {
+  return(
+    <div className='user-search-container'>
+      <form className={searchBarClass} onSubmit={(e) => {
+        e.preventDefault();
+        if(searchValue !== '') {
+          searchAllUsers(searchValue);
+        };
+      }}>
+        <input type='search' id='search-input' className={inputClass} onChange={(e) => {
           e.preventDefault();
-          if(searchValue !== '') {
-            searchAllUsers(searchValue);
-          };
-        }}>
-          <input type='search' id='search-input' className='search-input' onChange={(e) => {
-            e.preventDefault();
-            setSearchValue(e.target.value);
-          }}/>
-          <button type="submit" id='search-btn' className='search-btn'>Search</button>
-        </form>
-        <UserSearchResultBox foundUsers={foundUsers} resetFoundUsers={resetFoundUsers} allBuddies={allBuddies}/>
-      </div>
-    );
-  } else if (lightDarkTheme == THEMES.dark) {
-    return(
-      <div className='user-search-container'>
-        <form className='user-searchbar user-searchbar-dark' onSubmit={(e) => {
-          e.preventDefault();
-          if(searchValue !== '') {
-            searchAllUsers(searchValue);
-          };
-        }}>
-          <input type='search' className='search-input search-input-dark' onChange={(e) => {
-            e.preventDefault();
-            setSearchValue(e.target.value);
-          }}/>
-          <button type="submit" className='search-btn search-btn-dark'>Search</button>
-        </form>
-        <UserSearchResultBox foundUsers={foundUsers} resetFoundUsers={resetFoundUsers} allBuddies={allBuddies}/>
-      </div>
-    );
-  }
+          setSearchValue(e.target.value);
+        }}/>
+        <button type="submit" id='search-btn' className={buttonClass}>Search</button>
+      </form>
+      <UserSearchResultBox foundUsers={foundUsers} resetFoundUsers={resetFoundUsers} allBuddies={allBuddies}/>
+    </div>
+  );
 }

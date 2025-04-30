@@ -23,6 +23,11 @@ export default function UserList(props) {
   const lightDarkTheme = useContext(LightDarkContext);
   const { changeChattingWithUser, refetchCurrentUser, changeLightDarkTheme } = props;
 
+  const isDarkTheme = lightDarkTheme === THEMES.dark;
+  const userlistSidebarClass = isDarkTheme ? 'userlist-sidebar userlist-sidebar-dark' : 'userlist-sidebar';
+  const buddiesTabClass = isDarkTheme ? 'userlist-tab userlist-tab-dark buddies-tab' : 'userlist-tab buddies-tab';
+  const requestsTabClass = isDarkTheme ? 'userlist-tab userlist-tab-dark requests-tab' : 'userlist-tab requests-tab';
+
   useEffect(() => {
     const dataType='user-list';
     setupDraggingAndResizing(dataType);
@@ -82,55 +87,20 @@ export default function UserList(props) {
     setUsersFetched(false);
   };
 
-  if (lightDarkTheme == THEMES.light) {
-    if (allBuddies != []) {
-      return(
-        <div className='userlist-sidebar-container' data-draggable-user-list='true' data-resizable-user-list='true'>
-          <div className='navbar-outer-container' data-drag-handle-user-list='true'>
-            <NavBar/>
-          </div>
-          <div className='userlist-sidebar'>
-            <UserSearchBar allBuddies={allBuddies}/>
-            <div className='userlist-tab-container'>
-              <h4 className='userlist-tab buddies-tab' data-testid='buddy-tab' onClick={() => setListType(LIST_TYPES.buddies)}>Buddies</h4>
-              <h4 className='userlist-tab requests-tab' data-testid='requests-tab' onClick={() => setListType(LIST_TYPES.requests)}>Requests</h4>
-            </div>
-            {renderList()}
-            <LightDarkModeBtn changeLightDarkTheme={changeLightDarkTheme}/>
-          </div>
+  return(
+    <div className='userlist-sidebar-container' data-draggable-user-list='true' data-resizable-user-list='true'>
+      <div className='navbar-outer-container' data-drag-handle-user-list='true'>
+        <NavBar/>
+      </div>
+      <div className={userlistSidebarClass}>
+        <UserSearchBar allBuddies={allBuddies}/>
+        <div className='userlist-tab-container'>
+          <h4 className={buddiesTabClass} data-testid='buddy-tab' onClick={() => setListType(LIST_TYPES.buddies)}>Buddies</h4>
+          <h4 className={requestsTabClass} data-testid='requests-tab' onClick={() => setListType(LIST_TYPES.requests)}>Requests</h4>
         </div>
-      )
-    } else {
-      return(
-        <div>
-          Loading...
-        </div>
-      )
-    };
-  } else if (lightDarkTheme == THEMES.dark) {
-    if (allBuddies != []) {
-      return(
-        <div className='userlist-sidebar-container' data-draggable-user-list='true' data-resizable-user-list='true'>
-          <div className='navbar-outer-container' data-drag-handle-user-list='true'>
-            <NavBar/>
-          </div>
-          <div className='userlist-sidebar userlist-sidebar-dark'>
-            <UserSearchBar allBuddies={allBuddies}/>
-            <div className='userlist-tab-container'>
-              <h4 className='userlist-tab userlist-tab-dark buddies-tab' onClick={() => setListType(LIST_TYPES.buddies)}>Buddies</h4>
-              <h4 className='userlist-tab userlist-tab-dark requests-tab' onClick={() => setListType(LIST_TYPES.requests)}>Requests</h4>
-            </div>
-            {renderList()}
-            <LightDarkModeBtn changeLightDarkTheme={changeLightDarkTheme}/>
-          </div>
-        </div>
-      )
-    } else {
-      return(
-        <div>
-          Loading...
-        </div>
-      )
-    };
-  }
+        {renderList()}
+        <LightDarkModeBtn changeLightDarkTheme={changeLightDarkTheme}/>
+      </div>
+    </div>
+  )
 }
