@@ -61,36 +61,4 @@ RSpec.describe User, type: :model do
       expect(output).to eq([])
     end
   end
-
-  describe 'self.filter_search_to_name_and_id' do
-    before do
-      User.create(username: 'Bianca', email: 'bianca1@chatroom.com', password: 'Bianca1!', password_confirmation: 'Bianca1!')
-      User.create(username: 'Brittney', email: 'brittney1@chatroom.com', password: 'Brittney1!', password_confirmation: 'Brittney1!')
-    end
-
-    expected_result = [
-      {
-        username: 'Bianca',
-        id: 1
-      },
-      {
-        username: 'Brittney',
-        id: 2
-      }
-    ]
-
-    expected_result_empty = []
-
-    it('filters to just name and id when passed an array of users') do
-      input = User.where('username LIKE ?', 'B%')
-      output = User.filter_search_to_name_and_id(input)
-      expect(output).to eq(expected_result)
-    end
-
-    it('returns an empty array when no users are in the passed in array') do
-      input = User.where('username LIKE ?', 'z%')
-      output = User.filter_search_to_name_and_id(input)
-      expect(output).to eq(expected_result_empty)
-    end
-  end
 end

@@ -27,16 +27,7 @@ class User < ApplicationRecord
   end
 
   def self.search(user_input)
-    where(['lower(username) LIKE ?', "%#{user_input.downcase}%"])
-  end
-
-  def self.filter_search_to_name_and_id(search_results)
-    search_results.map do |user|
-      {
-        id: user.id,
-        username: user.username
-      }
-    end
+    where(['lower(username) LIKE ?', "%#{user_input.downcase}%"]).select(:id, :username)
   end
 
   def open_request_with_user?(user_id)
