@@ -80,20 +80,16 @@ RSpec.describe UsersController, type: :controller do
       User.create(username: 'Brittney', email: 'brittney1@chatroom.com', password: 'Brittney1!', password_confirmation: 'Brittney1!')
     end
 
-    search_params_lower_b = {
-      user: {
-        user_search_input: 'b'
+    def search_params(input)
+      {
+        user: {
+          user_search_input: input
+        }
       }
-    }
-
-    search_params_upper_a = {
-      user: {
-        user_search_input: 'A'
-      }
-    }
+    end
 
     it 'returns json with usernames and ids for all users containing the letter b regardless of case' do
-      post :search, params: search_params_lower_b, as: :json
+      post :search, params: search_params('b'), as: :json
       expect(response.body).to include('Bianca')
       expect(response.body).to include('Brittney')
       expect(response.body).to include('2')
@@ -101,9 +97,14 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it 'returns json with usernames and ids for all users containing the letter a regardless of case' do
-      post :search, params: search_params_upper_a, as: :json
+      post :search, params: search_params('A'), as: :json
       expect(response.body).to include('Bianca')
       expect(response.body).to include('2')
+    end
+
+    it 'returns an empty array when no users are found' do
+      post :search, params: search_params('z'), as: :json
+      expect(response.body).to eq('[]')
     end
   end
 end

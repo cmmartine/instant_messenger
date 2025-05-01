@@ -43,6 +43,8 @@ RSpec.describe User, type: :model do
 
     search_params_upper_a = 'A'
 
+    search_params_unfound = 'z'
+
     it 'returns all users with the letter B in their name when user input is lowercase and username letter is uppercase' do
       output = User.search(search_params_lower_b)
       expect(output).to include(User.find_by(username: 'Bianca'))
@@ -52,6 +54,11 @@ RSpec.describe User, type: :model do
     it 'returns all users with the letter A in their name when user input is uppercase and username letter is lowercase' do
       output = User.search(search_params_upper_a)
       expect(output).to include(User.find_by(username: 'Bianca'))
+    end
+
+    it 'returns an empty array when there is no match' do
+      output = User.search(search_params_unfound)
+      expect(output).to eq([])
     end
   end
 
@@ -72,10 +79,18 @@ RSpec.describe User, type: :model do
       }
     ]
 
-    it('filters to just name and id') do
+    expected_result_empty = []
+
+    it('filters to just name and id when passed an array of users') do
       input = User.where('username LIKE ?', 'B%')
       output = User.filter_search_to_name_and_id(input)
       expect(output).to eq(expected_result)
+    end
+
+    it('returns an empty array when no users are in the passed in array') do
+      input = User.where('username LIKE ?', 'z%')
+      output = User.filter_search_to_name_and_id(input)
+      expect(output).to eq(expected_result_empty)
     end
   end
 end

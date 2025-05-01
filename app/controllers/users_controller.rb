@@ -29,13 +29,9 @@ class UsersController < ApplicationController
 
   def search
     found_users = User.search(user_params[:user_search_input])
-    filtered_users = User.filter_search_to_name_and_id(found_users)
 
-    if found_users
-      render json: filtered_users.to_json
-    else
-      head :no_content
-    end
+    filtered_users_json = User.filter_search_to_name_and_id(found_users).to_json
+    render json: filtered_users_json
   end
 
   private
