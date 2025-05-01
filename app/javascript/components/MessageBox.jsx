@@ -1,10 +1,9 @@
 import React from "react";
 import { useContext, useState, useEffect } from "react";
-import { CurrentChatroomContext, CurrentUserContext } from "./Main";
+import { CurrentChatroomContext, CurrentUserContext, LightDarkContext } from "./ContextProviderWrapper";
 import SpeechToTextBtn from "./SpeechToTextBtn";
 import { postMessage, postAIChatroomMessages } from "../util/messageUtil";
 import { postUserIsTyping, postUserIsNotTyping } from "../util/chatroomUtil";
-import { LightDarkContext } from "./Main";
 import * as THEMES from "../constants/THEMES";
 
 export default function MessageBox(props) {
@@ -76,6 +75,8 @@ export default function MessageBox(props) {
       />
       <button
         className={sendButtonClass}
+        id="send-message-btn"
+        aria-label="send-message"
         type="submit"
         onClick={(e) => {
           e.preventDefault();

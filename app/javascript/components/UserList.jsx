@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
-import { CurrentUserContext } from "./Main";
+import { CurrentUserContext, LightDarkContext } from "./ContextProviderWrapper";
 import NavBar from "./NavBar";
 import OpenChatroomButton from "./OpenChatroomButton";
 import UserMessageNotification from "./UserMessageNotification";
@@ -9,7 +9,6 @@ import UserSearchBar from "./UserSearchBar";
 import AcceptAndRejectRequestBtns from "./AcceptAndRejectRequestBtns";
 import { getUsersBuddies } from "../util/userUtil";
 import { getPendingReceivedRequests } from "../util/requestUtil";
-import { LightDarkContext } from "./Main";
 import * as THEMES from "../constants/THEMES";
 import * as LIST_TYPES from "../constants/LIST_TYPES";
 import setupDraggingAndResizing from "../util/dragAndResize";

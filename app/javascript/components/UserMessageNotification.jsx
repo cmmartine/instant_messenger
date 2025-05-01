@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ChatroomContext, CurrentChatroomContext, CurrentUserContext } from "./Main";
+import { ChatroomContext, CurrentChatroomContext, CurrentUserContext } from "./ContextProviderWrapper";
 import { findOrCreateChatroom } from "../util/chatroomUtil";
 import { checkNewestMessageReadStatus, changeMessagesReadStatus } from "../util/messageUtil";
 

@@ -1,17 +1,10 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import ContextProviderWrapper from "./ContextProviderWrapper";
 import ChatroomChannel from "../channels/chatroom_channel";
 import UserList from "./UserList";
 import Chatroom from "./Chatroom";
 import { getCurrentUserInfo, currentTheme } from "../util/userUtil";
 import * as THEMES from "../constants/THEMES";
-
-export const CurrentUserContext = createContext();
-export const ChatroomContext = createContext();
-export const CurrentChatroomContext = createContext();
-export const CableContext = createContext();
-export const LightDarkContext = createContext();
-
-const actionCableUrl = process.env.NODE_ENV === 'production' ? 'wss://<your-deployed-app-domain>.com/cable' : 'ws://localhost:3000/cable'
 
 export default function Main() {
   const [currentUserInfo, setCurrentUserInfo] = useState();
@@ -75,36 +68,20 @@ export default function Main() {
 
   if (currentUserInfo && chattingWithUser && currentChatroom) {
     return (
-      <CableContext.Provider value={actionCableUrl}>
-        <CurrentUserContext.Provider value={currentUserInfo}>
-          <ChatroomContext.Provider value={chatrooms}>
-            <CurrentChatroomContext.Provider value={currentChatroom}>
-              <LightDarkContext.Provider value={lightOrDark}>
-                <div className='components-wrapper'>
-                  <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeLightDarkTheme={changeLightDarkTheme}/>
-                  <Chatroom chattingWithUser={chattingWithUser} changeCurrentChatroom={changeCurrentChatroom}/>
-                </div>
-              </LightDarkContext.Provider>
-            </CurrentChatroomContext.Provider>
-          </ChatroomContext.Provider>
-        </CurrentUserContext.Provider>
-      </CableContext.Provider>
+      <ContextProviderWrapper currentUserInfo={currentUserInfo} chatrooms={chatrooms} currentChatroom={currentChatroom} lightOrDark={lightOrDark}>
+        <div className='components-wrapper'>
+          <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeLightDarkTheme={changeLightDarkTheme}/>
+          <Chatroom chattingWithUser={chattingWithUser} changeCurrentChatroom={changeCurrentChatroom}/>
+        </div>
+      </ContextProviderWrapper>
     );
   } else if (currentUserInfo) {
     return (
-      <CableContext.Provider value={actionCableUrl}>
-        <CurrentUserContext.Provider value={currentUserInfo}>
-          <ChatroomContext.Provider value={chatrooms}>
-            <CurrentChatroomContext.Provider value={currentChatroom}>
-              <LightDarkContext.Provider value={lightOrDark}>
-                <div className='components-wrapper'>
-                    <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeLightDarkTheme={changeLightDarkTheme}/>
-                </div>
-              </LightDarkContext.Provider>
-            </CurrentChatroomContext.Provider>
-          </ChatroomContext.Provider>
-        </CurrentUserContext.Provider>
-      </CableContext.Provider>
+      <ContextProviderWrapper currentUserInfo={currentUserInfo} chatrooms={chatrooms} currentChatroom={currentChatroom} lightOrDark={lightOrDark}>
+        <div className='components-wrapper'>
+            <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeLightDarkTheme={changeLightDarkTheme}/>
+        </div>
+      </ContextProviderWrapper>
     );
   } else {
     return (

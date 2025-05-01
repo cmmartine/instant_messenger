@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import UserMessageNotification from "../components/UserMessageNotification";
 import * as chatroomUtil from "../util/chatroomUtil";
 import * as messageUtil from "../util/messageUtil";
-import { CurrentChatroomContext, ChatroomContext } from "../components/Main";
+import { CurrentChatroomContext, ChatroomContext } from "../components/ContextProviderWrapper";
 
 describe("OpenChatroomButton", () => {
 

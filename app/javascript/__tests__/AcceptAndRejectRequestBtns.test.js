@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import AcceptAndRejectRequestBtns from "../components/AcceptAndRejectRequestBtns";
 import * as requestUtil from "../util/requestUtil";
-import { LightDarkContext } from "../components/Main";
+import { LightDarkContext } from "../components/ContextProviderWrapper";
 import * as THEMES from "../constants/THEMES";
 
 describe("AcceptAndRejectRequestBtns", () => {

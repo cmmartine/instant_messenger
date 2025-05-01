@@ -3,8 +3,7 @@ import userEvent from "@testing-library/user-event";
 import MessageBox from "../components/MessageBox";
 import * as chatroomUtil from "../util/chatroomUtil";
 import * as messageUtil from "../util/messageUtil";
-import { CurrentChatroomContext, CurrentUserContext } from "../components/Main";
-import { LightDarkContext } from "../components/Main";
+import { CurrentChatroomContext, CurrentUserContext, LightDarkContext } from "../components/ContextProviderWrapper";
 import * as THEMES from "../constants/THEMES";
 
 jest.mock("../components/SpeechToTextBtn", () => () => {

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
-import { LightDarkContext } from "./Main";
+import { LightDarkContext } from "./ContextProviderWrapper";
 import * as THEMES from "../constants/THEMES";
 import { postNewRequest, checkForPendingRequest } from "../util/requestUtil";
 

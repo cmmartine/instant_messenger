@@ -2,7 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import RequestBtn from "../components/RequestBtn";
 import * as requestUtil from "../util/requestUtil";
-import { LightDarkContext } from "../components/Main";
+import { LightDarkContext } from "../components/ContextProviderWrapper";
 import * as THEMES from "../constants/THEMES";
 
 describe("RequestBtn", () => {

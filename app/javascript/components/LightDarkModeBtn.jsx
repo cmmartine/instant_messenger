@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { LightDarkContext } from "./Main";
+import { LightDarkContext } from "./ContextProviderWrapper";
 import { setTheme } from "../util/userUtil";
 import * as THEMES from "../constants/THEMES";
 

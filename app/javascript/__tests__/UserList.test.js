@@ -1,10 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import UserList from "../components/UserList";
-import { CurrentUserContext, ChatroomContext } from "../components/Main";
+import { CurrentUserContext, ChatroomContext, LightDarkContext } from "../components/ContextProviderWrapper";
 import * as userUtil from "../util/userUtil";
 import * as requestUtil from "../util/requestUtil";
-import { LightDarkContext } from "../components/Main";
 import * as THEMES from "../constants/THEMES";
 
 describe("UserList", () => {

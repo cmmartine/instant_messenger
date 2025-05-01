@@ -1,8 +1,7 @@
 import React from "react";
 import { useContext, useEffect, useState } from "react";
-import { CurrentChatroomContext, CurrentUserContext } from "./Main";
+import { CurrentChatroomContext, CurrentUserContext, LightDarkContext } from "./ContextProviderWrapper";
 import { getMessages } from "../util/messageUtil";
-import { LightDarkContext } from "./Main";
 import * as THEMES from "../constants/THEMES";
 
 export default function ChatroomMessages(props) {

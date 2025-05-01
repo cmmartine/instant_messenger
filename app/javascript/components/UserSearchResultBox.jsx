@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext, useEffect } from "react";
 import RequestBtn from "./RequestBtn";
-import { CurrentUserContext, LightDarkContext } from "./Main";
+import { CurrentUserContext, LightDarkContext } from "./ContextProviderWrapper";
 import * as THEMES from "../constants/THEMES";
 
 export default function UserSearchResultBox(props) {

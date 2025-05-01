@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import LightDarkModeBtn from "../components/LightDarkModeBtn";
-import { LightDarkContext } from "../components/Main";
+import { LightDarkContext } from "../components/ContextProviderWrapper";
 import * as userUtil from '../util/userUtil';
 import * as THEMES from "../constants/THEMES";
 

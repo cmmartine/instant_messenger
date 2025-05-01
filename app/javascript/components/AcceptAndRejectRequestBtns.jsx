@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { LightDarkContext } from "./Main";
+import { LightDarkContext } from "./ContextProviderWrapper";
 import { acceptBuddyRequest, rejectBuddyRequest } from "../util/requestUtil";
 import * as THEMES from "../constants/THEMES";
 

@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import UserSearchBar from "../components/UserSearchBar";
-import { LightDarkContext } from "../components/Main";
+import { LightDarkContext } from "../components/ContextProviderWrapper";
 import * as THEMES from "../constants/THEMES";
 import * as userUtil from "../util/userUtil";
 

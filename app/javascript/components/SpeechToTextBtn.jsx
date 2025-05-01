@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { LightDarkContext } from "./Main";
+import { LightDarkContext } from "./ContextProviderWrapper";
 import * as THEMES from "../constants/THEMES";
 
 export default function SpeechToTextBtn(props) {
