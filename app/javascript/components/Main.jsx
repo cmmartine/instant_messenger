@@ -55,31 +55,12 @@ export default function Main() {
     body.classList.add('body-' + `${data.theme}`);
   };
 
-  function changeLightDarkTheme() {
-    const body = document.body;
-    if (lightOrDark == THEMES.light) {
-      setLightOrDark(THEMES.dark)
-      body.classList.add('body-dark');
-    } else {
-      setLightOrDark(THEMES.light);
-      body.classList.remove('body-dark');
-    }
-  };
-
-  if (currentUserInfo && chattingWithUser && currentChatroom) {
+  if (currentUserInfo) {
     return (
       <ContextProviderWrapper currentUserInfo={currentUserInfo} chatrooms={chatrooms} currentChatroom={currentChatroom} lightOrDark={lightOrDark}>
         <div className='components-wrapper'>
-          <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeLightDarkTheme={changeLightDarkTheme}/>
-          <Chatroom chattingWithUser={chattingWithUser} changeCurrentChatroom={changeCurrentChatroom}/>
-        </div>
-      </ContextProviderWrapper>
-    );
-  } else if (currentUserInfo) {
-    return (
-      <ContextProviderWrapper currentUserInfo={currentUserInfo} chatrooms={chatrooms} currentChatroom={currentChatroom} lightOrDark={lightOrDark}>
-        <div className='components-wrapper'>
-            <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} changeLightDarkTheme={changeLightDarkTheme}/>
+          <UserList changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser} lightOrDark ={lightOrDark} setLightOrDark={setLightOrDark}/>
+          {(chattingWithUser && currentChatroom) && <Chatroom chattingWithUser={chattingWithUser} changeCurrentChatroom={changeCurrentChatroom}/>}
         </div>
       </ContextProviderWrapper>
     );

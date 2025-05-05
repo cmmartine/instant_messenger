@@ -7,12 +7,13 @@ import * as THEMES from "../constants/THEMES";
 
 describe("LightDarkModeBtn", () => {
 
-  let changeLightDarkTheme = jest.fn();
+  let lightOrDark = THEMES.light;
+  let setLightOrDark = jest.fn();
 
   function renderLightDarkModeBtn(currentTheme) {
     return render(
       <LightDarkContext.Provider value={currentTheme}>
-        <LightDarkModeBtn changeLightDarkTheme={changeLightDarkTheme}/>
+        <LightDarkModeBtn lightOrDark ={lightOrDark} setLightOrDark={setLightOrDark}/>
       </LightDarkContext.Provider>
     )
   };
@@ -31,7 +32,7 @@ describe("LightDarkModeBtn", () => {
       renderLightDarkModeBtn(THEMES.light);
       await userEvent.click(screen.getAllByText(THEMES.lightIcon)[0]);
       expect(userUtil.setTheme).toBeCalled();
-      expect(changeLightDarkTheme).toBeCalled();
+      expect(setLightOrDark).toBeCalled();
     })
   })
 
@@ -49,7 +50,7 @@ describe("LightDarkModeBtn", () => {
       renderLightDarkModeBtn(THEMES.dark);
       await userEvent.click(screen.getAllByText(THEMES.darkIcon)[0]);
       expect(userUtil.setTheme).toBeCalled();
-      expect(changeLightDarkTheme).toBeCalled();
+      expect(setLightOrDark).toBeCalled();
     })
   })
 });

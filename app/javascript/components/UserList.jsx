@@ -20,7 +20,7 @@ export default function UserList(props) {
   const [usersFetched, setUsersFetched] = useState(false);
   const currentUser = useContext(CurrentUserContext);
   const lightDarkTheme = useContext(LightDarkContext);
-  const { changeChattingWithUser, refetchCurrentUser, changeLightDarkTheme } = props;
+  const { changeChattingWithUser, refetchCurrentUser, lightOrDark, setLightOrDark } = props;
 
   const isDarkTheme = lightDarkTheme === THEMES.dark;
   const userlistSidebarClass = isDarkTheme ? 'userlist-sidebar userlist-sidebar-dark' : 'userlist-sidebar';
@@ -98,7 +98,7 @@ export default function UserList(props) {
           <h4 className={requestsTabClass} data-testid='requests-tab' onClick={() => setListType(LIST_TYPES.requests)}>Requests</h4>
         </div>
         {renderList()}
-        <LightDarkModeBtn changeLightDarkTheme={changeLightDarkTheme}/>
+        <LightDarkModeBtn lightOrDark ={lightOrDark} setLightOrDark={setLightOrDark}/>
       </div>
     </div>
   )

@@ -35,6 +35,9 @@ one-jest: #run passed in jest test
 rails-c: #launches containers rails console
 	docker compose exec rails bin/rails c
 
+rails-cmd: #launches containers rails console with passed in command
+	docker compose exec rails bin/rails $(RUN_ARGS)
+
 build: #first time dev setup
 	docker compose build
 	docker compose run --rm rails bin/rails db:create
