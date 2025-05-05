@@ -13,6 +13,9 @@ down: #stops the docker containers
 	docker compose down --remove-orphans
 
 rails: #run rails server without h2oai
+	docker compose run --rm -p 3000:3000 rails bin/rails s -b '0.0.0.0'
+
+nginx: #run rails server without h2oai through nginx
 	docker compose run --rm -d -p 8080:80 nginx
 
 rspec: #run rails rspec tests except feature tests
