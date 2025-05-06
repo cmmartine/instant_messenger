@@ -18,17 +18,6 @@ export default function Main() {
       checkCurrentTheme();
   }, []);
 
-  function openChatroomConnections(chatrooms, newCurrentChatroom) {
-    let chatRoomsConnections = []
-    chatrooms.forEach((room) => {
-      chatRoomsConnections.push({info: room, connection: ChatroomChannel(room)});
-      if (room.id == newCurrentChatroom.id) {
-        changeCurrentChatroom({info: room, connection: ChatroomChannel(room)});
-      }
-    });
-    setChatrooms(chatRoomsConnections);
-  };
-
   function changeChattingWithUser(userInfo) {
     setChattingWithUser(userInfo);
   };
@@ -41,12 +30,39 @@ export default function Main() {
     applyCurrentUserInfo(newCurrentChatroom);
   };
 
-  async function applyCurrentUserInfo(newCurrentChatroom= {id: null}) {
+  function createChatroomConnection(chatroom) {
+    return { info: chatroom, connection: ChatroomChannel(chatroom) };
+  }
+
+  function initializeChatroomConnections(chatrooms) {
+    return chatrooms.map(createChatroomConnection);
+  }
+
+  function setCurrentChatroomConnection(chatroomsConnections, newCurrentChatroom) {
+    const matchingChatroom = chatroomsConnections.find(
+      (room) => room.info.id === newCurrentChatroom.id
+    );
+    if (matchingChatroom) {
+      changeCurrentChatroom(matchingChatroom);
+    }
+  }
+
+  function openChatroomConnections(chatrooms, newCurrentChatroom) {
+    const chatroomsConnections = initializeChatroomConnections(chatrooms);
+    setChatrooms(chatroomsConnections);
+
+    if (newCurrentChatroom?.id) {
+      setCurrentChatroomConnection(chatroomsConnections, newCurrentChatroom);
+    }
+  }
+
+  async function applyCurrentUserInfo(newCurrentChatroom = { id: null }) {
     const data = await getCurrentUserInfo();
-    let currentUserData = { ...data };
+    const currentUserData = { ...data };
     setCurrentUserInfo(currentUserData);
+  
     openChatroomConnections(currentUserData.chatrooms, newCurrentChatroom);
-  };
+  }
 
   async function checkCurrentTheme() {
     const data = await currentTheme();
