@@ -33,5 +33,14 @@ describe 'Chatroom', type: :feature, js: true do
       expect(messages[0]).to eq(message2)
       expect(messages[1]).to eq(message1)
     end
+
+    context 'when a chatroom is open and the user switches the theme and then sends a message' do
+      it 'shows the message' do
+        message1 = 'Hello there'
+        switch_theme
+        send_message(message1)
+        expect(page).to have_content(message1)
+      end
+    end
   end
 end

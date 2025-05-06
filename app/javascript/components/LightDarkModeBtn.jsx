@@ -24,7 +24,7 @@ export default function LightDarkModeBtn(props) {
   };
 
   return(
-    <div className={buttonClass} onClick={(e) => {
+    <div className={buttonClass} data-testid='theme-btn' onClick={(e) => {
       e.preventDefault();
       setTheme();
       changeLightDarkTheme();

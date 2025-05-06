@@ -81,4 +81,8 @@ module FeatureHelpers
     end
     click_button 'send-message-btn'
   end
+
+  def switch_theme
+    find('[data-testid="theme-btn"]').click
+  end
 end
