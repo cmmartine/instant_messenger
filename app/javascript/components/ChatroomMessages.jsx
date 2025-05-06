@@ -26,7 +26,7 @@ export default function ChatroomMessages(props) {
         currentChatroom.connection.received = () => {};
       };
     };
-  }, [currentChatroom]);
+  }, [currentChatroom, lightDarkTheme]);
 
   const createMessageList = () => {
     const messageList = allMessages.map((message) => {

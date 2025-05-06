@@ -23,6 +23,7 @@ export default function UserList(props) {
   const { changeChattingWithUser, refetchCurrentUser, lightOrDark, setLightOrDark } = props;
 
   const isDarkTheme = lightDarkTheme === THEMES.dark;
+  const userListCss = isDarkTheme ? 'userlist userlist-dark' : 'userlist';
   const userlistSidebarClass = isDarkTheme ? 'userlist-sidebar userlist-sidebar-dark' : 'userlist-sidebar';
   const buddiesTabClass = isDarkTheme ? 'userlist-tab userlist-tab-dark buddies-tab' : 'userlist-tab buddies-tab';
   const requestsTabClass = isDarkTheme ? 'userlist-tab userlist-tab-dark requests-tab' : 'userlist-tab requests-tab';
@@ -49,7 +50,6 @@ export default function UserList(props) {
   };
 
   const makeBuddyList = () => {
-    const userListCss = lightDarkTheme == THEMES.light ? 'userlist' : 'userlist userlist-dark';
     const userList = allBuddies.map((user) => {
       if (currentUser.id !== user.id)
         return <div key={user.id} className='userlist-components'>
@@ -61,7 +61,6 @@ export default function UserList(props) {
   };
 
   const makePendingRequestList = () => {
-    const userListCss = lightDarkTheme == THEMES.light ? 'userlist' : 'userlist userlist-dark';
     const userList = receivedRequests.map((request) => {
       return <div key={request.id} className='userlist-components'>
         <div>{request.username}</div> 

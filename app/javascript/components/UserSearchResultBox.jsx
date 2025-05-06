@@ -9,6 +9,9 @@ export default function UserSearchResultBox(props) {
   const lightDarkTheme = useContext(LightDarkContext);
   const currentUser = useContext(CurrentUserContext);
 
+  const isDarkTheme = lightDarkTheme === THEMES.dark;
+  const userSearchListCss = isDarkTheme ? 'user-search-list user-search-list-dark' : 'user-search-list';
+
   useEffect(() => {
     const searchList = document.getElementsByClassName('user-search-list')[0];
     if (searchList) {
@@ -32,7 +35,6 @@ export default function UserSearchResultBox(props) {
   };
   
   const makeUserSearchList = () => {
-    const userSearchListCss = lightDarkTheme == THEMES.light ? 'user-search-list' : 'user-search-list user-search-list-dark';
     const userSearchList = foundUsers.map((user) => {
         if (!isUserTheChatbot(user) && !isUserTheCurrentUser(user)) {
           return <div key={user.id} className='user-search-list-components'>
