@@ -5,8 +5,10 @@
 #
 # because db/seeds is not in the autoload path, we must load them explicitly here
 require Rails.root.join('db/seeds/h2o_ai.rb').to_s
+require Rails.root.join('db/seeds/users.rb').to_s
 
 Seeds::H2OAI.new.seed!
+Seeds::Users.new.seed_mass_factory_users!
 
 user1 = User.create!(username: 'Alfred', email: 'alfred1@chatroom.com', password: 'Alfred1!', password_confirmation: 'Alfred1!')
 user2 = User.create!(username: 'Bianca', email: 'bianca1@chatroom.com', password: 'Bianca1!', password_confirmation: 'Bianca1!')
