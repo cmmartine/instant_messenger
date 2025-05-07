@@ -9,6 +9,8 @@ require Rails.root.join('db/seeds/users.rb').to_s
 
 Seeds::H2OAI.new.seed!
 Seeds::Users.new.seed_mass_factory_users!
+Seeds::Users.new.seed_test_user1_with_buddies!
+Seeds::Users.new.seed_test_user2_with_requests!
 
 user1 = User.create!(username: 'Alfred', email: 'alfred1@chatroom.com', password: 'Alfred1!', password_confirmation: 'Alfred1!')
 user2 = User.create!(username: 'Bianca', email: 'bianca1@chatroom.com', password: 'Bianca1!', password_confirmation: 'Bianca1!')
