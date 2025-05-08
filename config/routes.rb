@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post 'chatrooms/messages'
   post 'chatrooms/user_is_typing'
   post 'chatrooms/user_is_not_typing'
+  post 'chatrooms/deactivate'
   mount ActionCable.server => '/cable'
   get 'users/buddies'
   get 'users/current_user_info'

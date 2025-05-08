@@ -32,6 +32,14 @@ class ChatroomsController < ApplicationController
     ChatroomChannel.broadcast_to(Chatroom.find(chatroom_params[:chatroom_id]), { user_is_typing: { status: false, current_user_id: current_user.id } })
   end
 
+  def deactivate
+    chatrooms = current_user.chatrooms.where(active_status: true)
+    return if chatrooms.empty?
+
+    chatrooms.each(&:set_to_inactive)
+    head :no_content
+  end
+
   private
 
   def chatroom_params
@@ -40,12 +48,13 @@ class ChatroomsController < ApplicationController
 
   def find_chatroom
     found_chatroom = false
-    chatrooms = Chatroom.all
+    chatrooms = current_user.chatrooms
     return found_chatroom if chatrooms.empty?
 
     chatrooms.each do |room|
       if room.user_ids.include?(current_user.id) && room.user_ids.include?(chatroom_params[:userId])
         found_chatroom = room
+        found_chatroom.update!(active_status: true)
       end
     end
     found_chatroom

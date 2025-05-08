@@ -73,4 +73,43 @@ RSpec.describe ChatroomsController, type: :controller do
       end
     end
   end
+
+  describe 'POST deactivate' do
+    let(:test_chatroom) { Chatroom.create(active_status: true) }
+
+    describe 'when a chatroom has messages that are less than a week old' do
+      login_user
+
+      it 'does not set the chatroom to inactive' do
+        subject.current_user.chatrooms << test_chatroom
+        Message.create({ body: 'testing post messages', user_id: 1, chatroom_id: 1 })
+        post :deactivate
+
+        expect(test_chatroom.active_status).to be(true)
+      end
+    end
+
+    describe 'when a chatroom does not have messages' do
+      login_user
+
+      it 'sets the chatroom to inactive' do
+        subject.current_user.chatrooms << test_chatroom
+        post :deactivate
+
+        expect(test_chatroom.reload.active_status).to be(false)
+      end
+    end
+
+    describe 'when a chatrooms latest message is older than a week' do
+      login_user
+
+      it 'sets the chatroom to inactive' do
+        subject.current_user.chatrooms << test_chatroom
+        Message.create({ body: 'testing post messages', user_id: 1, chatroom_id: 1, created_at: 2.weeks.ago })
+        post :deactivate
+
+        expect(test_chatroom.reload.active_status).to be(false)
+      end
+    end
+  end
 end

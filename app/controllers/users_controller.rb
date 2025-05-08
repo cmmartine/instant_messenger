@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     @current_user_info = {
       username: current_user.username,
       id: current_user.id,
-      chatrooms: current_user.chatrooms
+      chatrooms: current_user.chatrooms.where('active_status = ?', true)
     }
     render json: @current_user_info
   end

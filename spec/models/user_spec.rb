@@ -24,7 +24,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'add_chatbot_buddy' do
+  describe '#add_chatbot_buddy' do
     it 'adds chatbot to a newly created users buddy list' do
       ai_chatbot = User.new(username: 'Chatbot')
       ai_chatbot.save(validate: false)
