@@ -21,7 +21,7 @@ describe("OpenChatroomButton", () => {
     active_status: true
   };
 
-  let chatrooms = [{ info: { id: 1, active_status: true }, connection: { received: jest.fn() }}];
+  let chatrooms = [{ info: { id: 1, active_status: true, user_ids: [1, 2] }, connection: { received: jest.fn() }}];
 
   function fakeCurrentChatroom(currentChatroomId) {
     let fakeCurrentChatroom = { 

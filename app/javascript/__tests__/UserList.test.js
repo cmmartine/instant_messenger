@@ -6,6 +6,11 @@ import * as userUtil from "../util/userUtil";
 import * as requestUtil from "../util/requestUtil";
 import * as THEMES from "../constants/THEMES";
 
+jest.mock("../components/UserMessageNotification", () => () => {
+  const MockUserMessageNotification = "UserMessageNotification";
+  return <MockUserMessageNotification/>
+});
+
 describe("UserList", () => {
 
   let fakeUserList = [
@@ -24,7 +29,7 @@ describe("UserList", () => {
     id: 1
   };
 
-  let chatrooms = [ { info: { id: 1, active_status: true }, connection: null } ];
+  let chatrooms = [ { info: { id: 1, active_status: true, user_ids: [1, 2] }, connection: { received: jest.fn() }}];
 
   function renderUserList() {
       return render(
@@ -64,7 +69,6 @@ describe("UserList", () => {
       renderUserList();
       let requestTab = screen.getByTestId('requests-tab');
       await userEvent.click(requestTab);
-      expect(fetch).toBeCalled();
       expect(requestUtil.getPendingReceivedRequests).toBeCalled();
     });
   

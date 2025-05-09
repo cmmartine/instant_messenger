@@ -31,17 +31,20 @@ export default function UserMessageNotification(props) {
         matchedChatroom.connection.received = () => {};
       };
     };
-  });
+  }, [chatrooms]);
 
   const matchChatroomForUser = () => {
     let matchedChatroom;
     if (!chatroom) {
-      findOrCreateChatroom(userInfo).then((data) => {
-        setChatroom(data);
+      chatrooms.forEach((room) => {
+        if (room.info.user_ids.includes(userInfo.id)) {
+          setChatroom(room);
+          matchedChatroom = room;
+        }
       });
     } else if (chatroom) {
       chatrooms.forEach((room) => {
-        if (room.info.id == chatroom.id) {
+        if (room.info.id == chatroom.info.id) {
           matchedChatroom = room;
         };
       });
@@ -51,7 +54,7 @@ export default function UserMessageNotification(props) {
 
   const isChatroomCurrentlyOpen = () => {
     if (chatroom && currentChatroom) {
-      if (chatroom.id == currentChatroom.info.id) {
+      if (chatroom.info.id == currentChatroom.info.id) {
         changeMessagesReadStatus(currentChatroom.info.id);
         return true;
       } else {
