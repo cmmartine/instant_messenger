@@ -31,7 +31,7 @@ export default function UserMessageNotification(props) {
         matchedChatroom.connection.received = () => {};
       };
     };
-  }, [chatrooms]);
+  }, [chatrooms, chatroom, currentChatroom, currentUser]);
 
   const matchChatroomForUser = () => {
     let matchedChatroom;
