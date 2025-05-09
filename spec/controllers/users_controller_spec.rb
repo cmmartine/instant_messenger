@@ -40,6 +40,23 @@ RSpec.describe UsersController, type: :controller do
       get :current_user_info
       expect(response).to be_successful
     end
+
+    it 'returns the current users username, id, and active chatrooms with user ids' do
+      chatroom = FactoryBot.create(:chatroom)
+      FactoryBot.create(:chatroom, active_status: false)
+      current_user = subject.current_user
+      user2 = FactoryBot.create(:user)
+      chatroom.users << current_user
+      chatroom.users << user2
+      get :current_user_info
+
+      data = JSON.parse(response.body)
+      expect(data['username']).to eq(current_user.username)
+      expect(data['id']).to eq(current_user.id)
+      expect(data['chatrooms'].length).to eq(1)
+      expect(data['chatrooms'].first['user_ids'].include?(current_user.id)).to eq(true)
+      expect(data['chatrooms'].first['user_ids'].include?(user2.id)).to eq(true)
+    end
   end
 
   describe 'GET set_theme' do

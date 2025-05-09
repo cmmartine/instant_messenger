@@ -43,3 +43,7 @@ export const postUserIsNotTyping = (chatroom_id) => {
 
   return apiPostFetch('chatrooms/user_is_not_typing', postParams);
 };
+
+export const postChatroomsDeactivate = () => {
+  return apiPostFetch('chatrooms/deactivate');
+}

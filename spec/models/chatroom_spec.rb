@@ -6,6 +6,27 @@ RSpec.describe Chatroom, type: :model do
     it { should have_and_belong_to_many(:users) }
   end
 
+  describe '.with_user_ids' do
+    let(:chatroom) { Chatroom.create }
+    let(:current_user) { FactoryBot.create(:user) }
+    let(:non_current_user) { FactoryBot.create(:user) }
+
+    it 'returns an array of chatrooms with user ids' do
+      chatroom.users << current_user
+      chatroom.users << non_current_user
+      expected_result = [{
+        id: chatroom.id,
+        active_status: chatroom.active_status,
+        user_ids: [current_user.id, non_current_user.id]
+      }]
+      expect(Chatroom.with_user_ids(current_user.chatrooms)).to eq(expected_result)
+    end
+
+    it 'returns an empty array when there are no chatrooms' do
+      expect(Chatroom.with_user_ids(current_user.chatrooms)).to eq([])
+    end
+  end
+
   describe '#most_recent_non_current_user_message_status' do
     let!(:chatroom) { Chatroom.create }
     let!(:current_user) { FactoryBot.create(:user) }
@@ -33,9 +54,15 @@ RSpec.describe Chatroom, type: :model do
       current_user.chatrooms << chatroom
     end
 
-    it 'sets the chatroom to inactive if there are no messages' do
+    it 'sets the chatroom to inactive if there are no messages and the room is older than a week' do
+      chatroom.update(created_at: 2.weeks.ago)
       chatroom.set_to_inactive
       expect(chatroom.active_status).to be(false)
+    end
+
+    it 'does not set the chatroom to inactive if there are no messages and the room is less than a week old' do
+      chatroom.set_to_inactive
+      expect(chatroom.active_status).to be(true)
     end
 
     it 'does not set the chatroom to inactive if there are recent messages' do

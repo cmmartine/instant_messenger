@@ -89,14 +89,26 @@ RSpec.describe ChatroomsController, type: :controller do
       end
     end
 
-    describe 'when a chatroom does not have messages' do
+    describe 'when a chatroom does not have messages and was created longer than a week ago' do
       login_user
 
       it 'sets the chatroom to inactive' do
+        test_chatroom.update(created_at: 2.weeks.ago)
         subject.current_user.chatrooms << test_chatroom
         post :deactivate
 
         expect(test_chatroom.reload.active_status).to be(false)
+      end
+    end
+
+    describe 'when a chatroom does not have messages but was created BEFORE a week ago' do
+      login_user
+
+      it 'does not set the chatroom to inactive' do
+        subject.current_user.chatrooms << test_chatroom
+        post :deactivate
+
+        expect(test_chatroom.reload.active_status).to be(true)
       end
     end
 

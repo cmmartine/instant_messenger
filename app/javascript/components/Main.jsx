@@ -4,6 +4,7 @@ import ChatroomChannel from "../channels/chatroom_channel";
 import UserList from "./UserList";
 import Chatroom from "./Chatroom";
 import { getCurrentUserInfo, currentTheme } from "../util/userUtil";
+import { postChatroomsDeactivate } from "../util/chatroomUtil";
 import * as THEMES from "../constants/THEMES";
 
 export default function Main() {
@@ -14,8 +15,9 @@ export default function Main() {
   const [lightOrDark, setLightOrDark] = useState(THEMES.light);
 
   useEffect(() => {
-      applyCurrentUserInfo();
-      checkCurrentTheme();
+    postChatroomsDeactivate();
+    applyCurrentUserInfo();
+    checkCurrentTheme();
   }, []);
 
   function changeChattingWithUser(userInfo) {
