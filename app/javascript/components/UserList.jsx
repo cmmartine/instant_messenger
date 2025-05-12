@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useMemo } from "react";
 import { CurrentUserContext, LightDarkContext } from "./ContextProviderWrapper";
 import NavBar from "./NavBar";
 import OpenChatroomButton from "./OpenChatroomButton";
@@ -38,39 +38,6 @@ export default function UserList(props) {
     };
   });
 
-  const renderList = () => {
-    switch (listType) {
-      case LIST_TYPES.buddies:
-        return makeBuddyList();
-      case LIST_TYPES.requests:
-        return makePendingRequestList();
-      default:
-        return <div>Error, please reload the page</div>
-    };
-  };
-
-  const makeBuddyList = () => {
-    const userList = allBuddies.map((user) => {
-      if (currentUser.id !== user.id)
-        return <div key={user.id} className='userlist-components'>
-          <OpenChatroomButton userInfo={user} changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser}/>
-          <UserMessageNotification userInfo={user}/>
-        </div>
-    })
-    return <ul className={userListCss} data-testid='buddy-list'>{userList}</ul>
-  };
-
-  const makePendingRequestList = () => {
-    const userList = receivedRequests.map((request) => {
-      return <div key={request.id} className='userlist-components'>
-        <div>{request.username}</div> 
-        <AcceptAndRejectRequestBtns requestId={request.id} resetUsersFetched={resetUsersFetched}/>
-      </div>
-    })
-    
-    return <ul className={userListCss} data-testid='requests-list'>{userList}</ul>
-  };
-
   const getUsersForList = async () => {
     const buddyArray = await getUsersBuddies();
     setAllBuddies(buddyArray);
@@ -85,6 +52,39 @@ export default function UserList(props) {
     setUsersFetched(false);
   };
 
+  const renderList = () => {
+    switch (listType) {
+      case LIST_TYPES.buddies:
+        return makeBuddyList;
+      case LIST_TYPES.requests:
+        return makePendingRequestList;
+      default:
+        return <div>Error, please reload the page</div>
+    };
+  };
+
+  const makeBuddyList = useMemo(() => {
+    const userList = allBuddies.map((user) => {
+      if (currentUser.id !== user.id)
+        return <div key={user.id} className='userlist-components'>
+          <OpenChatroomButton userInfo={user} changeChattingWithUser={changeChattingWithUser} refetchCurrentUser={refetchCurrentUser}/>
+          <UserMessageNotification userInfo={user}/>
+        </div>
+    })
+    return <ul className={userListCss} data-testid='buddy-list' role='list' aria-label='Buddy List'>{userList}</ul>
+  }, [allBuddies]);
+
+  const makePendingRequestList = useMemo(() => {
+    const userList = receivedRequests.map((request) => {
+      return <div key={request.id} className='userlist-components'>
+        <div>{request.username}</div> 
+        <AcceptAndRejectRequestBtns requestId={request.id} resetUsersFetched={resetUsersFetched}/>
+      </div>
+    })
+    
+    return <ul className={userListCss} data-testid='requests-list'>{userList}</ul>
+  }, [receivedRequests]);
+
   return(
     <div className='userlist-sidebar-container' data-draggable-user-list='true' data-resizable-user-list='true'>
       <div className='navbar-outer-container' data-drag-handle-user-list='true'>
@@ -93,8 +93,24 @@ export default function UserList(props) {
       <div className={userlistSidebarClass}>
         <UserSearchBar allBuddies={allBuddies}/>
         <div className='userlist-tab-container'>
-          <h4 className={buddiesTabClass} data-testid='buddy-tab' onClick={() => setListType(LIST_TYPES.buddies)}>Buddies</h4>
-          <h4 className={requestsTabClass} data-testid='requests-tab' onClick={() => setListType(LIST_TYPES.requests)}>Requests</h4>
+          <h4
+            className={buddiesTabClass}
+            data-testid='buddy-tab'
+            onClick={() => setListType(LIST_TYPES.buddies)}
+            role='button'
+            aria-label='Buddies Tab'
+          >
+            Buddies
+          </h4>
+          <h4
+            className={requestsTabClass}
+            data-testid='requests-tab'
+            onClick={() => setListType(LIST_TYPES.requests)}
+            role='button'
+            aria-label='Requests Tab'
+          >
+            Requests
+          </h4>
         </div>
         {renderList()}
         <LightDarkModeBtn lightOrDark ={lightOrDark} setLightOrDark={setLightOrDark}/>
