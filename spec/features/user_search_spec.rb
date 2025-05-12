@@ -7,7 +7,7 @@ describe 'User Search', type: :feature, js: true do
 
   before do
     create_users
-    login
+    login(first_user)
   end
 
   it 'shows list of possible matches' do
@@ -26,7 +26,7 @@ describe 'User Search', type: :feature, js: true do
   it 'does not show a request button when the searched for user is already a buddy' do
     search_for(third_user.username)
     expect(page).to have_button('Add Buddy')
-    add_buddy(third_user)
+    add_buddy(first_user, third_user)
     search_for(third_user.username)
     expect(page).not_to have_button('Add Buddy')
     expect(page).not_to have_button('Pending')

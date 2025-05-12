@@ -4,6 +4,7 @@ import ChatroomMessages from "./ChatroomMessages";
 import MessageBox from "./MessageBox";
 import { CurrentChatroomContext, LightDarkContext } from "./ContextProviderWrapper";
 import { postUserIsNotTyping } from "../util/chatroomUtil";
+import { changeMessagesReadStatus } from "../util/messageUtil";
 import * as THEMES from "../constants/THEMES";
 import setupDraggingAndResizing from "../util/dragAndResize";
 
@@ -26,6 +27,7 @@ export default function Chatroom(props) {
     e.preventDefault();
     let chatroom;
     postUserIsNotTyping(currentChatroom.info.id);
+    changeMessagesReadStatus(currentChatroom.info.id);
     changeCurrentChatroom(chatroom);
   };
 

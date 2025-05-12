@@ -8,11 +8,11 @@ describe 'User List Sidebar', type: :feature, js: true do
   describe 'Clicking a username in the buddy list' do
     before do
       create_users
-      login
+      login(first_user)
     end
 
     it 'opens a chatroom with the selected user' do
-      add_buddy(second_user)
+      add_buddy(first_user, second_user)
       refresh_page
       find('li', text: second_user.username).click
       expect(page).to have_css('.chatroom-container')
@@ -22,7 +22,7 @@ describe 'User List Sidebar', type: :feature, js: true do
   describe 'Accepting a request' do
     before do
       create_users
-      login
+      login(first_user)
     end
 
     def accept_request
@@ -49,7 +49,7 @@ describe 'User List Sidebar', type: :feature, js: true do
   describe 'Reject a request' do
     before do
       create_users
-      login
+      login(first_user)
     end
 
     def reject_request

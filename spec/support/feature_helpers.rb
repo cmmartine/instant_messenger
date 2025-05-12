@@ -19,13 +19,12 @@ module FeatureHelpers
     User.find(3)
   end
 
-  def add_buddy(user_to_add)
-    user = first_user
-    return unless user && user_to_add
+  def add_buddy(user1, user2)
+    return unless user1 && user2
 
-    Request.create(sending_user_id: user.id, receiving_user_id: user_to_add.id, status: 'accepted')
-    Buddy.create(user_id: user.id, buddy_id: user_to_add.id)
-    Buddy.create(user_id: user_to_add.id, buddy_id: user.id)
+    Request.create(sending_user_id: user1.id, receiving_user_id: user2.id, status: 'accepted')
+    Buddy.create(user_id: user1.id, buddy_id: user2.id)
+    Buddy.create(user_id: user2.id, buddy_id: user1.id)
     refresh_page
   end
 
@@ -36,8 +35,7 @@ module FeatureHelpers
     Request.create(sending_user_id: user_to_add.id, receiving_user_id: user.id)
   end
 
-  def login
-    user = first_user
+  def login(user)
     return unless user
 
     visit '/users/sign_in'
@@ -75,11 +73,27 @@ module FeatureHelpers
     find('li', text: user.username).click
   end
 
+  def close_chatroom
+    find('.chatroom-exit-btn').click
+  end
+
   def send_message(msg)
     within('#chatroom-message-form') do
       fill_in 'message-box-text', with: msg
     end
     click_button 'send-message-btn'
+  end
+
+  def type_message(msg)
+    within('#chatroom-message-form') do
+      fill_in 'message-box-text', with: msg
+    end
+  end
+
+  def delete_message
+    within('#chatroom-message-form') do
+      fill_in 'message-box-text', with: ''
+    end
   end
 
   def switch_theme
