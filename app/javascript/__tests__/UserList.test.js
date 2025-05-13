@@ -30,13 +30,15 @@ describe("UserList", () => {
   };
 
   let chatrooms = [ { info: { id: 1, active_status: true, user_ids: [1, 2] }, connection: { received: jest.fn() }}];
+  const mockChangeChattingWithUser = jest.fn();
+  const mockRefetchCurrentUser = jest.fn();
 
   function renderUserList() {
       return render(
         <CurrentUserContext.Provider value={currentUser}>
           <ChatroomContext.Provider value={chatrooms}>
             <LightDarkContext.Provider value={THEMES.light}>
-              <UserList/>
+              <UserList changeChattingWithUser={mockChangeChattingWithUser} refetchCurrentUser={mockRefetchCurrentUser}/>
             </LightDarkContext.Provider>
           </ChatroomContext.Provider>
         </CurrentUserContext.Provider>
@@ -80,6 +82,17 @@ describe("UserList", () => {
       expect(requestList).toBeInTheDocument();
       expect(await screen.findByText(`${fakeUserList[0].username}`)).toBeInTheDocument();
       expect(await screen.findByText(`${fakeUserList[1].username}`)).toBeInTheDocument();
+    });
+  });
+
+  describe("When the request tab is clicked and the user has no pending requests", () => {
+    it("shows a message indicating there are no pending requests", async() => {
+      jest.spyOn(requestUtil, 'getPendingReceivedRequests').mockReturnValue([]);
+      renderUserList();
+      let requestTab = screen.getByTestId('requests-tab');
+      await userEvent.click(requestTab);
+      let noRequestsMessage = screen.getByText(/No pending requests/i);
+      expect(noRequestsMessage).toBeInTheDocument();
     });
   });
 

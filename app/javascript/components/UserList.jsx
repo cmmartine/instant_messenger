@@ -72,18 +72,24 @@ export default function UserList(props) {
         </div>
     })
     return <ul className={userListCss} data-testid='buddy-list' role='list' aria-label='Buddy List'>{userList}</ul>
-  }, [allBuddies]);
+  }, [allBuddies, lightDarkTheme]);
 
   const makePendingRequestList = useMemo(() => {
-    const userList = receivedRequests.map((request) => {
-      return <div key={request.id} className='userlist-components'>
-        <div>{request.username}</div> 
-        <AcceptAndRejectRequestBtns requestId={request.id} resetUsersFetched={resetUsersFetched}/>
-      </div>
-    })
+    let userList;
+    if (receivedRequests.length === 0) {
+      userList = 'No pending requests'
+    }
+    else {
+      userList = receivedRequests.map((request) => {
+        return <div key={request.id} className='userlist-components'>
+          <div>{request.username}</div> 
+          <AcceptAndRejectRequestBtns requestId={request.id} resetUsersFetched={resetUsersFetched}/>
+        </div>
+      })
+    }
     
     return <ul className={userListCss} data-testid='requests-list'>{userList}</ul>
-  }, [receivedRequests]);
+  }, [receivedRequests, lightDarkTheme]);
 
   return(
     <div className='userlist-sidebar-container' data-draggable-user-list='true' data-resizable-user-list='true'>
