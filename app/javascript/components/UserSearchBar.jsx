@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useContext } from "react";
 import { LightDarkContext } from "./ContextProviderWrapper";
-import * as THEMES from "../constants/THEMES";
+import { THEMES } from "../constants_ts/THEMES";
 import { searchUsers } from "../util/userUtil";
 import UserSearchResultBox from "./UserSearchResultBox";
 

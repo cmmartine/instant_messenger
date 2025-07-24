@@ -4,7 +4,7 @@ import UserList from "../components/UserList";
 import { CurrentUserContext, ChatroomContext, LightDarkContext } from "../components/ContextProviderWrapper";
 import * as userUtil from "../util/userUtil";
 import * as requestUtil from "../util/requestUtil";
-import * as THEMES from "../constants/THEMES";
+import { THEMES } from "../constants_ts/THEMES";
 
 jest.mock("../components/UserMessageNotification", () => () => {
   const MockUserMessageNotification = "UserMessageNotification";

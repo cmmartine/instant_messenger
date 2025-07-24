@@ -1,6 +1,4 @@
 {
   "light": "light",
-  "dark": "dark",
-  "lightIcon": "🔅",
-  "darkIcon": "🌙"
+  "dark": "dark"
 }

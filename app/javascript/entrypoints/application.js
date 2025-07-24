@@ -29,6 +29,7 @@ const channels = import.meta.globEager('./**/*_channel.js')
 
 import "../router";
 import "../components/Main";
+import "../constants_ts/THEMES.ts"
 import "../channels/consumer"
 import "../channels/chatroom_channel"
 import "../styles/general.css"

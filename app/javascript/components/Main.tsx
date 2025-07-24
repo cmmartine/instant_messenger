@@ -5,15 +5,15 @@ import UserList from "./UserList";
 import Chatroom from "./Chatroom";
 import { getCurrentUserInfo, currentTheme } from "../util/userUtil";
 import { postChatroomsDeactivate } from "../util/chatroomUtil";
-import * as THEMES from "../constants/THEMES.json";
-import { CurrentUserInfo } from "../types/interfaces";
+import { THEMES } from "../constants_ts/THEMES";
+import { CurrentUserInfo, Themes } from "../types/interfaces";
 
 export default function Main() {
   const [currentUserInfo, setCurrentUserInfo] = useState<CurrentUserInfo | undefined>();
   const [chattingWithUser, setChattingWithUser] = useState();
   const [chatrooms, setChatrooms] = useState([]);
   const [currentChatroom, setCurrentChatroom] = useState();
-  const [lightOrDark, setLightOrDark] = useState(THEMES.light);
+  const [lightOrDark, setLightOrDark] = useState<Themes>(THEMES.light);
 
   useEffect(() => {
     postChatroomsDeactivate();

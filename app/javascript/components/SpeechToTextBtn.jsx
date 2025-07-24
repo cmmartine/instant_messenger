@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext } from "react";
 import { LightDarkContext } from "./ContextProviderWrapper";
-import * as THEMES from "../constants/THEMES";
+import { THEMES } from "../constants_ts/THEMES";
 
 export default function SpeechToTextBtn(props) {
   const { setNewMessage, localStorageKey } = props;

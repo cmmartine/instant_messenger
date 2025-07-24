@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import UserSearchResultBox from "../components/UserSearchResultBox";
 import { CurrentUserContext, LightDarkContext } from "../components/ContextProviderWrapper";
-import * as THEMES from "../constants/THEMES";
+import { THEMES } from "../constants_ts/THEMES";
 
 jest.mock("../components/RequestBtn", () => () => {
   const MockRequestBtn = "RequestBtn";

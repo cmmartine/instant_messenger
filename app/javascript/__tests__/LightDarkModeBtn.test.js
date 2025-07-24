@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import LightDarkModeBtn from "../components/LightDarkModeBtn";
 import { LightDarkContext } from "../components/ContextProviderWrapper";
 import * as userUtil from '../util/userUtil';
-import * as THEMES from "../constants/THEMES";
+import { THEMES, THEMEICONS } from "../constants_ts/THEMES";
 
 describe("LightDarkModeBtn", () => {
 
@@ -25,12 +25,12 @@ describe("LightDarkModeBtn", () => {
 
     it("renders the light theme icon", async() => {
       renderLightDarkModeBtn(THEMES.light);
-      expect(await screen.getByText(THEMES.lightIcon)).toBeInTheDocument();
+      expect(await screen.getByText(THEMEICONS.light)).toBeInTheDocument();
     })
 
     it("changes and sets the theme when clicked", async() => {
       renderLightDarkModeBtn(THEMES.light);
-      await userEvent.click(screen.getAllByText(THEMES.lightIcon)[0]);
+      await userEvent.click(screen.getAllByText(THEMEICONS.light)[0]);
       expect(userUtil.setTheme).toBeCalled();
       expect(setLightOrDark).toBeCalled();
     })
@@ -43,12 +43,12 @@ describe("LightDarkModeBtn", () => {
 
     it("renders the dark theme icon", async() => {
       renderLightDarkModeBtn(THEMES.dark);
-      expect(await screen.getByText(THEMES.darkIcon)).toBeInTheDocument();
+      expect(await screen.getByText(THEMEICONS.dark)).toBeInTheDocument();
     })
 
     it("changes and sets the theme when clicked", async() => {
       renderLightDarkModeBtn(THEMES.dark);
-      await userEvent.click(screen.getAllByText(THEMES.darkIcon)[0]);
+      await userEvent.click(screen.getAllByText(THEMEICONS.dark)[0]);
       expect(userUtil.setTheme).toBeCalled();
       expect(setLightOrDark).toBeCalled();
     })

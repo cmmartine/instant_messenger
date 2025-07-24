@@ -4,7 +4,7 @@ import { CurrentChatroomContext, CurrentUserContext, LightDarkContext } from "./
 import SpeechToTextBtn from "./SpeechToTextBtn";
 import { postMessage, postAIChatroomMessages } from "../util/messageUtil";
 import { postUserIsTyping, postUserIsNotTyping } from "../util/chatroomUtil";
-import * as THEMES from "../constants/THEMES";
+import { THEMES } from "../constants_ts/THEMES";
 
 export default function MessageBox(props) {
   const { chattingWithUser } = props

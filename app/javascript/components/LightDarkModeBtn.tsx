@@ -2,7 +2,8 @@ import React from "react";
 import { useContext } from "react";
 import { LightDarkContext } from "./ContextProviderWrapper";
 import { setTheme } from "../util/userUtil";
-import * as THEMES from "../constants/THEMES";
+import { THEMES, THEMEICONS } from "../constants_ts/THEMES";
+import { ThemeIcons } from "../types/interfaces";
 
 export default function LightDarkModeBtn(props) {
   const { lightOrDark, setLightOrDark } = props;
@@ -10,7 +11,7 @@ export default function LightDarkModeBtn(props) {
 
   const isDarkTheme = lightDarkTheme === THEMES.dark;
   const buttonClass = isDarkTheme ? 'theme-btn change-to-light-btn' : 'theme-btn change-to-dark-btn';
-  const icon = isDarkTheme ? THEMES.darkIcon : THEMES.lightIcon;
+  const icon: ThemeIcons = isDarkTheme ? THEMEICONS.dark : THEMEICONS.light;
 
   function changeLightDarkTheme() {
     const body = document.body;

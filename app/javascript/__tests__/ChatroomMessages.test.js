@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import ChatroomMessages from "../components/ChatroomMessages";
 import { CurrentChatroomContext, CurrentUserContext, LightDarkContext } from "../components/ContextProviderWrapper";
 import * as messageUtil from "../util/messageUtil";
-import * as THEMES from "../constants/THEMES";
+import { THEMES } from "../constants_ts/THEMES";
 
 describe("ChatroomMessages", () => {
   let fakeMessages = [

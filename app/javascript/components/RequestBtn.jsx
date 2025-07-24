@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
 import { LightDarkContext } from "./ContextProviderWrapper";
-import * as THEMES from "../constants/THEMES";
+import { THEMES } from "../constants_ts/THEMES";
 import { postNewRequest, checkForPendingRequest } from "../util/requestUtil";
 
 export default function RequestBtn(props) {

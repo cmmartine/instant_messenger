@@ -9,7 +9,7 @@ import UserSearchBar from "./UserSearchBar";
 import AcceptAndRejectRequestBtns from "./AcceptAndRejectRequestBtns";
 import { getUsersBuddies } from "../util/userUtil";
 import { getPendingReceivedRequests } from "../util/requestUtil";
-import * as THEMES from "../constants/THEMES";
+import { THEMES } from "../constants_ts/THEMES";
 import * as LIST_TYPES from "../constants/LIST_TYPES";
 import setupDraggingAndResizing from "../util/dragAndResize";
 

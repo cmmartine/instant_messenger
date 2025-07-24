@@ -1,7 +1,7 @@
 import React, { useContext} from "react";
 import { CurrentUserContext, LightDarkContext } from "./ContextProviderWrapper";
 import { logout } from "../util/userUtil";
-import * as THEMES from "../constants/THEMES";
+import { THEMES } from "../constants_ts/THEMES";
 
 export default function NavBar() {
   const currentUser = useContext(CurrentUserContext);
