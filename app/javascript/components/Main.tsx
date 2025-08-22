@@ -6,13 +6,13 @@ import Chatroom from "./Chatroom";
 import { getCurrentUserInfo, currentTheme } from "../util/userUtil";
 import { postChatroomsDeactivate } from "../util/chatroomUtil";
 import { THEMES } from "../constants_ts/THEMES";
-import { CurrentUserInfo, Themes } from "../types/interfaces";
+import { CurrentUserInfo, ChatroomInfo, ConnectedChatroom, Themes, BuddyUserInfo } from "../types/interfaces";
 
 export default function Main() {
   const [currentUserInfo, setCurrentUserInfo] = useState<CurrentUserInfo | undefined>();
-  const [chattingWithUser, setChattingWithUser] = useState();
+  const [chattingWithUser, setChattingWithUser] = useState<BuddyUserInfo | undefined>();
   const [chatrooms, setChatrooms] = useState([]);
-  const [currentChatroom, setCurrentChatroom] = useState();
+  const [currentChatroom, setCurrentChatroom] = useState<ConnectedChatroom | undefined>();
   const [lightOrDark, setLightOrDark] = useState<Themes>(THEMES.light);
 
   useEffect(() => {
@@ -21,11 +21,11 @@ export default function Main() {
     checkCurrentTheme();
   }, []);
 
-  function changeChattingWithUser(userInfo) {
+  function changeChattingWithUser(userInfo: BuddyUserInfo) {
     setChattingWithUser(userInfo);
   };
 
-  function changeCurrentChatroom(chatroom) {
+  function changeCurrentChatroom(chatroom: ConnectedChatroom) {
     setCurrentChatroom(chatroom);
   };
 
@@ -33,7 +33,7 @@ export default function Main() {
     applyCurrentUserInfo(newCurrentChatroom);
   };
 
-  function createChatroomConnection(chatroom) {
+  function createChatroomConnection(chatroom: ChatroomInfo) {
     return { info: chatroom, connection: ChatroomChannel(chatroom) };
   }
 

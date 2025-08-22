@@ -7,9 +7,9 @@ class ChatroomsController < ApplicationController
       new_room = Chatroom.create!(active_status: chatroom_params[:active_status])
       current_user.chatrooms << new_room
       User.find(chatroom_params[:userId]).chatrooms << new_room
-      render json: new_room
+      render json: Chatroom.with_user_ids([new_room]).first
     else
-      render json: found_chatroom
+      render json: Chatroom.with_user_ids([found_chatroom]).first
     end
   end
 
