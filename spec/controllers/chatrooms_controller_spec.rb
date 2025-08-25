@@ -41,35 +41,57 @@ RSpec.describe ChatroomsController, type: :controller do
   end
 
   describe 'POST messages' do
-    describe 'when a chatroom has messages' do
-      login_user
+    context 'when the current user is in the chatroom' do
+      context 'when a chatroom has messages' do
+        login_user
 
-      it 'returns those messages' do
-        chatroom_params = { chatroom: {
-          chatroom_id: 1
-        } }
-        Chatroom.create(active_status: true)
-        Message.create({ body: 'testing post messages', user_id: 1, chatroom_id: 1 })
-        post :messages, params: chatroom_params, as: :json
+        it 'returns those messages' do
+          chatroom_params = { chatroom: {
+            chatroom_id: 1
+          } }
+          Chatroom.create(active_status: true)
+          User.first.chatrooms << Chatroom.first
+          Message.create({ body: 'testing post messages', user_id: 1, chatroom_id: 1 })
+          post :messages, params: chatroom_params, as: :json
 
-        expect(response.body).to include('testing post messages')
+          expect(response.body).to include('testing post messages')
+        end
+
+        it 'orders those messages upon return so the oldest created_at is first in the array' do
+          chatroom_params = { chatroom: {
+            chatroom_id: 1
+          } }
+          today = DateTime.current
+          yesterday = DateTime.current - 1
+          Chatroom.create(active_status: true)
+          User.first.chatrooms << Chatroom.first
+          Message.create({ body: 'Message from today', user_id: 1, chatroom_id: 1, created_at: today })
+          Message.create({ body: 'Message from yesterday', user_id: 1, chatroom_id: 1, created_at: yesterday })
+          # Messages in chatroom before being sorted
+          expect(Chatroom.find(1).messages[0].body).to include('Message from today')
+
+          post :messages, params: chatroom_params, as: :json
+          # Messages in response after being sorted
+          expect(JSON.parse(response.body)[0][0]['body']).to include('Message from yesterday')
+        end
       end
+    end
 
-      it 'orders those messages upon return so the oldest created_at is first in the array' do
-        chatroom_params = { chatroom: {
-          chatroom_id: 1
-        } }
-        today = DateTime.current
-        yesterday = DateTime.current - 1
-        Chatroom.create(active_status: true)
-        Message.create({ body: 'Message from today', user_id: 1, chatroom_id: 1, created_at: today })
-        Message.create({ body: 'Message from yesterday', user_id: 1, chatroom_id: 1, created_at: yesterday })
-        # Messages in chatroom before being sorted
-        expect(Chatroom.find(1).messages[0].body).to include('Message from today')
+    context 'when the current user is not in the chatroom' do
+      context 'when a chatroom has messages' do
+        login_user
 
-        post :messages, params: chatroom_params, as: :json
-        # Messages in response after being sorted
-        expect(JSON.parse(response.body)[0][0]['body']).to include('Message from yesterday')
+        it 'does not return messages' do
+          chatroom_params = { chatroom: {
+            chatroom_id: 1
+          } }
+          Chatroom.create(active_status: true)
+          Message.create({ body: 'testing post messages', user_id: 1, chatroom_id: 1 })
+          post :messages, params: chatroom_params, as: :json
+
+          expect(response.body).to eq('')
+          expect(response.status).to eq(403)
+        end
       end
     end
   end
@@ -77,7 +99,7 @@ RSpec.describe ChatroomsController, type: :controller do
   describe 'POST deactivate' do
     let(:test_chatroom) { Chatroom.create(active_status: true) }
 
-    describe 'when a chatroom has messages that are less than a week old' do
+    context 'when a chatroom has messages that are less than a week old' do
       login_user
 
       it 'does not set the chatroom to inactive' do
