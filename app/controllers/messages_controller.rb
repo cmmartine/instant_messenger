@@ -2,20 +2,30 @@
 
 class MessagesController < ApplicationController
   def create
-    message = Message.create!(body: message_params[:body], user_id: current_user.id, chatroom_id: message_params[:chatroom_id])
-    if message.valid?
-      ChatroomChannel.broadcast_to(Chatroom.find(message_params[:chatroom_id]), { finished_message: message.body })
+    if (Chatroom.user_is_in_chatroom(current_user, Chatroom.find(message_params[:chatroom_id])))
+      message = Message.create!(body: message_params[:body], user_id: current_user.id, chatroom_id: message_params[:chatroom_id])
+
+      if message.valid?
+        ChatroomChannel.broadcast_to(Chatroom.find(message_params[:chatroom_id]), { finished_message: message.body })
+        head :created
+      end
+    else
+      head :forbidden
     end
   end
 
   def create_ai_chatroom_messages
-    message = Message.create!(body: message_params[:body], user_id: current_user.id, chatroom_id: message_params[:chatroom_id])
+    if (Chatroom.user_is_in_chatroom(current_user, Chatroom.find(message_params[:chatroom_id])))
+      message = Message.create!(body: message_params[:body], user_id: current_user.id, chatroom_id: message_params[:chatroom_id])
 
-    if message.valid?
-      ChatroomChannel.broadcast_to(Chatroom.find(message_params[:chatroom_id]), { finished_message: message.body })
-      SendAiMessageJob.perform_later(message, message_params[:chatroom_id])
+      if message.valid?
+        ChatroomChannel.broadcast_to(Chatroom.find(message_params[:chatroom_id]), { finished_message: message.body })
+        SendAiMessageJob.perform_later(message, message_params[:chatroom_id])
+        head :created
+      end
+    else
+      head :forbidden
     end
-    head :no_content
   end
 
   def most_recent_message_read_status

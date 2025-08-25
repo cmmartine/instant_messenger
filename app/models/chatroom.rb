@@ -14,6 +14,11 @@ class Chatroom < ApplicationRecord
     end
   end
 
+  def self.user_is_in_chatroom(user, chatroom)
+    chatroom = Chatroom.find(chatroom.id)
+    chatroom.users.include?(user)
+  end
+
   def most_recent_non_current_user_message_status(current_user_id)
     non_current_user_messages = messages.where('user_id != ?', current_user_id)
     !non_current_user_messages.empty? ? non_current_user_messages.last.read_status : true

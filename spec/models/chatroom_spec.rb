@@ -27,6 +27,20 @@ RSpec.describe Chatroom, type: :model do
     end
   end
 
+  describe '.user_is_in_chatroom' do
+    let(:chatroom) { Chatroom.create }
+    let(:current_user) { FactoryBot.create(:user) }
+
+    it 'returns true if the user is in the chatroom' do
+      chatroom.users << current_user
+      expect(Chatroom.user_is_in_chatroom(current_user, chatroom)).to eq(true)
+    end
+
+    it 'returns false if the user is not in the chatroom' do
+      expect(Chatroom.user_is_in_chatroom(current_user, chatroom)).to eq(false)
+    end
+  end
+
   describe '#most_recent_non_current_user_message_status' do
     let!(:chatroom) { Chatroom.create }
     let!(:current_user) { FactoryBot.create(:user) }
