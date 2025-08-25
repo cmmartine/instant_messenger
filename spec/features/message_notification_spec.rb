@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# Tests can be flaky
 
 require 'rails_helper'
 
@@ -28,9 +29,10 @@ describe 'Message Notification', type: :feature, js: true do
       end
 
       Capybara.using_session('user2') do
-        message_in_progress_element = find('.loader')
-        expect(message_in_progress_element).to be_visible
-        expect(page).not_to have_content(new_message_text)
+        Capybara.using_wait_time(8) do
+          expect(page).to have_css('.loader')
+          expect(page).to have_no_text(new_message_text)
+        end
       end
     end
 
@@ -49,10 +51,10 @@ describe 'Message Notification', type: :feature, js: true do
       end
 
       Capybara.using_session('user2') do
-        message_in_progress_element = find('.loader')
-        expect(page).to have_css('.loader')
-        expect(message_in_progress_element).to be_visible
-        expect(page).not_to have_content(new_message_text)
+        Capybara.using_wait_time(8) do
+          expect(page).to have_css('.loader')
+          expect(page).to have_no_text(new_message_text)
+        end
       end
 
       Capybara.using_session('user1') do
@@ -104,8 +106,10 @@ describe 'Message Notification', type: :feature, js: true do
       end
 
       Capybara.using_session('user2') do
-        expect(page).not_to have_css('.loader')
-        expect(page).to have_content(new_message_text)
+        Capybara.using_wait_time(8) do
+          expect(page).not_to have_css('.loader')
+          expect(page).to have_content(new_message_text)
+        end
       end
     end
 

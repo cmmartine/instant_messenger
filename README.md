@@ -7,6 +7,8 @@ First time set up will take some time because this installs all the h2oai depend
 
 Run `make build` for first time setup
 
-`make up` to start rails and the ai model, or `make rails` to just start rails, then navigate to localhost:8080
+`make up` to start rails and the ai model, or `make rails` to just start rails
+
+If using make rails: navigate to localhost:3000, otherwise navigate to localhost:8080
 
 `make down` to stop the containers
