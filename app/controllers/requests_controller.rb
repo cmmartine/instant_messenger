@@ -9,17 +9,27 @@ class RequestsController < ApplicationController
 
   def accept
     request = Request.find(request_params[:request_id])
-    other_user = request.sending_user
-    request.update!(status: STATUSES['accepted'])
-    Buddy.create!(user_id: current_user.id, buddy_id: other_user.id)
-    Buddy.create!(user_id: other_user.id, buddy_id: current_user.id)
-    head :no_content
+
+    if(request.receiving_user.id === current_user.id)
+      other_user = request.sending_user
+      request.update!(status: STATUSES['accepted'])
+      Buddy.create!(user_id: current_user.id, buddy_id: other_user.id)
+      Buddy.create!(user_id: other_user.id, buddy_id: current_user.id)
+      head :created
+    else
+      head :forbidden
+    end
   end
 
   def reject
     request = Request.find(request_params[:request_id])
-    request.delete
-    head :no_content
+
+    if(request.receiving_user.id === current_user.id)
+      request.delete
+      head :ok
+    else
+      head :forbidden
+    end
   end
 
   def pending_request

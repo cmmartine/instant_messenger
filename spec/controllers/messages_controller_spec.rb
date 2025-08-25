@@ -13,17 +13,19 @@ RSpec.describe MessagesController, type: :controller do
     }
   end
 
+  let!(:user) { User.first }
+
   describe 'POST /create' do
     context 'when the user is in the chatroom' do
       it 'creates a message' do
-        User.first.chatrooms << Chatroom.first
+        user.chatrooms << Chatroom.first
         post :create, params: message_params, as: :json
         all_messages = Message.all
         expect(all_messages.length).to eq(1)
       end
 
       it 'returns a created status' do
-        User.first.chatrooms << Chatroom.first
+        user.chatrooms << Chatroom.first
         post :create, params: message_params, as: :json
         expect(response.status).to eq(201)
       end
@@ -46,7 +48,7 @@ RSpec.describe MessagesController, type: :controller do
   describe 'POST /create_ai_chatroom_messages' do
     context 'when the user is in the chatroom' do
       it 'creates a message for the user and calls the SendAiMessageJob' do
-        User.first.chatrooms << Chatroom.first
+        user.chatrooms << Chatroom.first
         ai_chatbot = User.new(username: 'Chatbot', id: 3)
         ai_chatbot.save(validate: false)
 
@@ -61,7 +63,7 @@ RSpec.describe MessagesController, type: :controller do
       end
 
       it 'returns a created status' do
-        User.first.chatrooms << Chatroom.first
+        user.chatrooms << Chatroom.first
         post :create_ai_chatroom_messages, params: message_params, as: :json
         expect(response.status).to eq(201)
       end
