@@ -5,6 +5,9 @@ class RequestsController < ApplicationController
 
   def create
     Request.create!(sending_user_id: current_user.id, receiving_user_id: request_params[:user_id])
+    head :created
+  rescue ActiveRecord::RecordInvalid => e
+    render json: { error: e.message }, status: :unprocessable_entity
   end
 
   def accept

@@ -1,28 +1,38 @@
 require 'rails_helper'
 
 RSpec.describe RequestsController, type: :controller do
-  describe 'POST pending_request' do
+  describe 'POST create' do
     login_user
 
-    request_params = {
-      request: {
-        user_id: 2
+    let(:request_params) do
+      {
+        request: {
+          user_id: user2.id
+        }
       }
-    }
-
-    before do
-      FactoryBot.create(:user)
     end
 
-    it 'returns true if there is a pending request' do
-      Request.create(sending_user_id: 1, receiving_user_id: 2)
-      post :pending_request, params: request_params, as: :json
-      expect(response.body).to eq('true')
+    let!(:user1) { User.first }
+    let!(:user2) { FactoryBot.create(:user) }
+
+    it 'creates a request between the current user and the selected user' do
+      post :create, params: request_params, as: :json
+      expect(Request.count).to eq(1)
+      expect(Request.first.sending_user_id).to eq(user1.id)
+      expect(Request.first.receiving_user_id).to eq(user2.id)
     end
 
-    it 'returns false if there is NOT a pending request' do
-      post :pending_request, params: request_params, as: :json
-      expect(response.body).to eq('false')
+    it 'returns a created status' do
+      post :create, params: request_params, as: :json
+      expect(response.status).to eq(201)
+    end
+
+    it 'raises ActiveRecord::RecordInvalid when uniqueness requirements are not met' do
+      post :create, params: request_params, as: :json
+      post :create, params: request_params, as: :json
+      json = JSON.parse(response.body)
+
+      expect(json['error']).to include('Sending user has already been taken, Receiving user has already been taken')
     end
   end
 
@@ -144,6 +154,61 @@ RSpec.describe RequestsController, type: :controller do
         post :reject, params: invalid_request_params, as: :json
         expect(response.status).to eq(403)
       end
+    end
+  end
+
+  describe 'POST pending_request' do
+    login_user
+
+    request_params = {
+      request: {
+        user_id: 2
+      }
+    }
+
+    before do
+      FactoryBot.create(:user)
+    end
+
+    it 'returns true if there is a pending request' do
+      Request.create(sending_user_id: 1, receiving_user_id: 2)
+      post :pending_request, params: request_params, as: :json
+      expect(response.body).to eq('true')
+    end
+
+    it 'returns false if there is NOT a pending request' do
+      post :pending_request, params: request_params, as: :json
+      expect(response.body).to eq('false')
+    end
+  end
+
+  describe 'POST pending_received_requests' do
+    login_user
+
+    let(:request_params) do
+      {
+        request: {
+          user_id: user1.id
+        }
+      }
+    end
+
+    let!(:user1) { User.first }
+    let!(:user2) { FactoryBot.create(:user, username: 'user2') }
+    let!(:user3) { FactoryBot.create(:user, username: 'user3') }
+    let!(:user4) { FactoryBot.create(:user, username: 'user4') }
+    let!(:pending_request) { Request.create!(sending_user_id: user2.id, receiving_user_id: user1.id, status: 'pending') }
+    let!(:accepted_request) { Request.create!(sending_user_id: user3.id, receiving_user_id: user1.id, status: 'accepted') }
+    let!(:irrelevant_request) { Request.create!(sending_user_id: user3.id, receiving_user_id: user4.id, status: 'pending') }
+
+    it 'returns only pending requests where current user is the receiver' do
+      post :pending_received_requests, params: { request: { user_id: user1.id } }, as: :json
+      json = JSON.parse(response.body)
+
+      expect(json).to be_an(Array)
+      expect(json.length).to eq(1)
+      expect(json.first['id']).to eq(pending_request.id)
+      expect(json.first['username']).to eq('user2')
     end
   end
 end

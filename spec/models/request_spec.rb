@@ -19,6 +19,7 @@ RSpec.describe Request, type: :model do
     let!(:current_user) { FactoryBot.create(:user) }
     let!(:first_other_user) { FactoryBot.create(:user) }
     let!(:second_other_user) { FactoryBot.create(:user) }
+    let!(:third_other_user) { FactoryBot.create(:user) }
     let!(:first_request) { Request.create(sending_user_id: first_other_user.id, receiving_user_id: current_user.id) }
     let!(:second_request) { Request.create(sending_user_id: second_other_user.id, receiving_user_id: current_user.id) }
 
@@ -49,6 +50,12 @@ RSpec.describe Request, type: :model do
             }
           ]
         )
+      end
+    end
+
+    context 'when there are no requests' do
+      it 'returns an empty array' do
+        expect(Request.ids_and_noncurrent_usernames(third_other_user.pending_received_requests, third_other_user.id)).to eq([])
       end
     end
   end
