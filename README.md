@@ -1,5 +1,7 @@
 # README
 
+This project is a work in progress and is only used for practice and learning
+
 ## Set up
 First time set up will take some time (10+ minutes) because this installs all the h2oai dependencies and the ai model in the docker container
 
